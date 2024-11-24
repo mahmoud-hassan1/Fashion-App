@@ -122,6 +122,7 @@ class SignupViewBody extends StatelessWidget {
   }
 
   void ontapSignUp(context) {
+    print("sssssssssssssssssss");
     if (emailController.text.isNotEmpty &&
         passwordController.text.isNotEmpty &&
         keyForm.currentState!.validate()) {

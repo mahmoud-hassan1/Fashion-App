@@ -10,6 +10,7 @@ import 'package:online_shopping/Features/auth/presentation/views/widgets/email_p
 import 'package:online_shopping/Features/auth/presentation/views/login_view/widgets/forget_password_section.dart';
 import 'package:online_shopping/Features/auth/presentation/views/login_view/widgets/go_to_signup.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/google_section.dart';
+import 'package:online_shopping/Features/home/presentation/views/navigation_bar_view.dart';
 import 'package:online_shopping/core/utiles/font.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 
@@ -42,7 +43,7 @@ class LoginViewBody extends StatelessWidget {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const Scaffold(),
+                  builder: (context) => const NavigationBarView(),
                 ));
           }
         },
