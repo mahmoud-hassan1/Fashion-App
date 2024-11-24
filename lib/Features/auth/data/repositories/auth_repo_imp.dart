@@ -28,6 +28,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
   @override
   Future<UserClass?> signup(String name,String email, String password) async {
+    print("dsssssssssssss");
    final userCredential = await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
     await sendVerficationLink();
     final user = userCredential.user;
