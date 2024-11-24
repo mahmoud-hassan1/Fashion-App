@@ -1,8 +1,10 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:online_shopping/Features/splash/presentation/views/splash_view.dart';
+import 'package:flutter/material.dart' hide CarouselController;
+import 'package:flutter/services.dart';
+import 'package:online_shopping/Features/home/presentation/views/navigation_bar_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:online_shopping/Features/splash/presentation/views/splash_view.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/firebase_options.dart';
 
@@ -14,16 +16,19 @@ void main()async {
 
   runApp( DevicePreview(
     enabled: false,
-    builder: (context) => const MyApp(), // Wrap your app
+    builder: (context) => const MyApp(), 
   ),);
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+    ));
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       minTextAdapt: true,
@@ -33,9 +38,8 @@ class MyApp extends StatelessWidget {
         title: 'Online Shopping',
         theme: ThemeData.light().copyWith(
           scaffoldBackgroundColor: AppColors.kBackgroundColor,
-          
         ),
-        home: const SplashView(),
+        home: const SplashView() ,
       ),
     );
   }
