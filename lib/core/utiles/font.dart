@@ -1,26 +1,35 @@
 import 'package:flutter/material.dart';
 abstract class FontStyles{
  static  TextStyle kLargeTextStyle (BuildContext context)=>TextStyle(
+  fontFamily: "metro",
   fontWeight: FontWeight.w700,
   color: Colors.black,
   fontSize: getResponsiveFontSize(context,fontSize: 45),
  ) ;
   static  TextStyle kMediumTextStyle(BuildContext context)=>TextStyle(
+  fontFamily: "metro",
   color: Colors.black,
   fontWeight: FontWeight.w600,
   fontSize: getResponsiveFontSize(context,fontSize: 24),
  ) ;
   static TextStyle kSmallTextStyle (BuildContext context)=>TextStyle(
+  fontFamily: "metro",
   color: Colors.black,
   fontWeight: FontWeight.w500,
   fontSize: getResponsiveFontSize(context,fontSize: 20),
  ) ;
   static TextStyle kFontSize30 (BuildContext context)=>TextStyle(
+  fontFamily: "metro",
   color: Colors.black,
   fontWeight: FontWeight.w700,
   fontSize: getResponsiveFontSize(context,fontSize: 30),
  ) ;
- 
+  static TextStyle kFontSize60 (BuildContext context)=>TextStyle(
+   fontFamily: "metro",
+  color: Colors.white,
+  fontWeight: FontWeight.w900,
+  fontSize: getResponsiveFontSize(context,fontSize: 60),
+ ) ;
  
 }
 double getResponsiveFontSize(context,{required double fontSize}) {
@@ -32,10 +41,6 @@ double getResponsiveFontSize(context,{required double fontSize}) {
 
   return responsiveFontSize.clamp(lowerLimit, upperLimit);
 }double getScaleFactor(context) {
-  // var dispatcher = PlatformDispatcher.instance;
-  // var physicalwidth = dispatcher.views.first.physicalSize.width;
-  // var devicePixelRatio = dispatcher.views.first.devicePixelRatio;
-  // double width = devicePixelRatio / physicalwidth;
 
   double width = MediaQuery.sizeOf(context).width;
   if (width > 800) {
