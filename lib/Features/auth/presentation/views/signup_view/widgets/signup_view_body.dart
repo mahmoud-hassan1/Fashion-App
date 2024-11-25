@@ -98,7 +98,7 @@ class SignupViewBody extends StatelessWidget {
                         const GoToLogin(),
                         const SizedBox(height: 16),
                         CustomButton(
-                          onTap: () => ontapSignUp,
+                          onTap: () => ontapSignUp(context),
                           height: height,
                           label: "SIGN UP",
                         ),
