@@ -64,6 +64,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '446027425054',
     projectId: 'online-shopping-47249',
     storageBucket: 'online-shopping-47249.appspot.com',
+    androidClientId: '446027425054-blt0rtg0i9pt6v8j201dnbt89kskmcfo.apps.googleusercontent.com',
+    iosClientId: '446027425054-ui53h325b60621ohgidmpnvndu81u6am.apps.googleusercontent.com',
     iosBundleId: 'com.example.onlineShopping',
   );
 
@@ -73,6 +75,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '446027425054',
     projectId: 'online-shopping-47249',
     storageBucket: 'online-shopping-47249.appspot.com',
+    androidClientId: '446027425054-blt0rtg0i9pt6v8j201dnbt89kskmcfo.apps.googleusercontent.com',
+    iosClientId: '446027425054-ui53h325b60621ohgidmpnvndu81u6am.apps.googleusercontent.com',
     iosBundleId: 'com.example.onlineShopping',
   );
 

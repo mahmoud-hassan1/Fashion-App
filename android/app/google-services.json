@@ -12,7 +12,28 @@
           "package_name": "com.example.online_shopping"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "446027425054-blt0rtg0i9pt6v8j201dnbt89kskmcfo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.online_shopping",
+            "certificate_hash": "b93901a0f290fca50a199c000ff3a666741ab996"
+          }
+        },
+        {
+          "client_id": "446027425054-qjh1hspjhm9mcmhp1jk5fm2301aftf2i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.online_shopping",
+            "certificate_hash": "45116933bd2026a61e6a18156974ff636daab29b"
+          }
+        },
+        {
+          "client_id": "446027425054-5mglrk6b3p3nun7esj1ag2in9ag07lkb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA_vAkBrinHOGthY98rOJ1pscOW7zFl5d8"
@@ -20,7 +41,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "446027425054-5mglrk6b3p3nun7esj1ag2in9ag07lkb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "446027425054-ui53h325b60621ohgidmpnvndu81u6am.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.onlineShopping"
+              }
+            }
+          ]
         }
       }
     }
