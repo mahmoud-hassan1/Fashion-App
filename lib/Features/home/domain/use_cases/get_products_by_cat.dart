@@ -1,6 +1,6 @@
 // lib/Features/home/domain/usecases/get_products_by_category.dart
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
-import 'package:online_shopping/Features/home/domain/repos/home_repo.dart';
+import 'package:online_shopping/Features/home/domain/repo_interface/home_repo.dart';
 class GetProductsByCategory {
   final HomeRepo repository;
 

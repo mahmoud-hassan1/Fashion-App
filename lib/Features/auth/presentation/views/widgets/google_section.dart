@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:online_shopping/Features/auth/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
-import 'package:online_shopping/core/utiles/font.dart';
+import 'package:online_shopping/core/utiles/styles.dart';
 
 class GoogleSection extends StatelessWidget {
   const GoogleSection({
@@ -23,7 +23,7 @@ class GoogleSection extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               title,
-              style: FontStyles.kSmallTextStyle(context),
+              style: Styles.kSmallTextStyle(context),
             )),
         const SizedBox(
           height: 8,

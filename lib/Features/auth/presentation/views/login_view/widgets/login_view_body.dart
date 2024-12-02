@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:online_shopping/Features/auth/data/repositories/auth_repo_imp.dart';
+import 'package:online_shopping/Features/auth/data/repo_impl/auth_repo_imp.dart';
 import 'package:online_shopping/Features/auth/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/custtom_button.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/email_password_section.dart';
@@ -11,7 +11,7 @@ import 'package:online_shopping/Features/auth/presentation/views/login_view/widg
 import 'package:online_shopping/Features/auth/presentation/views/login_view/widgets/go_to_signup.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/google_section.dart';
 import 'package:online_shopping/Features/home/presentation/views/navigation_bar_view.dart';
-import 'package:online_shopping/core/utiles/font.dart';
+import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 
 // ignore: must_be_immutable
@@ -63,7 +63,7 @@ class LoginViewBody extends StatelessWidget {
                       children: [
                         Text(
                           "Login",
-                          style: FontStyles.kLargeTextStyle(context),
+                          style: Styles.kLargeTextStyle(context),
                         ),
                         SizedBox(
                           height: 64.h,

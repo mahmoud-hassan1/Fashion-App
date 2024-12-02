@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_shopping/Features/auth/presentation/views/login_view/login_view.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
-import 'package:online_shopping/core/utiles/font.dart';
+import 'package:online_shopping/core/utiles/styles.dart';
 
 class GoToLogin extends StatelessWidget {
   const GoToLogin({
@@ -15,7 +15,7 @@ class GoToLogin extends StatelessWidget {
       children: [
         Text(
           "Already have an account?",
-          style: FontStyles.kSmallTextStyle(context),
+          style: Styles.kSmallTextStyle(context),
         ),
         IconButton(
             onPressed: () {

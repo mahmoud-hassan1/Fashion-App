@@ -1,6 +1,5 @@
 part of 'newest_cubit.dart';
 
-@immutable
 sealed class NewestState {}
 
 final class NewestInitial extends NewestState {}

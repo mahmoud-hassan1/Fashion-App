@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_shopping/core/utiles/constants.dart';
-import 'package:online_shopping/core/utiles/font.dart';
+import 'package:online_shopping/core/utiles/styles.dart';
 
 class CatigoriesListView extends StatelessWidget {
   const CatigoriesListView({
@@ -37,7 +37,7 @@ class CatigoriesListView extends StatelessWidget {
                       const SizedBox(width: 24,),
                       Text(
                         kCategoryList[index].first,
-                      style: FontStyles.kMediumTextStyle(context).copyWith(
+                      style: Styles.kMediumTextStyle(context).copyWith(
                           fontWeight: FontWeight.w600,
                         ),
                       ),

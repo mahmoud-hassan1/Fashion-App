@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:online_shopping/Features/auth/presentation/views/reset_password_view.dart';
+import 'package:online_shopping/Features/auth/presentation/views/reset_password_view/reset_password_view.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
-import 'package:online_shopping/core/utiles/font.dart';
+import 'package:online_shopping/core/utiles/styles.dart';
 
 class ForgetPasswordSection extends StatelessWidget {
   const ForgetPasswordSection({
@@ -15,7 +15,7 @@ class ForgetPasswordSection extends StatelessWidget {
       children: [
         Text(
           "Forget your password?",
-          style: FontStyles.kSmallTextStyle(context),
+          style: Styles.kSmallTextStyle(context),
         ),
         IconButton(
             onPressed: () {

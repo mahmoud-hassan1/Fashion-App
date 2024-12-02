@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
-import 'package:online_shopping/core/utiles/font.dart';
+import 'package:online_shopping/core/utiles/styles.dart';
 
 
 class CustomButton extends StatelessWidget {
@@ -26,7 +26,7 @@ class CustomButton extends StatelessWidget {
              
           ),
            child: Text(label,
-            style: FontStyles.kSmallTextStyle(context).copyWith(
+            style: Styles.kSmallTextStyle(context).copyWith(
               fontWeight: FontWeight.w500,
              color: Colors.white
              )

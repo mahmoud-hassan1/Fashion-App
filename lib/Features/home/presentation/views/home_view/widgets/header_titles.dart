@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
-import 'package:online_shopping/core/utiles/font.dart';
+import 'package:online_shopping/core/utiles/styles.dart';
 
 
 class Header extends StatelessWidget {
@@ -17,12 +17,12 @@ final String title;
         children: [
           Text(
             title,
-            style: FontStyles.kLargeTextStyle(context)
+            style: Styles.kLargeTextStyle(context)
           ),
           const Spacer(),
           Text(
             "See all",
-            style: FontStyles.kSmallTextStyle(context),
+            style: Styles.kSmallTextStyle(context),
             ),
             const SizedBox(width: 8,),
             Container(

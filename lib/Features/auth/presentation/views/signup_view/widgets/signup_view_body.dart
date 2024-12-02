@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:online_shopping/Features/auth/data/repositories/auth_repo_imp.dart';
+import 'package:online_shopping/Features/auth/data/repo_impl/auth_repo_imp.dart';
 import 'package:online_shopping/Features/auth/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:online_shopping/Features/auth/presentation/views/login_view/login_view.dart';
 import 'package:online_shopping/Features/auth/presentation/views/signup_view/widgets/go_to_login.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/custtom_button.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/email_password_section.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/google_section.dart';
-import 'package:online_shopping/core/utiles/font.dart';
+import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custtom_text_field.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 
@@ -43,10 +43,7 @@ class SignupViewBody extends StatelessWidget {
             snackBar(content: state.message, context: context);
           } else if (state is AuthAuthenticated) {
             isLoading = false;
-            snackBar(
-                color: Colors.green,
-                content: "Verfication link sent to your email",
-                context: context);
+            snackBar(color: Colors.green, content: "Verfication link sent to your email", context: context);
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -68,7 +65,7 @@ class SignupViewBody extends StatelessWidget {
                       children: [
                         Text(
                           "Sign up",
-                          style: FontStyles.kLargeTextStyle(context),
+                          style: Styles.kLargeTextStyle(context),
                         ),
                         SizedBox(height: 64.h),
                         CustomTextField(
@@ -88,10 +85,7 @@ class SignupViewBody extends StatelessWidget {
                         const SizedBox(
                           height: 8,
                         ),
-                        EmailAndPasswordFields(
-                            keyForm: keyForm,
-                            emailController: emailController,
-                            passwordController: passwordController),
+                        EmailAndPasswordFields(keyForm: keyForm, emailController: emailController, passwordController: passwordController),
                         const SizedBox(
                           height: 8,
                         ),
@@ -122,16 +116,11 @@ class SignupViewBody extends StatelessWidget {
   }
 
   void ontapSignUp(context) {
-    print("sssssssssssssssssss");
-    if (emailController.text.isNotEmpty &&
-        passwordController.text.isNotEmpty &&
-        keyForm.currentState!.validate()) {
-      BlocProvider.of<AuthCubit>(context).signupUser(
-          nameController.text, emailController.text, passwordController.text);
+    debugPrint("sssssssssssssssssss");
+    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty && keyForm.currentState!.validate()) {
+      BlocProvider.of<AuthCubit>(context).signupUser(nameController.text, emailController.text, passwordController.text);
     } else {
-      snackBar(
-          content: "Please enter Your email and password", context: context);
+      snackBar(content: "Please enter Your email and password", context: context);
     }
   }
 }
-

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
-import 'package:online_shopping/core/utiles/font.dart';
+import 'package:online_shopping/core/utiles/styles.dart';
 
 class ProductListViewItem extends StatelessWidget {
  const ProductListViewItem({
@@ -47,7 +47,7 @@ class ProductListViewItem extends StatelessWidget {
           ),
           Text(
             product.name,
-            style: FontStyles.kSmallTextStyle(context).copyWith(fontSize: 15),
+            style: Styles.kSmallTextStyle(context).copyWith(fontSize: 15),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
           ),
@@ -57,7 +57,7 @@ class ProductListViewItem extends StatelessWidget {
               Flexible(
                 child: Text(
                   "EGP ${product.price}",
-                  style: FontStyles.kMediumTextStyle(context).copyWith(fontSize: 16),
+                  style: Styles.kMediumTextStyle(context).copyWith(fontSize: 16),
                   overflow:
                       TextOverflow.ellipsis, 
                   maxLines: 1,

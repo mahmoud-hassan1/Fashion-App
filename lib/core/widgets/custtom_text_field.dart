@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
-import 'package:online_shopping/core/utiles/font.dart';
+import 'package:online_shopping/core/utiles/styles.dart';
 
 
 // ignore: must_be_immutable
@@ -69,7 +69,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             
             label: Text(
               widget.label,
-              style: FontStyles.kSmallTextStyle(context).copyWith(color: Colors.grey),
+              style: Styles.kSmallTextStyle(context).copyWith(color: Colors.grey),
     
             ),
             enabledBorder: const UnderlineInputBorder(

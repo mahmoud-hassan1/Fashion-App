@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart' hide CarouselController;
-import 'package:online_shopping/core/utiles/font.dart';
+import 'package:online_shopping/core/utiles/styles.dart';
 
 
 class OffersListViewItem extends StatelessWidget {
@@ -26,7 +26,7 @@ class OffersListViewItem extends StatelessWidget {
           child: Text(
           // Split the text by spaces and join with newlines
           collection[index][1].split(' ').join('\n'),
-          style: FontStyles.kFontSize60(context),
+          style: Styles.kFontSize60(context),
           )
           )
       ],

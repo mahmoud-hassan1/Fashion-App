@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/home/domain/use_cases/get_newest_products.dart';
 

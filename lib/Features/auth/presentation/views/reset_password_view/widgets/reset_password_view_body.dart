@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:online_shopping/Features/auth/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/custtom_button.dart';
-import 'package:online_shopping/core/utiles/font.dart';
+import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custtom_text_field.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 
@@ -58,7 +58,7 @@ class ResetPasswordViewBody extends StatelessWidget {
                           children: [
                             Text(
                               "Enter Email to send password reset link to",
-                              style: FontStyles.kMediumTextStyle(context),
+                              style: Styles.kMediumTextStyle(context),
                             ),
                             const SizedBox(
                               height: 32,

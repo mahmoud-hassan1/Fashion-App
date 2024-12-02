@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
-import 'package:online_shopping/core/utiles/font.dart';
+import 'package:online_shopping/core/utiles/styles.dart';
 
 class SalesSection extends StatelessWidget {
   const SalesSection({
@@ -24,14 +24,14 @@ class SalesSection extends StatelessWidget {
             children: [
               Text(
                 "SUMMER SALES",
-                style: FontStyles.kFontSize30(context).copyWith(
+                style: Styles.kFontSize30(context).copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               Text(
                 "Up to 50% off",
-                style: FontStyles.kSmallTextStyle(context)
+                style: Styles.kSmallTextStyle(context)
                     .copyWith(color: Colors.white)
                     .copyWith(fontWeight: FontWeight.w400),
               ),
