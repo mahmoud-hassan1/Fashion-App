@@ -34,35 +34,32 @@ class NavigationBarView extends StatelessWidget {
             },
             children: _widgetOptions,
           ),
-          bottomNavigationBar: Padding(
-            padding: const EdgeInsets.only(bottom: 16.0), // Add padding to the bottom
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20.0),
-                topRight: Radius.circular(20.0),
-              ),
-              child: BottomNavigationBar(
-                backgroundColor: Colors.white,
-                unselectedItemColor: Colors.grey,
-                showUnselectedLabels: true,
-                selectedItemColor: AppColors.kRed,
-                selectedIconTheme: const IconThemeData(size: 30), // Bigger icons
-                unselectedIconTheme: const IconThemeData(size: 25), // Bigger icons
-                selectedLabelStyle: const TextStyle(fontSize: 12), // Smaller labels
-                unselectedLabelStyle: const TextStyle(fontSize: 10), // Smaller labels
-                items: const <BottomNavigationBarItem>[
-                  BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-                  BottomNavigationBarItem(icon: Icon(Icons.shopping_cart_outlined), label: 'Shop'),
-                  BottomNavigationBarItem(icon: Icon(Icons.shopping_bag_outlined), label: 'Bag'),
-                  BottomNavigationBarItem(icon: Icon(Icons.favorite_outline), label: 'Favourite'),
-                  BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
-                ],
-                currentIndex: state.index,
-                onTap: (index) {
-                  context.read<NavigationCubit>().selectTab(index);
-                  pageController.jumpToPage(index); // Update PageView
-                },
-              ),
+          bottomNavigationBar: ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+            ),
+            child: BottomNavigationBar(
+              backgroundColor: Colors.white,
+              unselectedItemColor: Colors.grey,
+              showUnselectedLabels: true,
+              selectedItemColor: AppColors.kRed,
+              selectedIconTheme: const IconThemeData(size: 30), // Bigger icons
+              unselectedIconTheme: const IconThemeData(size: 25), // Bigger icons
+              selectedLabelStyle: const TextStyle(fontSize: 12), // Smaller labels
+              unselectedLabelStyle: const TextStyle(fontSize: 10), // Smaller labels
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+                BottomNavigationBarItem(icon: Icon(Icons.shopping_cart_outlined), label: 'Shop'),
+                BottomNavigationBarItem(icon: Icon(Icons.shopping_bag_outlined), label: 'Bag'),
+                BottomNavigationBarItem(icon: Icon(Icons.favorite_outline), label: 'Favourite'),
+                BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
+              ],
+              currentIndex: state.index,
+              onTap: (index) {
+                context.read<NavigationCubit>().selectTab(index);
+                pageController.jumpToPage(index); // Update PageView
+              },
             ),
           ),
         ),

@@ -14,7 +14,9 @@ class FavouritesItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SizedBox(height: 113.h,),
+        SizedBox(
+          height: 113.h,
+        ),
         Container(
           height: 100.h,
           decoration: BoxDecoration(
@@ -26,7 +28,9 @@ class FavouritesItem extends StatelessWidget {
                 child: SizedBox(
                   height: 100.h,
                   child: ClipRRect(
-                    borderRadius: const BorderRadius.only(topLeft: Radius.circular(10),bottomLeft: Radius.circular(10)),
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10)),
                     child: Image.asset(
                       Assets.imagesClothes,
                       fit: BoxFit.cover,
@@ -53,17 +57,12 @@ class FavouritesItem extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SizedBox(
-                          width: 55.w,
+                        Flexible(
                           child: FittedBox(
                             fit: BoxFit.scaleDown,
-                            alignment: Alignment.centerLeft,
                             child: Text(
-                              textAlign: TextAlign.left,
                               "\$99.99",
                               style: Styles.kMediumTextStyle(context),
-                              maxLines: 1,
-                             
                             ),
                           ),
                         ),
@@ -87,7 +86,7 @@ class FavouritesItem extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
-                             SizedBox(
+                            SizedBox(
                               width: 47.r,
                             )
                           ],
@@ -103,35 +102,31 @@ class FavouritesItem extends StatelessWidget {
             ],
           ),
         ),
-      Positioned(
-        top: 4,
-        right: 4,
-        child: IconButton(
-          onPressed: (){},
-         icon:  Icon(
-          Icons.close,
-          color: AppColors.kSeconderyTextColor,
-          size: 25.r,
-          )) 
-      ),
-       Positioned(
-        bottom: 0,
-        right: 0,
-      child:
-      IconButton(
-        icon:  const Icon(
-          Icons.shopping_bag,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-        style: IconButton.styleFrom(
-          backgroundColor: AppColors.kRed,
-          iconSize: 24.r,
-          padding: EdgeInsets.all(10)
-        ),
-      ),
-      
-       )
+        Positioned(
+            top: 4,
+            right: 4,
+            child: IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.close,
+                  color: AppColors.kSeconderyTextColor,
+                  size: 25.r,
+                ))),
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: IconButton(
+            icon: const Icon(
+              Icons.shopping_bag,
+              color: Colors.white,
+            ),
+            onPressed: () {},
+            style: IconButton.styleFrom(
+                backgroundColor: AppColors.kRed,
+                iconSize: 24.r,
+                padding: EdgeInsets.all(10)),
+          ),
+        )
       ],
     );
   }
