@@ -14,21 +14,9 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HomeRepo homeRepo = HomeRepoImpl(firestore: FirebaseFirestore.instance);
-    final GetSaleProducts getSaleProducts = GetSaleProducts(homeRepo);
-    final GetNewestProducts getNewestProducts = GetNewestProducts(homeRepo);
+
     return Scaffold(
-      body: MultiBlocProvider(
-        providers: [
-          BlocProvider<SaleCubit>(
-            create: (BuildContext context) => SaleCubit(getSaleProducts: getSaleProducts)..getProductsOnSale(),
-          ),
-          BlocProvider<NewestCubit>(
-            create: (BuildContext context) => NewestCubit(getNewestProducts: getNewestProducts)..getNewestProductsOnSale(),
-          ),
-        ],
-        child: HomeViewBody(),
-      ),
+      body: HomeViewBody(),
     );
   }
 }

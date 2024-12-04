@@ -13,7 +13,7 @@ class FavouritesListView extends StatelessWidget {
         
         itemBuilder: (context, index) => const FavouritesItem(),
         separatorBuilder: (context, index) => const SizedBox(
-          height: 24,
+          height: 16,
         ),
         itemCount: 5,
       ),

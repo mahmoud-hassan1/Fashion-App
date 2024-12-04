@@ -1,6 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart' hide CarouselController;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_shopping/Features/favourite/data/repo_impl/favourite_repo_impl.dart';
+import 'package:online_shopping/Features/favourite/domain/repo_interface/favourite_repo.dart';
+import 'package:online_shopping/Features/favourite/domain/use_cases/get_favourites_poducts.dart';
+import 'package:online_shopping/Features/favourite/presentation/cubits/favourites_cubit/favourites_cubit.dart';
+import 'package:online_shopping/Features/home/data/repo_impl/home_repo_impl.dart';
+import 'package:online_shopping/Features/home/domain/repo_interface/home_repo.dart';
+import 'package:online_shopping/Features/home/domain/use_cases/get_newest_products.dart';
+import 'package:online_shopping/Features/home/domain/use_cases/get_sale_products.dart';
 import 'package:online_shopping/Features/home/presentation/cubits/navigation_cubit/navigation_cubit.dart';
+import 'package:online_shopping/Features/home/presentation/cubits/newest_cubit/newest_cubit.dart';
+import 'package:online_shopping/Features/home/presentation/cubits/sale_cubit/sale_cubit.dart';
 import 'package:online_shopping/Features/home/presentation/views/home_view/home_view.dart';
 import 'package:online_shopping/features/shop/presentation/views/shop_view.dart';
 import 'package:online_shopping/features/bag/presentation/views/bag_view.dart';
@@ -21,10 +32,26 @@ class NavigationBarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeRepo homeRepo = HomeRepoImpl(firestore: FirebaseFirestore.instance);
+    final GetSaleProducts getSaleProducts = GetSaleProducts(homeRepo);
+    final GetNewestProducts getNewestProducts = GetNewestProducts(homeRepo);
     final PageController pageController = PageController();
-
-    return BlocProvider(
-      create: (_) => NavigationCubit(),
+    final FavouriteRepo favouriteRepo = FavouriteRepoImpl(firestore: FirebaseFirestore.instance);
+    final GetFavouritesPoductsUseCase getFavouritesPoducts = GetFavouritesPoductsUseCase(favouriteRepo);
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<NavigationCubit>(
+          create: (_) => NavigationCubit(),
+        ),
+          BlocProvider<SaleCubit>(
+            create: (BuildContext context) => SaleCubit(getSaleProducts: getSaleProducts)..getProductsOnSale(),
+          ),
+          BlocProvider<NewestCubit>(
+            create: (BuildContext context) => NewestCubit(getNewestProducts: getNewestProducts)..getNewestProductsOnSale(),
+          ),
+        BlocProvider<FavouritesCubit>(
+          create: (context) => FavouritesCubit(getFavouritesPoductsUseCase: getFavouritesPoducts),)
+      ],
       child: BlocBuilder<NavigationCubit, NavigationState>(
         builder: (context, state) => Scaffold(
           body: PageView(
