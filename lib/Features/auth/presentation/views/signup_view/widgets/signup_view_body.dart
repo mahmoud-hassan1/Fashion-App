@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +7,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:online_shopping/Features/auth/data/repo_impl/auth_repo_imp.dart';
 import 'package:online_shopping/Features/auth/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:online_shopping/Features/auth/presentation/views/login_view/login_view.dart';
+import 'package:online_shopping/Features/auth/presentation/views/signup_view/widgets/date_of_birth.dart';
 import 'package:online_shopping/Features/auth/presentation/views/signup_view/widgets/go_to_login.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/custtom_button.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/email_password_section.dart';
@@ -21,7 +23,8 @@ class SignupViewBody extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
+  final DateTime initDateTime = DateTime(1000);
+  DateTime dateTime = DateTime(1000);
   bool isLoading = false;
 
   GlobalKey<FormState> keyForm = GlobalKey();
@@ -29,9 +32,11 @@ class SignupViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final firebaseAuth = FirebaseAuth.instance;
-    final authRepository = AuthRepositoryImpl(firebaseAuth: firebaseAuth);
+    final firebaseFirestore = FirebaseFirestore.instance;
+    final authRepository = AuthRepositoryImpl(firebaseAuth: firebaseAuth, firebaseFirestore: firebaseFirestore);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
     return BlocProvider(
       create: (context) => AuthCubit(authRepository),
       child: BlocConsumer<AuthCubit, AuthState>(
@@ -89,6 +94,12 @@ class SignupViewBody extends StatelessWidget {
                         const SizedBox(
                           height: 8,
                         ),
+                        DateOfBirth(
+                          dateTime: dateTime,
+                          onChanged: (date) {
+                            dateTime = date;
+                          },
+                        ),
                         const GoToLogin(),
                         const SizedBox(height: 16),
                         CustomButton(
@@ -117,8 +128,13 @@ class SignupViewBody extends StatelessWidget {
 
   void ontapSignUp(context) {
     debugPrint("sssssssssssssssssss");
+    if (dateTime.isAtSameMomentAs(initDateTime)) {
+      snackBar(content: "Please select date of birth", context: context);
+      return;
+    }
+
     if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty && keyForm.currentState!.validate()) {
-      BlocProvider.of<AuthCubit>(context).signupUser(nameController.text, emailController.text, passwordController.text);
+      BlocProvider.of<AuthCubit>(context).signupUser(nameController.text, emailController.text, dateTime, passwordController.text);
     } else {
       snackBar(content: "Please enter Your email and password", context: context);
     }
