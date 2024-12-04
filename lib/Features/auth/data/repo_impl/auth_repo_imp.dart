@@ -5,6 +5,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:online_shopping/Features/auth/data/models/signup_model.dart';
 import 'package:online_shopping/Features/auth/domain/entities/user.dart';
 import 'package:online_shopping/Features/auth/domain/repo_interface/auth_repo.dart';
+import 'package:online_shopping/Features/splash/data/data_source/user_data_source.dart';
+import 'package:online_shopping/Features/splash/data/repo/user_repo_impl.dart';
+import 'package:online_shopping/core/models/user_model.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final FirebaseAuth firebaseAuth;
@@ -20,7 +23,9 @@ class AuthRepositoryImpl implements AuthRepository {
     } else {
       final user = userCredential.user;
       if (user != null) {
-        return UserClass(uid: user.uid, email: user.email!);
+        final user= await UserRepoImpl(UserDataSource(FirebaseFirestore.instance)).getUserById();
+        UserModel.setInstance(user);
+        return UserClass(uid: user.uid, email: user.email);
       }
       return null;
     }
@@ -69,6 +74,8 @@ class AuthRepositoryImpl implements AuthRepository {
 
     if (user != null) {
       await firebaseAuth.signInWithCredential(oAuthCredential);
+      final user= await UserRepoImpl(UserDataSource(FirebaseFirestore.instance)).getUserById();
+        UserModel.setInstance(user);
     }
 
     return (oAuthCredential, user);
