@@ -7,7 +7,7 @@ class DateOfBirth extends StatefulWidget {
   DateOfBirth({super.key, required this.dateTime, required this.onChanged});
 
   DateTime dateTime;
-  final void Function(DateTime dateTime) onChanged;
+  final void Function(DateTime date) onChanged;
 
   @override
   State<DateOfBirth> createState() => _DateOfBirthState();

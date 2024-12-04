@@ -1,7 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:online_shopping/Features/auth/presentation/views/login_view/login_view.dart';
+import 'package:online_shopping/Features/home/presentation/views/navigation_bar_view.dart';
 import 'package:online_shopping/Features/splash/presentation/views/widgets/sliding_animation.dart';
 import 'package:online_shopping/constants.dart';
 
@@ -68,8 +72,14 @@ void initAnimation(){
   void navigateToLogin() {
      Future.delayed(const Duration(seconds: 2),
     (){
-     // ignore: use_build_context_synchronously
-     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginView(),));
+     
+     final user = FirebaseAuth.instance.currentUser;
+    
+     if (user != null) {
+       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavigationBarView(),));
+     } else {
+       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginView(),));
+     }
     });
   }
 }

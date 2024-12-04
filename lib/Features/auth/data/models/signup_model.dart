@@ -14,4 +14,13 @@ class SignupModel {
       'uid': uid,
     };
   }
+
+  factory SignupModel.fromJson(dynamic data) {
+    return SignupModel(
+      email: data['email'],
+      name: data['name'],
+      dateOfBirth: DateTime.parse(data['dateOfBirth']),
+      uid: data['uid'],
+    );
+  }
 }

@@ -10,6 +10,7 @@ part 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this.authRepo) : super(AuthInitial());
   final AuthRepositoryImpl authRepo;
+
   void resetPassword(String email) async {
     emit(AuthLoading());
     try {
@@ -24,10 +25,31 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void loginWithGoogle() async {
+  Future<void> loginWithGoogle() async {
     emit(AuthLoading());
     try {
-      final user = await authRepo.loginWithGoogle();
+      final OAuthCredential oAuthCredential;
+      final UserClass? user;
+
+      (oAuthCredential, user) = await authRepo.googleSignup();
+      if (user == null) {
+        emit(AuthCompleteGoogleAuthProcess(oAuthCredential));
+      } else {
+        emit(AuthGoToHome());
+      }
+    } catch (e) {
+      if (e is FirebaseException) {
+        emit(AuthError(e.code));
+      } else {
+        emit(AuthError("Something went wrong"));
+      }
+    }
+  }
+
+  Future<void> completeGoogleSignin(DateTime dateOfBirth, String name, OAuthCredential oAuthCredential) async {
+    emit(AuthLoading());
+    try {
+      final UserClass? user = await authRepo.completeSignupWithGoogleProcess(dateOfBirth, name, oAuthCredential);
       if (user != null) {
         emit(AuthAuthenticated(user));
       } else {

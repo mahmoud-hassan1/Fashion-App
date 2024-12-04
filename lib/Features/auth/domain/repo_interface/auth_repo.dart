@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:online_shopping/Features/auth/data/models/signup_model.dart';
 import 'package:online_shopping/Features/auth/domain/entities/user.dart';
 
@@ -6,5 +7,7 @@ abstract class AuthRepository {
   void logout();
   Future<UserClass?> signup(SignupModel model, String password);
   Future<void> sendPasswordResetLink(String email);
-  Future<UserClass?> loginWithGoogle();
+  Future<UserClass?> completeSignupWithGoogleProcess(DateTime dateOfBirth, String name, OAuthCredential credential);
+  Future<(OAuthCredential, UserClass?)> googleSignup();
+  Future<UserClass?> checkUserExistance(String uid);
 }
