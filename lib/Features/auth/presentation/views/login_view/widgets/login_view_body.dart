@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +27,8 @@ class LoginViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final firebaseAuth = FirebaseAuth.instance;
-    final authRepository = AuthRepositoryImpl(firebaseAuth: firebaseAuth);
+    final firebaseFirestore = FirebaseFirestore.instance;
+    final authRepository = AuthRepositoryImpl(firebaseAuth: firebaseAuth, firebaseFirestore: firebaseFirestore);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return BlocProvider(
@@ -39,12 +41,12 @@ class LoginViewBody extends StatelessWidget {
             snackBar(content: state.message, context: context);
             isLoading = false;
           } else if (state is AuthAuthenticated) {
-            snackBar(content: "Login Success", context: context ,color: Colors.green);
+            snackBar(content: "Login Success", context: context, color: Colors.green);
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const NavigationBarView(),
-                ));
+                ),);
           }
         },
         builder: (context, state) {
@@ -68,10 +70,7 @@ class LoginViewBody extends StatelessWidget {
                         SizedBox(
                           height: 64.h,
                         ),
-                        EmailAndPasswordFields(
-                            keyForm: keyForm,
-                            emailController: emailController,
-                            passwordController: passwordController),
+                        EmailAndPasswordFields(keyForm: keyForm, emailController: emailController, passwordController: passwordController),
                         const SizedBox(
                           height: 8,
                         ),
@@ -102,13 +101,10 @@ class LoginViewBody extends StatelessWidget {
   }
 
   void ontapLogin(context) {
-    if (emailController.text.isNotEmpty &&
-        passwordController.text.isNotEmpty &&
-        keyForm.currentState!.validate()) {
-      BlocProvider.of<AuthCubit>(context)
-          .loginUser(emailController.text, passwordController.text);
+    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty && keyForm.currentState!.validate()) {
+      BlocProvider.of<AuthCubit>(context).loginUser(emailController.text, passwordController.text);
     } else {
-      snackBar(
-          content: "Please enter Your email and password", context: context);
+      snackBar(content: "Please enter Your email and password", context: context);
     }
-  }}
+  }
+}

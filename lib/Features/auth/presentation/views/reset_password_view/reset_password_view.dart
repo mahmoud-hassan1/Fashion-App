@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +12,8 @@ class ResetPasswordView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final firebaseAuth = FirebaseAuth.instance;
-    final authRepository = AuthRepositoryImpl(firebaseAuth: firebaseAuth);
+    final firebaseFirestore = FirebaseFirestore.instance;
+    final authRepository = AuthRepositoryImpl(firebaseAuth: firebaseAuth, firebaseFirestore: firebaseFirestore);
     return BlocProvider(
       create: (context) => AuthCubit(authRepository),
       child: Scaffold(

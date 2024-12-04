@@ -8,8 +8,9 @@ import 'package:online_shopping/Features/auth/domain/repo_interface/auth_repo.da
 
 class AuthRepositoryImpl implements AuthRepository {
   final FirebaseAuth firebaseAuth;
+  final FirebaseFirestore firebaseFirestore;
 
-  AuthRepositoryImpl({required this.firebaseAuth});
+  const AuthRepositoryImpl({required this.firebaseFirestore, required this.firebaseAuth});
 
   @override
   Future<UserClass?> login(String email, String password) async {
@@ -30,13 +31,15 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<UserClass?> signup(String name, String email, String password) async {
+  Future<UserClass?> signup(SignupModel model, String password) async {
     debugPrint("dsssssssssssss");
-    final userCredential = await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+    final userCredential = await firebaseAuth.createUserWithEmailAndPassword(email: model.email, password: password);
     await sendVerficationLink();
+    model.uid = userCredential.user!.uid;
+    await firebaseFirestore.collection('users').doc(userCredential.user!.uid).set(model.toMap(), SetOptions(merge: true));
     final user = userCredential.user;
     if (user != null) {
-      user.updateDisplayName(name);
+      user.updateDisplayName(model.name);
       return UserClass(uid: user.uid, email: user.email!);
     }
     return null;
