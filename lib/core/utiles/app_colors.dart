@@ -5,4 +5,5 @@ class AppColors {
   static const kItemBackgroundColor = Color(0xffFFFFFF);
   static const kRed= Color(0xffDB3022);
   static const kIconColor= Color(0xff9B9B9B);
+  static const kSeconderyTextColor=Color(0XFF9B9B9B);
 }
