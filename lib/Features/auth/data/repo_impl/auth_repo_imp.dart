@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:online_shopping/Features/auth/data/models/signup_model.dart';
 import 'package:online_shopping/Features/auth/domain/entities/user.dart';
 import 'package:online_shopping/Features/auth/domain/repo_interface/auth_repo.dart';
 
@@ -41,19 +43,44 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<UserClass?> loginWithGoogle() async {
-    final googleUser = await GoogleSignIn().signIn();
-    final googleAuth = await googleUser!.authentication;
-    final credential = GoogleAuthProvider.credential(idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
-    final userCredential = await firebaseAuth.signInWithCredential(credential);
+  Future<UserClass?> completeSignupWithGoogleProcess(DateTime dateOfBirth, String name, OAuthCredential credential) async {
+    final UserCredential userCredential = await firebaseAuth.signInWithCredential(credential);
 
-    final user = userCredential.user;
+    final User? user = userCredential.user;
 
     if (user != null) {
-      user.updateDisplayName(googleUser.displayName);
+      SignupModel signupModel = SignupModel(email: user.email!, name: name, dateOfBirth: dateOfBirth, uid: user.uid);
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).set(signupModel.toMap(), SetOptions(merge: true));
       return UserClass(uid: user.uid, email: user.email!);
     }
+
     return null;
+  }
+
+  @override
+  Future<(OAuthCredential, UserClass?)> googleSignup() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+    final OAuthCredential oAuthCredential = GoogleAuthProvider.credential(idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+    UserClass? user = await checkUserExistance(googleUser.email);
+
+    if (user != null) {
+      await firebaseAuth.signInWithCredential(oAuthCredential);
+    }
+
+    return (oAuthCredential, user);
+  }
+
+  @override
+  Future<UserClass?> checkUserExistance(String email) async {
+    try {
+      QuerySnapshot query = await FirebaseFirestore.instance.collection('users').where('email', isEqualTo: email).get();
+      SignupModel model = SignupModel.fromJson(query.docs.first.data());
+      UserClass user = UserClass(uid: model.uid!, email: model.email);
+      return user;
+    } catch (_) {
+      return null;
+    }
   }
 
   @override
