@@ -7,11 +7,7 @@ import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 
 class GoogleSection extends StatelessWidget {
-  const GoogleSection({
-    super.key,
-    required this.width,
-    required this.title,
-  });
+  const GoogleSection({super.key, required this.width, required this.title});
 
   final double width;
   final String title;
@@ -43,13 +39,12 @@ class GoogleSection extends StatelessWidget {
               ],
             ),
             child: IconButton(
-              onPressed: () {
-                BlocProvider.of<AuthCubit>(context).loginWithGoogle();
+              onPressed: () async {
+                await BlocProvider.of<AuthCubit>(context).loginWithGoogle();
               },
               style: IconButton.styleFrom(
                 backgroundColor: AppColors.kItemBackgroundColor,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.r)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
                 padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8),
               ),
               icon: SvgPicture.asset(
