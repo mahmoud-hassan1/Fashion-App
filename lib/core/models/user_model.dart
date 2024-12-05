@@ -30,14 +30,12 @@ class UserModel {
   }
 
   static UserModel getInstance() {
-    if (_instance == null) {
-      _instance = UserModel(
+    _instance ??= UserModel(
         dateOfBirth: '',
         email: '',
         name: '',
         uid: '',
       );
-    }
     return _instance!;
   }
   static setInstance(UserModel model) {

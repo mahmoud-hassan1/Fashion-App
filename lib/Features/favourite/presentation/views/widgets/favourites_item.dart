@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:online_shopping/Features/favourite/presentation/cubits/manage_favourites/manage_favourites_cubit.dart';
+import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
-import 'package:online_shopping/core/utiles/assets.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 
 class FavouritesItem extends StatelessWidget {
+
+  final Product product;
   const FavouritesItem({
     super.key,
+    required this.product,
   });
 
   @override
@@ -31,8 +36,8 @@ class FavouritesItem extends StatelessWidget {
                     borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(10),
                         bottomLeft: Radius.circular(10)),
-                    child: Image.asset(
-                      Assets.imagesClothes,
+                    child: Image.network(
+                      product.image,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -50,7 +55,7 @@ class FavouritesItem extends StatelessWidget {
                       height: 24,
                     ),
                     Text(
-                      "Shirt",
+                      product.name,
                       style: Styles.kMediumTextStyle(context),
                     ),
                     const Spacer(),
@@ -61,18 +66,18 @@ class FavouritesItem extends StatelessWidget {
                           child: FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
-                              "\$99.99",
+                              "\$${product.price}",
                               style: Styles.kMediumTextStyle(context),
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 4,
                         ),
                         Row(
                           children: [
                             RatingBarIndicator(
-                              rating: 4.5,
+                              rating: product.rate,
                               itemSize: 15.r,
                               itemBuilder: (context, _) => const Icon(
                                 Icons.star,
@@ -80,7 +85,7 @@ class FavouritesItem extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "(4.5)",
+                              "${product.rate}",
                               style: Styles.kFontSize17(context).copyWith(
                                 color: AppColors.kSeconderyTextColor,
                                 fontWeight: FontWeight.w400,
@@ -106,7 +111,9 @@ class FavouritesItem extends StatelessWidget {
             top: 4,
             right: 4,
             child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                BlocProvider.of<ManageFavouritesCubit>(context).removeFromFavourites(product.id);
+                },
                 icon: Icon(
                   Icons.close,
                   color: AppColors.kSeconderyTextColor,
@@ -124,7 +131,7 @@ class FavouritesItem extends StatelessWidget {
             style: IconButton.styleFrom(
                 backgroundColor: AppColors.kRed,
                 iconSize: 24.r,
-                padding: EdgeInsets.all(10)),
+                padding: const EdgeInsets.all(10)),
           ),
         )
       ],

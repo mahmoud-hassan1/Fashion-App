@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
+
 import 'package:online_shopping/Features/splash/domain/use_cases/get_user_data.dart';
 import 'package:online_shopping/core/models/user_model.dart';
 

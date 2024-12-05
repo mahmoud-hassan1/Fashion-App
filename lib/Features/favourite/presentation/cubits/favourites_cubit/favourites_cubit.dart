@@ -14,9 +14,8 @@ class FavouritesCubit extends Cubit<FavouritesState> {
   Future<void> getFavouritesProducts() async {
     emit(FavouritesLoading());
     try {
-      if(UserModel.getInstance().favourites!=null){
+      if(UserModel.getInstance().favourites!=null && UserModel.getInstance().favourites!.isNotEmpty){
       final products = await getFavouritesPoductsUseCase.call();
-      print(products);
       emit(FavouritesSuccess(products));
       }
       else{
