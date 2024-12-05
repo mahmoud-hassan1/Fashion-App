@@ -9,9 +9,10 @@ class ProductModel {
   final String sellerId;
   final int stock;
   final double price;
-  final String image;   
+  final String image;
   final List<String> categories;
   final DateTime date;
+  final String subtitle;
 
   ProductModel({
     required this.id,
@@ -24,9 +25,10 @@ class ProductModel {
     required this.image,
     required this.categories,
     required this.date,
+    required this.subtitle,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json, String id) {
+  factory ProductModel.fromJson(dynamic json, String id) {
     return ProductModel(
       id: id,
       name: json['name'],
@@ -38,6 +40,7 @@ class ProductModel {
       image: json['image'],
       categories: json['categories'].cast<String>(),
       date: (json['date'] as Timestamp).toDate(),
+      subtitle: json['subtitle'],
     );
   }
 
@@ -53,6 +56,7 @@ class ProductModel {
       'image': image,
       'categories': categories,
       'date': date.toIso8601String(),
+      'subtitle':subtitle
     };
   }
 
@@ -67,6 +71,7 @@ class ProductModel {
       price: price,
       image: image,
       categories: categories,
+      subtitle: subtitle,
     );
   }
 }

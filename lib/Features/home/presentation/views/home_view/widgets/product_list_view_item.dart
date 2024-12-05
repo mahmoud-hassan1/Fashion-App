@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/favourite/presentation/cubits/manage_favourites/manage_favourites_cubit.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
+import 'package:online_shopping/Features/home/presentation/cubits/newest_cubit/newest_cubit.dart';
+import 'package:online_shopping/Features/home/presentation/cubits/sale_cubit/sale_cubit.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
@@ -9,21 +11,29 @@ import 'package:online_shopping/core/widgets/snackbar.dart';
 import '../../../../../product/presentation/views/product_details_view/product_details.dart';
 
 class ProductListViewItem extends StatelessWidget {
-  const ProductListViewItem({
-    super.key,
-    required this.product,
-  });
+  const ProductListViewItem({super.key, required this.product});
 
   final Product product;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.push(
+      onTap: () async {
+        await Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const ProductDetails(),
-          )),
+            builder: (context) => ProductDetails(product: product),
+          ),
+        );
+
+        if (context.mounted) {
+          await BlocProvider.of<SaleCubit>(context).getProductsOnSale();
+        }
+
+        if (context.mounted) {
+          await BlocProvider.of<NewestCubit>(context).getNewestProductsOnSale();
+        }
+      },
       child: SizedBox(
         height: 200,
         width: 121,
@@ -49,15 +59,13 @@ class ProductListViewItem extends StatelessWidget {
                         }
                       },
                       builder: (context, state) {
-                        final blocInstance =
-                            BlocProvider.of<ManageFavouritesCubit>(context);
+                        final blocInstance = BlocProvider.of<ManageFavouritesCubit>(context);
                         return Positioned(
                           top: 5,
                           right: 5,
                           child: InkWell(
                             onTap: () {
-                              if (blocInstance.isFavourite(
-                                  productId: product.id)) {
+                              if (blocInstance.isFavourite(productId: product.id)) {
                                 blocInstance.removeFromFavourites(product.id);
                               } else {
                                 blocInstance.addToFavourites(product.id);
@@ -69,15 +77,8 @@ class ProductListViewItem extends StatelessWidget {
                                 shape: BoxShape.circle,
                                 color: AppColors.kItemBackgroundColor,
                               ),
-                              child: Icon(
-                                  blocInstance.isFavourite(
-                                          productId: product.id)
-                                      ? Icons.favorite
-                                      : Icons.favorite_border_rounded,
-                                  color: blocInstance.isFavourite(
-                                          productId: product.id)
-                                      ? AppColors.kRed
-                                      : Colors.black),
+                              child: Icon(blocInstance.isFavourite(productId: product.id) ? Icons.favorite : Icons.favorite_border_rounded,
+                                  color: blocInstance.isFavourite(productId: product.id) ? AppColors.kRed : Colors.black),
                             ),
                           ),
                         );
@@ -98,20 +99,11 @@ class ProductListViewItem extends StatelessWidget {
               children: [
                 Flexible(
                   child: Text(
-                    "EGP ${product.price}",
-                    style:
-                        Styles.kMediumTextStyle(context).copyWith(fontSize: 16),
+                    "${product.price}\$",
+                    style: Styles.kMediumTextStyle(context).copyWith(fontSize: 16),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.add_circle,
-                    color: Colors.black,
-                  ),
-                  onPressed: () {},
-                  style: IconButton.styleFrom(padding: EdgeInsets.zero),
                 ),
               ],
             ),
