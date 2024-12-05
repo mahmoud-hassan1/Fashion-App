@@ -3,8 +3,11 @@ import 'package:flutter/material.dart' hide CarouselController;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/favourite/data/repo_impl/favourite_repo_impl.dart';
 import 'package:online_shopping/Features/favourite/domain/repo_interface/favourite_repo.dart';
+import 'package:online_shopping/Features/favourite/domain/use_cases/add_to_favourites.dart';
 import 'package:online_shopping/Features/favourite/domain/use_cases/get_favourites_poducts.dart';
+import 'package:online_shopping/Features/favourite/domain/use_cases/remove_from_favourites.dart';
 import 'package:online_shopping/Features/favourite/presentation/cubits/favourites_cubit/favourites_cubit.dart';
+import 'package:online_shopping/Features/favourite/presentation/cubits/manage_favourites/manage_favourites_cubit.dart';
 import 'package:online_shopping/Features/home/data/repo_impl/home_repo_impl.dart';
 import 'package:online_shopping/Features/home/domain/repo_interface/home_repo.dart';
 import 'package:online_shopping/Features/home/domain/use_cases/get_newest_products.dart';
@@ -50,7 +53,9 @@ class NavigationBarView extends StatelessWidget {
             create: (BuildContext context) => NewestCubit(getNewestProducts: getNewestProducts)..getNewestProductsOnSale(),
           ),
         BlocProvider<FavouritesCubit>(
-          create: (context) => FavouritesCubit(getFavouritesPoductsUseCase: getFavouritesPoducts),)
+          create: (context) => FavouritesCubit(getFavouritesPoductsUseCase: getFavouritesPoducts),),
+            BlocProvider<ManageFavouritesCubit>(
+          create: (context) => ManageFavouritesCubit(addToFavouritesUseCase:  AddToFavouritesUseCase(favouriteRepo),removeFromFavouritesUseCase: RemoveFromFavouritesUseCase(favouriteRepo)),)
       ],
       child: BlocBuilder<NavigationCubit, NavigationState>(
         builder: (context, state) => Scaffold(

@@ -13,4 +13,12 @@ class FavouriteRepoImpl extends FavouriteRepo {
     final products = await dataSource.getProductsById();
     return products.map((model) => model.toEntity()).toList();
   }
+  @override
+  Future<void> addToFavourites(String userId, String productId) async {
+    await dataSource.addToFavourites(userId, productId);
+  }
+  @override
+  Future<void> removeFromFavourites(String userId, String productId) async {
+    await dataSource.removeFromFavourites(userId, productId);
+  }
 }
