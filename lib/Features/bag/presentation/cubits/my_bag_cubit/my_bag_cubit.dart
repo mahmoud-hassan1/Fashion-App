@@ -46,13 +46,13 @@ class MyBagCubit extends Cubit<MyBagState> {
     return sum;
   }
 
-  Future<void> deleteItemFromBag(String uid) async {
+  Future<void> deleteItemFromBag(String productId) async {
     emit(MyBagLoading());
 
     try {
-      await repo.deleteFromBag(uid);
+      await repo.deleteFromBag(productId);
       items?.removeWhere((ele) {
-        return ele.product.id == uid;
+        return ele.product.id == productId;
       });
 
       emit(MyBagDataReceieved());
@@ -61,15 +61,15 @@ class MyBagCubit extends Cubit<MyBagState> {
     }
   }
 
-  Future<void> addToFavourites(String uid) async {
+  Future<void> addToFavourites(String productId) async {
     emit(MyBagLoading());
 
     try {
-      if (UserModel.getInstance().bag!.contains(uid)) {
+      if (UserModel.getInstance().favourites!.contains(productId)) {
         return emit(MyBagAlreadyInFavourites());
       }
 
-      await repo.addToFavourites(uid);
+      await repo.addToFavourites(productId);
 
       emit(MyBagDataReceieved());
     } catch (_) {
