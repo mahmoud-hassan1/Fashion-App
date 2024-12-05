@@ -12,3 +12,5 @@ final class MyBagDataReceieved extends MyBagState {}
 final class MyBagCheckOutDone extends MyBagState {}
 
 final class MyBagFailed extends MyBagState {}
+
+final class MyBagAlreadyInFavourites extends MyBagState {}

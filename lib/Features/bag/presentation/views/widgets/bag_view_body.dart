@@ -36,6 +36,8 @@ class _BagViewBodyState extends State<BagViewBody> {
           return;
         } else if (state is MyBagCheckOutDone) {
           snackBar(content: "Checkout done successfully", context: context);
+        } else if (state is MyBagAlreadyInFavourites) {
+          snackBar(content: "Already in favourites", context: context);
         }
         isLoading = false;
       },
@@ -55,7 +57,7 @@ class _BagViewBodyState extends State<BagViewBody> {
                   noThingToShow(context)
                 else if (state is MyBagFailed)
                   error(context)
-                else if (state is MyBagDataReceieved && items!.isNotEmpty)
+                else if ((state is MyBagDataReceieved || state is MyBagAlreadyInFavourites) && items!.isNotEmpty)
                   Expanded(
                     flex: 6,
                     child: Column(

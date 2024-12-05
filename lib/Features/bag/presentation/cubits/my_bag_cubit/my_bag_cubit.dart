@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:online_shopping/Features/bag/data/models/bag_item_model.dart';
 import 'package:online_shopping/Features/bag/domain/repo_interface/bag_repo.dart';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
+import 'package:online_shopping/core/models/user_model.dart';
 
 part 'my_bag_state.dart';
 
@@ -64,6 +65,10 @@ class MyBagCubit extends Cubit<MyBagState> {
     emit(MyBagLoading());
 
     try {
+      if (UserModel.getInstance().bag!.contains(uid)) {
+        return emit(MyBagAlreadyInFavourites());
+      }
+
       await repo.addToFavourites(uid);
 
       emit(MyBagDataReceieved());
