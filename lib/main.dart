@@ -40,6 +40,16 @@ class MyApp extends StatelessWidget {
         title: 'Online Shopping',
         theme: ThemeData.light().copyWith(
           scaffoldBackgroundColor: AppColors.kBackgroundColor,
+          appBarTheme: const AppBarTheme(
+            color: AppColors.kBackgroundColor,centerTitle: true,
+            iconTheme: IconThemeData(
+              color: Colors.black,
+
+            ),
+
+
+          ),
+
         ),
         home: const SplashView(),
       ),

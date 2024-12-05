@@ -10,7 +10,7 @@ import 'package:online_shopping/Features/auth/presentation/views/login_view/logi
 import 'package:online_shopping/Features/auth/presentation/views/signup_view/widgets/complete_google_signup_process.dart';
 import 'package:online_shopping/Features/auth/presentation/views/signup_view/widgets/date_of_birth.dart';
 import 'package:online_shopping/Features/auth/presentation/views/signup_view/widgets/go_to_login.dart';
-import 'package:online_shopping/Features/auth/presentation/views/widgets/custtom_button.dart';
+import 'package:online_shopping/core/widgets/custtom_button.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/email_password_section.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/google_section.dart';
 import 'package:online_shopping/Features/home/presentation/views/home_view/home_view.dart';
