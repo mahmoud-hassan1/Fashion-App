@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:online_shopping/Features/bag/presentation/views/widgets/quantity_picker.dart';
+import 'package:online_shopping/core/utiles/assets.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
+import 'package:online_shopping/core/widgets/scale_down.dart';
 
 class MyBagItem extends StatelessWidget {
   const MyBagItem({super.key});
@@ -8,40 +10,55 @@ class MyBagItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      height: MediaQuery.sizeOf(context).width * .3,
+      clipBehavior: Clip.hardEdge,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(color: Colors.grey.withOpacity(.3), blurStyle: BlurStyle.normal, blurRadius: 5, offset: const Offset(0, 3), spreadRadius: 0),
+        ],
+      ),
       child: Row(
         children: [
           Expanded(
-            flex: 1,
-            child: Container(height: 100, width: 100, color: Colors.amber),
+            flex: 3,
+            child: Image.asset(Assets.imagesClothes),
+          ),
+          Expanded(
+            flex: 4,
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text("Pullover", style: Styles.kSmallTextStyle(context)),
+                  ),
+                  QuantityPicker(onChanged: (number) {}),
+                ],
+              ),
+            ),
           ),
           Expanded(
             flex: 2,
             child: Padding(
               padding: const EdgeInsets.all(12),
-              child: Row(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Pullover", style: Styles.kSmallTextStyle(context)),
-                        QuantityPicker(onChanged: (number) {}),
-                      ],
+                  ScaleDown(
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: const Icon(Icons.more_vert, color: Colors.grey),
                     ),
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        const Icon(Icons.more_vert, color: Colors.grey),
-                        Text("51\$", style: Styles.kSmallTextStyle(context)),
-                      ],
-                    ),
+                  ScaleDown(
+                    child: Text("51\$", style: Styles.kSmallTextStyle(context)),
                   ),
                 ],
               ),
