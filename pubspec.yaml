@@ -48,7 +48,7 @@ dependencies:
   carousel_slider_plus: ^6.0.0
   flutter_secure_storage: ^9.2.2
   firebase_storage: ^12.3.6
-
+  flutter_rating_bar: ^4.0.1
 flutter_assets:
   assets_path:
     - assets/images/
