@@ -1,10 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:online_shopping/Features/bag/domain/repo_interface/bag_repo.dart';
+import 'package:online_shopping/Features/favourite/domain/repo_interface/favourite_repo.dart';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
 import 'package:online_shopping/core/models/user_model.dart';
 
 class BagRepoImpl extends BagRepo {
   UserModel user = UserModel.getInstance();
+  final FavouriteRepo favouriteRepo;
+
+  BagRepoImpl(this.favouriteRepo);
 
   @override
   Future<List<ProductModel>> getMyBagItems() async {
@@ -38,7 +42,17 @@ class BagRepoImpl extends BagRepo {
 
     if (!user.favourites!.contains(productUID)) {
       user.favourites!.add(productUID);
-      await FirebaseFirestore.instance.collection('users').doc(user.uid).update({'favourites': user.favourites});
+      await favouriteRepo.addToFavourites(user.uid, productUID);
+    }
+  }
+
+  @override
+  Future<void> removeFromFavourites(String productUID) async {
+    await getBagAndFavourites();
+
+    if (user.favourites!.contains(productUID)) {
+      user.favourites!.remove(productUID);
+      await favouriteRepo.removeFromFavourites(user.uid, productUID);
     }
   }
 

@@ -59,10 +59,13 @@ class NavigationBarView extends StatelessWidget {
           create: (context) => FavouritesCubit(getFavouritesPoductsUseCase: getFavouritesPoducts),
         ),
         BlocProvider<ManageFavouritesCubit>(
-          create: (context) => ManageFavouritesCubit(addToFavouritesUseCase: AddToFavouritesUseCase(favouriteRepo), removeFromFavouritesUseCase: RemoveFromFavouritesUseCase(favouriteRepo)),
+          create: (context) => ManageFavouritesCubit(
+            addToFavouritesUseCase: AddToFavouritesUseCase(favouriteRepo),
+            removeFromFavouritesUseCase: RemoveFromFavouritesUseCase(favouriteRepo),
+          ),
         ),
         BlocProvider(
-          create: (context) => MyBagCubit(repo: BagRepoImpl()),
+          create: (context) => MyBagCubit(repo: BagRepoImpl(FavouriteRepoImpl(firestore: FirebaseFirestore.instance))),
         )
       ],
       child: BlocBuilder<NavigationCubit, NavigationState>(

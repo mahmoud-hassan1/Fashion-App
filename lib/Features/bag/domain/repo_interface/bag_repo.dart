@@ -6,4 +6,5 @@ abstract class BagRepo {
   Future<void> deleteFromBag(String productUID);
   Future<void> addToBag(String productUID);
   Future<void> addToFavourites(String productUID);
+  Future<void> removeFromFavourites(String productUID);
 }

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:online_shopping/Features/favourite/presentation/cubits/add_to_cart_cubit/add_to_cart_cubit.dart';
 import 'package:online_shopping/Features/favourite/presentation/cubits/manage_favourites/manage_favourites_cubit.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 
 class FavouritesItem extends StatelessWidget {
-
   final Product product;
   const FavouritesItem({
     super.key,
@@ -24,8 +24,7 @@ class FavouritesItem extends StatelessWidget {
         ),
         Container(
           height: 100.h,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10), color: Colors.white),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
           child: Row(
             children: [
               Expanded(
@@ -33,9 +32,7 @@ class FavouritesItem extends StatelessWidget {
                 child: SizedBox(
                   height: 100.h,
                   child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        bottomLeft: Radius.circular(10)),
+                    borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
                     child: Image.network(
                       product.image,
                       fit: BoxFit.cover,
@@ -43,17 +40,13 @@ class FavouritesItem extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 16,
-              ),
+              const SizedBox(width: 16),
               Expanded(
                 flex: 2,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      height: 24,
-                    ),
+                    const SizedBox(height: 24),
                     Text(
                       product.name,
                       style: Styles.kMediumTextStyle(context),
@@ -71,9 +64,7 @@ class FavouritesItem extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          width: 4,
-                        ),
+                        const SizedBox(width: 4),
                         Row(
                           children: [
                             RatingBarIndicator(
@@ -91,16 +82,12 @@ class FavouritesItem extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
-                            SizedBox(
-                              width: 47.r,
-                            )
+                            SizedBox(width: 47.r)
                           ],
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 8,
-                    )
+                    const SizedBox(height: 8)
                   ],
                 ),
               )
@@ -108,17 +95,19 @@ class FavouritesItem extends StatelessWidget {
           ),
         ),
         Positioned(
-            top: 4,
-            right: 4,
-            child: IconButton(
-                onPressed: () {
-                BlocProvider.of<ManageFavouritesCubit>(context).removeFromFavourites(product.id);
-                },
-                icon: Icon(
-                  Icons.close,
-                  color: AppColors.kSeconderyTextColor,
-                  size: 25.r,
-                ))),
+          top: 4,
+          right: 4,
+          child: IconButton(
+            onPressed: () async {
+              await BlocProvider.of<ManageFavouritesCubit>(context).removeFromFavourites(product.id);
+            },
+            icon: Icon(
+              Icons.close,
+              color: AppColors.kSeconderyTextColor,
+              size: 25.r,
+            ),
+          ),
+        ),
         Positioned(
           bottom: 0,
           right: 0,
@@ -127,11 +116,14 @@ class FavouritesItem extends StatelessWidget {
               Icons.shopping_bag,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () async {
+              await BlocProvider.of<AddToCartCubit>(context).addToCart(product.id);
+            },
             style: IconButton.styleFrom(
-                backgroundColor: AppColors.kRed,
-                iconSize: 24.r,
-                padding: const EdgeInsets.all(10)),
+              backgroundColor: AppColors.kRed,
+              iconSize: 24.r,
+              padding: const EdgeInsets.all(10),
+            ),
           ),
         )
       ],
