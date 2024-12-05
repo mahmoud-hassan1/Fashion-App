@@ -10,6 +10,7 @@ import 'package:online_shopping/Features/favourite/data/repo_impl/favourite_repo
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/product/presentation/cubits/product_details_cubit/product_details_cubit.dart';
 import 'package:online_shopping/Features/product/presentation/views/product_details_view/widgets/details_list_view_item.dart';
+import 'package:online_shopping/Features/reviews/presentation/views/product_reviews_view.dart';
 import 'package:online_shopping/core/models/user_model.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
@@ -125,13 +126,22 @@ class _ProductDetailsState extends State<ProductDetails> {
                           ),
                           Row(
                             children: [
-                              RatingBarIndicator(
-                                rating: widget.product.rate,
-                                itemSize: 15.r,
-                                itemBuilder: (context, _) => const Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
+                              GestureDetector(
+                                onTap: () async {
+                                  await Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => ProductReviewsView(reviews: widget.product.reviews)));
+                                },
+                                child: RatingBarIndicator(
+                                  rating: widget.product.rate,
+                                  itemSize: 15.r,
+                                  itemBuilder: (context, _) => const Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                  ),
                                 ),
+                              ),
+                              Text(
+                                widget.product.reviews.length.toString(),
+                                style: Styles.kFontSize14(context).copyWith(color: Colors.grey),
                               ),
                             ],
                           ),

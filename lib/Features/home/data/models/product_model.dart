@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
+import 'package:online_shopping/Features/reviews/data/models/review_model.dart';
 
 class ProductModel {
   final String id;
@@ -13,6 +14,7 @@ class ProductModel {
   final List<String> categories;
   final DateTime date;
   final String subtitle;
+  final List<ReviewModel> reviews;
 
   ProductModel({
     required this.id,
@@ -26,6 +28,7 @@ class ProductModel {
     required this.categories,
     required this.date,
     required this.subtitle,
+    required this.reviews,
   });
 
   factory ProductModel.fromJson(dynamic json, String id) {
@@ -41,6 +44,7 @@ class ProductModel {
       categories: json['categories'].cast<String>(),
       date: (json['date'] as Timestamp).toDate(),
       subtitle: json['subtitle'],
+      reviews: json['reviews'] != null ? List.generate(json['reviews'].length, (int index) => ReviewModel.fromJson(json['reviews'][index])) : [],
     );
   }
 
@@ -56,7 +60,7 @@ class ProductModel {
       'image': image,
       'categories': categories,
       'date': date.toIso8601String(),
-      'subtitle':subtitle
+      'subtitle': subtitle
     };
   }
 
@@ -72,6 +76,7 @@ class ProductModel {
       image: image,
       categories: categories,
       subtitle: subtitle,
+      reviews: reviews,
     );
   }
 }
