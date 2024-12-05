@@ -13,6 +13,9 @@ class Assets {
   /// Assets for iconsGoogle
   /// assets/icons/google.svg
   static const String iconsGoogle = "assets/icons/google.svg";
+  static const String productDetails1 = "assets/images/shortyDress.png";
+
+
 
   /// Assets for imagesAccesories
   /// assets/images/Accesories.png

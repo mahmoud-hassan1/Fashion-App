@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:online_shopping/Features/auth/data/repo_impl/auth_repo_imp.dart';
 import 'package:online_shopping/Features/auth/presentation/cubits/auth_cubit/auth_cubit.dart';
-import 'package:online_shopping/Features/auth/presentation/views/widgets/custtom_button.dart';
+import 'package:online_shopping/core/widgets/custtom_button.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/email_password_section.dart';
 import 'package:online_shopping/Features/auth/presentation/views/login_view/widgets/forget_password_section.dart';
 import 'package:online_shopping/Features/auth/presentation/views/login_view/widgets/go_to_signup.dart';

@@ -7,7 +7,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:online_shopping/Features/auth/data/repo_impl/auth_repo_imp.dart';
 import 'package:online_shopping/Features/auth/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:online_shopping/Features/auth/presentation/views/signup_view/widgets/date_of_birth.dart';
-import 'package:online_shopping/Features/auth/presentation/views/widgets/custtom_button.dart';
+import 'package:online_shopping/core/widgets/custtom_button.dart';
 import 'package:online_shopping/Features/home/presentation/views/home_view/home_view.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custtom_text_field.dart';
