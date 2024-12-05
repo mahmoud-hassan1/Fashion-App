@@ -32,14 +32,29 @@ class UserModel {
     );
   }
 
-  static UserModel getInstance() {
-    _instance ??= UserModel(
+  factory UserModel.init() {
+    return UserModel(
       dateOfBirth: '',
       email: '',
       name: '',
       uid: '',
     );
-    return _instance!;
+  }
+
+  bool isEqualTo(UserModel userModel) {
+    return userModel.dateOfBirth == dateOfBirth && userModel.email == email && userModel.name == name && userModel.uid == uid && userModel.favourites == null && userModel.bag == null;
+  }
+
+  void setMyBagItems(dynamic json) {
+    bag = json != null ? List<String>.from(json) : null;
+  }
+
+  void setFavouritesItems(dynamic json) {
+    favourites = json != null ? List<String>.from(json) : null;
+  }
+
+  static UserModel getInstance() {
+    return _instance ??= UserModel.init();
   }
 
   static void setInstance(UserModel model) {

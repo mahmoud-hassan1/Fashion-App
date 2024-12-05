@@ -26,7 +26,7 @@ class ProductModel {
     required this.date,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json, String id) {
+  factory ProductModel.fromJson(dynamic json, String id) {
     return ProductModel(
       id: id,
       name: json['name'],
