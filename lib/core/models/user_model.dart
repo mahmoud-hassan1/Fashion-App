@@ -5,6 +5,7 @@ class UserModel {
   final String name;
   final String uid;
   List<String>? favourites;
+  List<String>? bag;
 
   UserModel({
     required this.dateOfBirth,
@@ -12,6 +13,7 @@ class UserModel {
     required this.name,
     required this.uid,
     this.favourites,
+    this.bag,
   });
 
   @override
@@ -26,22 +28,21 @@ class UserModel {
       name: json['name'],
       uid: json['uid'],
       favourites: json['favourites'] != null ? List<String>.from(json['favourites']) : null,
+      bag: json['bag'] != null ? List<String>.from(json['bag']) : null,
     );
   }
 
   static UserModel getInstance() {
-    if (_instance == null) {
-      _instance = UserModel(
-        dateOfBirth: '',
-        email: '',
-        name: '',
-        uid: '',
-      );
-    }
+    _instance ??= UserModel(
+      dateOfBirth: '',
+      email: '',
+      name: '',
+      uid: '',
+    );
     return _instance!;
   }
-  static setInstance(UserModel model) {
-    _instance = model;
 
+  static void setInstance(UserModel model) {
+    _instance = model;
   }
 }
