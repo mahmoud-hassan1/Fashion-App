@@ -49,5 +49,8 @@ class Assets {
   /// Assets for imagesShoes
   /// assets/images/Shoes.png
   static const String imagesShoes = "assets/images/Shoes.png";
+  /// Assets for animations
+  /// assets/animations/empty_animation.svg
+  static const String animationsEmptyAnimation = "assets/animations/Empty_Animation.json";
 }
 

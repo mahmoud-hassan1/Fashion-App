@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/favourite/presentation/cubits/manage_favourites/manage_favourites_cubit.dart';
@@ -55,7 +54,7 @@ class ProductListViewItem extends StatelessWidget {
                           },
                           child: Container(
                             padding: const EdgeInsets.all(3),
-                            decoration:  BoxDecoration(
+                            decoration:  const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: AppColors.kItemBackgroundColor, ),
                             child: Icon(

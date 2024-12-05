@@ -9,7 +9,10 @@ final class ManageFavouritesError extends ManageFavouritesState {
   final String error;
   ManageFavouritesError({required this.error});
 }
-final class ManageFavouritesSuccess extends ManageFavouritesState {}
+final class ManageFavouritesSuccess extends ManageFavouritesState {
+  final String productId;
+  ManageFavouritesSuccess({required this.productId});
+}
 
 
 

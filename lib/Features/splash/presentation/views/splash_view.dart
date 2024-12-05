@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/splash/data/data_source/user_data_source.dart';
 import 'package:online_shopping/Features/splash/data/repo/user_repo_impl.dart';
-import 'package:online_shopping/Features/splash/domain/repo/user_data_repo.dart';
 import 'package:online_shopping/Features/splash/domain/use_cases/get_user_data.dart';
 import 'package:online_shopping/Features/splash/presentation/cubits/cubit/user_cubit.dart';
 import 'package:online_shopping/Features/splash/presentation/views/widgets/splash_view_body.dart';
