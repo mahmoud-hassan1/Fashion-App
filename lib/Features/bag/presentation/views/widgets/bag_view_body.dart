@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/custtom_button.dart';
+import 'package:online_shopping/Features/bag/presentation/views/widgets/my_bag_item.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 
 class BagViewBody extends StatelessWidget {
@@ -12,46 +13,31 @@ class BagViewBody extends StatelessWidget {
       child: Column(
         children: [
           Text("My Bag", style: Styles.kMediumTextStyle(context).copyWith(fontSize: 34)),
-          ListView.builder(
-            itemCount: 5,
-            itemBuilder: (BuildContext context, int index) {
-              return const Column(
-                children: [
-                  SizedBox(height: 24),
-                  MyBagItem(),
-                ],
-              );
-            },
+          Expanded(
+            child: ListView.builder(
+              itemCount: 5,
+              itemBuilder: (BuildContext context, int index) {
+                return const Column(
+                  children: [
+                    MyBagItem(),
+                    SizedBox(height: 24),
+                  ],
+                );
+              },
+            ),
           ),
-          CustomButton(height: 50, label: "", onTap: () {}),
-        ],
-      ),
-    );
-  }
-}
-
-class MyBagItem extends StatelessWidget {
-  const MyBagItem({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(height: 100, width: 100, color: Colors.amber),
-        const Padding(
-          padding: EdgeInsets.all(12),
-          child: Row(
+          const SizedBox(height: 24),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                children: [
-                  Text("Pullover"),
-                ],
-              ),
-              Column(),
+              Text("Total amount:", style: Styles.kMediumTextStyle(context).copyWith(fontSize: 14, color: Colors.grey)),
+              Text("124\$", style: Styles.kSmallTextStyle(context).copyWith(fontSize: 18, fontWeight: FontWeight.w500)),
             ],
           ),
-        ),
-      ],
+          const SizedBox(height: 24),
+          CustomButton(height: 50, label: "CHECK OUT", onTap: () {}),
+        ],
+      ),
     );
   }
 }
