@@ -51,7 +51,7 @@ dependencies:
   numberpicker: ^2.1.2
 
 flutter_assets:
-  assets_path: 
+  assets_path:
     - assets/images/
     - assets/icons/
   output_path: lib/core/utiles/
