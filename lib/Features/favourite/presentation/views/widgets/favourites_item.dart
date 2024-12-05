@@ -7,6 +7,7 @@ import 'package:online_shopping/Features/favourite/presentation/cubits/manage_fa
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
+import 'package:online_shopping/core/widgets/custom_rating_bar.dart';
 
 class FavouritesItem extends StatelessWidget {
   final Product product;
@@ -67,14 +68,7 @@ class FavouritesItem extends StatelessWidget {
                         const SizedBox(width: 4),
                         Row(
                           children: [
-                            RatingBarIndicator(
-                              rating: product.rate,
-                              itemSize: 15.r,
-                              itemBuilder: (context, _) => const Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                              ),
-                            ),
+                            CustomRatingBar(product: product),
                             Text(
                               "${product.rate}",
                               style: Styles.kFontSize17(context).copyWith(
@@ -130,3 +124,5 @@ class FavouritesItem extends StatelessWidget {
     );
   }
 }
+
+
