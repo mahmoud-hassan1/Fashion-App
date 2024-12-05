@@ -20,4 +20,9 @@ class Product {
     required this.image, 
     required this.categories
   });
+
+  @override
+  String toString() {
+    return 'Product(id: $id, name: $name, description: $description, rate: $rate, sellerId: $sellerId, stock: $stock, price: $price, image: $image, categories: $categories)';
+  }
 }
