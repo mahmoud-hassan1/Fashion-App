@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
+
 import 'package:online_shopping/Features/favourite/domain/use_cases/add_to_favourites.dart';
 import 'package:online_shopping/Features/favourite/domain/use_cases/remove_from_favourites.dart';
 import 'package:online_shopping/core/models/user_model.dart';
