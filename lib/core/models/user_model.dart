@@ -4,7 +4,7 @@ class UserModel {
   final String email;
   final String name;
   final String uid;
-  final List<String>? favourites;
+  List<String>? favourites;
 
   UserModel({
     required this.dateOfBirth,
