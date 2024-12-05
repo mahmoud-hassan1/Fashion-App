@@ -78,13 +78,12 @@ class BagRepoImpl extends BagRepo {
 
   Future<void> getBagAndFavourites() async {
     if (user.bag == null) {
-      final DocumentSnapshot doc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
-      user.setMyBagItems(doc.get('bag'));
+      
+      user.setMyBagItems([]);
     }
 
     if (user.favourites == null) {
-      final DocumentSnapshot doc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
-      user.setFavouritesItems(doc.get('favourites'));
+      user.setFavouritesItems([]);
     }
   }
 }
