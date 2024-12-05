@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_shopping/Features/bag/data/models/bag_item_model.dart';
+import 'package:online_shopping/Features/bag/presentation/cubits/my_bag_cubit/my_bag_cubit.dart';
 import 'package:online_shopping/Features/bag/presentation/views/widgets/quantity_picker.dart';
-import 'package:online_shopping/core/utiles/assets.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/scale_down.dart';
 
 class MyBagItem extends StatelessWidget {
-  const MyBagItem({super.key});
+  const MyBagItem({super.key, required this.myBagItemModel});
+
+  final MyBagItemModel myBagItemModel;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,12 @@ class MyBagItem extends StatelessWidget {
         children: [
           Expanded(
             flex: 3,
-            child: Image.asset(Assets.imagesClothes),
+            child: Image.network(
+              myBagItemModel.product.image,
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.error);
+              },
+            ),
           ),
           Expanded(
             flex: 4,
@@ -36,9 +45,16 @@ class MyBagItem extends StatelessWidget {
                 children: [
                   FittedBox(
                     fit: BoxFit.scaleDown,
-                    child: Text("Pullover", style: Styles.kSmallTextStyle(context)),
+                    child: Text(myBagItemModel.product.name, style: Styles.kSmallTextStyle(context)),
                   ),
-                  QuantityPicker(onChanged: (number) {}),
+                  QuantityPicker(
+                    quan: myBagItemModel.quan,
+                    maxValue: myBagItemModel.product.stock,
+                    onChanged: (number) {
+                      myBagItemModel.quan = number;
+                      BlocProvider.of<MyBagCubit>(context).calculateTotalPrice();
+                    },
+                  ),
                 ],
               ),
             ),
@@ -52,13 +68,32 @@ class MyBagItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   ScaleDown(
-                    child: GestureDetector(
-                      onTap: () {},
+                    child: PopupMenuButton<String>(
+                      color: Colors.white,
+                      elevation: 20,
+                      padding: EdgeInsets.zero,
                       child: const Icon(Icons.more_vert, color: Colors.grey),
+                      itemBuilder: (context) {
+                        return [
+                          PopupMenuItem(
+                            value: '1',
+                            child: const Text('Add to favorites'),
+                            onTap: () async => BlocProvider.of<MyBagCubit>(context).addToFavourites(myBagItemModel.product.id),
+                          ),
+                          PopupMenuItem(
+                            value: '2',
+                            child: const Text('Delete from the list'),
+                            onTap: () async => BlocProvider.of<MyBagCubit>(context).deleteItemFromBag(myBagItemModel.product.id),
+                          ),
+                        ];
+                      },
                     ),
                   ),
                   ScaleDown(
-                    child: Text("51\$", style: Styles.kSmallTextStyle(context)),
+                    child: Text(
+                      "${myBagItemModel.product.price.toStringAsFixed(2)}\$",
+                      style: Styles.kSmallTextStyle(context),
+                    ),
                   ),
                 ],
               ),

@@ -10,11 +10,13 @@ class BagRepoImpl extends BagRepo {
   Future<List<ProductModel>> getMyBagItems() async {
     await getBagAndFavourites();
 
-    final QuerySnapshot result = await FirebaseFirestore.instance.collection('products').where(FieldPath.documentId, whereIn: user.bag).get();
-
     List<ProductModel> products = [];
-    for (int i = 0; i < result.docs.length; i++) {
-      products.add(ProductModel.fromJson(result.docs[i], user.bag![i]));
+
+    if (user.bag!.isNotEmpty) {
+      final QuerySnapshot result = await FirebaseFirestore.instance.collection('products').where(FieldPath.documentId, whereIn: user.bag).get();
+      for (int i = 0; i < result.docs.length; i++) {
+        products.add(ProductModel.fromJson(result.docs[i], user.bag![i]));
+      }
     }
 
     return products;

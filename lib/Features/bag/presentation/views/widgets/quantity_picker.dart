@@ -3,18 +3,28 @@ import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/scale_down.dart';
 
 class QuantityPicker extends StatefulWidget {
-  const QuantityPicker({super.key, required this.onChanged});
+  const QuantityPicker({super.key, required this.onChanged, required this.maxValue, required this.quan});
 
   final void Function(int number) onChanged;
+  final int maxValue;
+  final int quan;
 
   @override
   State<QuantityPicker> createState() => _QuantityPickerState();
 }
 
 class _QuantityPickerState extends State<QuantityPicker> {
-  int quan = 1;
-  final int maxValue = 9999;
-  final int minValue = 1;
+  late int quan;
+  late final int maxValue;
+  late final int minValue;
+
+  @override
+  void initState() {
+    minValue = 1;
+    maxValue = widget.maxValue;
+    quan = widget.quan;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
