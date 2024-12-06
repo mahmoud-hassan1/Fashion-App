@@ -1,11 +1,11 @@
 class ReviewModel {
   final String review;
   final DateTime dateTime;
-  final double rate;
+  final int rate;
   final String userName;
   final String profilePicture;
 
-  ReviewModel({required this.review, required this.dateTime, required this.rate, required this.userName, required this.profilePicture});
+  const ReviewModel({required this.review, required this.dateTime, required this.rate, required this.userName, required this.profilePicture});
 
   factory ReviewModel.fromJson(dynamic json) {
     return ReviewModel(

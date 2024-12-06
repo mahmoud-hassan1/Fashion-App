@@ -128,7 +128,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             children: [
                               GestureDetector(
                                 onTap: () async {
-                                  await Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => ProductReviewsView(reviews: widget.product.reviews)));
+                                  await Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => ProductReviewsView(product: widget.product)));
                                 },
                                 child: RatingBarIndicator(
                                   rating: widget.product.rate,
@@ -140,7 +140,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 ),
                               ),
                               Text(
-                                widget.product.reviews.length.toString(),
+                                "(${widget.product.reviews.length.toString()})",
                                 style: Styles.kFontSize14(context).copyWith(color: Colors.grey),
                               ),
                             ],

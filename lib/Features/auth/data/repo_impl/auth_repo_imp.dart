@@ -23,7 +23,7 @@ class AuthRepositoryImpl implements AuthRepository {
     } else {
       final user = userCredential.user;
       if (user != null) {
-        final user= await UserRepoImpl(UserDataSource(FirebaseFirestore.instance)).getUserById();
+        final user = await UserRepoImpl(UserDataSource(FirebaseFirestore.instance)).getUserById();
         UserModel.setInstance(user);
         return UserClass(uid: user.uid, email: user.email);
       }
@@ -59,8 +59,8 @@ class AuthRepositoryImpl implements AuthRepository {
     if (user != null) {
       SignupModel signupModel = SignupModel(email: user.email!, name: name, dateOfBirth: dateOfBirth, uid: user.uid);
       await FirebaseFirestore.instance.collection('users').doc(user.uid).set(signupModel.toMap(), SetOptions(merge: true));
-        final userData= await UserRepoImpl(UserDataSource(FirebaseFirestore.instance)).getUserById();
-        UserModel.setInstance(userData);
+      final userData = await UserRepoImpl(UserDataSource(FirebaseFirestore.instance)).getUserById();
+      UserModel.setInstance(userData);
       return UserClass(uid: user.uid, email: user.email!);
     }
 
@@ -76,8 +76,8 @@ class AuthRepositoryImpl implements AuthRepository {
 
     if (user != null) {
       await firebaseAuth.signInWithCredential(oAuthCredential);
-      final user= await UserRepoImpl(UserDataSource(FirebaseFirestore.instance)).getUserById();
-        UserModel.setInstance(user);
+      final user = await UserRepoImpl(UserDataSource(FirebaseFirestore.instance)).getUserById();
+      UserModel.setInstance(user);
     }
 
     return (oAuthCredential, user);
