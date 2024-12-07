@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
+import 'package:online_shopping/Features/reviews/data/models/review_model.dart';
 
 class ProductModel {
   final String id;
@@ -13,6 +14,7 @@ class ProductModel {
   final List<String> categories;
   final DateTime date;
   final String subtitle;
+  final List<ReviewModel> reviews;
 
   ProductModel({
     required this.id,
@@ -26,14 +28,17 @@ class ProductModel {
     required this.categories,
     required this.date,
     required this.subtitle,
+    required this.reviews,
   });
 
   factory ProductModel.fromJson(dynamic json, String id) {
+    List<ReviewModel> reviewModels = json['reviews'] != null ? List.generate(json['reviews'].length, (int index) => ReviewModel.fromJson(json['reviews'][index])) : [];
+
     return ProductModel(
       id: id,
       name: json['name'],
       description: json['description'],
-      rate: (json['rate'] as num).toDouble(),
+      rate: getRate(reviewModels),
       sellerId: json['sellerId'],
       stock: json['stock'],
       price: (json['price'] as num).toDouble(),
@@ -41,6 +46,7 @@ class ProductModel {
       categories: json['categories'].cast<String>(),
       date: (json['date'] as Timestamp).toDate(),
       subtitle: json['subtitle'],
+      reviews: reviewModels,
     );
   }
 
@@ -56,7 +62,7 @@ class ProductModel {
       'image': image,
       'categories': categories,
       'date': date.toIso8601String(),
-      'subtitle':subtitle
+      'subtitle': subtitle
     };
   }
 
@@ -65,13 +71,27 @@ class ProductModel {
       id: id,
       name: name,
       description: description,
-      rate: rate,
+      rate: getRate(reviews),
       sellerId: sellerId,
       stock: stock,
       price: price,
       image: image,
       categories: categories,
       subtitle: subtitle,
+      reviews: reviews,
     );
+  }
+
+  static double getRate(List<ReviewModel> reviewModels) {
+    if (reviewModels.isEmpty) {
+      return 0;
+    }
+
+    double sum = 0;
+    for (ReviewModel review in reviewModels) {
+      sum += review.rate;
+    }
+    sum /= reviewModels.length;
+    return sum;
   }
 }

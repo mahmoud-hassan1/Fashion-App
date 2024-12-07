@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart' hide CarouselController;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/home/presentation/cubits/newest_cubit/newest_cubit.dart';
 import 'package:online_shopping/Features/home/presentation/cubits/sale_cubit/sale_cubit.dart';
 import 'package:online_shopping/Features/home/presentation/views/home_view/widgets/header_titles.dart';
@@ -9,14 +8,8 @@ import 'package:online_shopping/Features/home/presentation/views/home_view/widge
 
 // ignore: must_be_immutable
 class HomeViewBody extends StatelessWidget {
-  HomeViewBody({super.key});
-  List<Product> products = [
-    Product(categories: ["Sale"], id: "1", name: "evening dress", price: 200, image: "assets/images/item.png", description: "Dummy description", rate: 4.5, sellerId: "dummySellerId", stock: 10, subtitle: "Short Dress"),
-    Product(categories: ["Sale"], id: "1", name: "evening dress", price: 200, image: "assets/images/item.png", description: "Dummy description", rate: 4.5, sellerId: "dummySellerId", stock: 10, subtitle: "Short Dress"),
-    Product(categories: ["Sale"], id: "1", name: "evening dress", price: 200, image: "assets/images/item.png", description: "Dummy description", rate: 4.5, sellerId: "dummySellerId", stock: 10, subtitle: "Short Dress"),
-    Product(categories: ["Sale"], id: "1", name: "evening dress", price: 200, image: "assets/images/item.png", description: "Dummy description", rate: 4.5, sellerId: "dummySellerId", stock: 10, subtitle: "Short Dress"),
-  ];
-  
+  const HomeViewBody({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

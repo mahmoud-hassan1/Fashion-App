@@ -1,9 +1,12 @@
+import 'package:online_shopping/constants.dart';
+
 class UserModel {
   static UserModel? _instance;
   final String dateOfBirth;
   final String email;
   final String name;
   final String uid;
+  String? profilePicturePath;
   List<String>? favourites;
   List<String>? bag;
 
@@ -12,6 +15,7 @@ class UserModel {
     required this.email,
     required this.name,
     required this.uid,
+    this.profilePicturePath,
     this.favourites,
     this.bag,
   });
@@ -27,8 +31,9 @@ class UserModel {
       email: json['email'],
       name: json['name'],
       uid: json['uid'],
-      favourites: json['favourites'] != null ? List<String>.from(json['favourites']) : null,
-      bag: json['bag'] != null ? List<String>.from(json['bag']) : null,
+      profilePicturePath: json['profilePicturePath'] ?? defaultProfileImage,
+      favourites: json['favourites'] != null ? List<String>.from(json['favourites']) : [],
+      bag: json['bag'] != null ? List<String>.from(json['bag']) : [],
     );
   }
 
@@ -38,11 +43,18 @@ class UserModel {
       email: '',
       name: '',
       uid: '',
+      profilePicturePath: '',
     );
   }
 
   bool isEqualTo(UserModel userModel) {
-    return userModel.dateOfBirth == dateOfBirth && userModel.email == email && userModel.name == name && userModel.uid == uid && userModel.favourites == null && userModel.bag == null;
+    return userModel.dateOfBirth == dateOfBirth &&
+        userModel.email == email &&
+        userModel.name == name &&
+        userModel.uid == uid &&
+        userModel.profilePicturePath == profilePicturePath &&
+        userModel.favourites == null &&
+        userModel.bag == null;
   }
 
   void setMyBagItems(dynamic json) {
