@@ -5,7 +5,7 @@ import 'package:online_shopping/Features/home/domain/entities/product_entity.dar
 import 'package:online_shopping/Features/home/presentation/cubits/newest_cubit/newest_cubit.dart';
 import 'package:online_shopping/Features/home/presentation/cubits/sale_cubit/sale_cubit.dart';
 import 'package:online_shopping/Features/home/presentation/views/home_view/widgets/favourites_button.dart';
-import 'package:online_shopping/core/utiles/app_colors.dart';
+
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 

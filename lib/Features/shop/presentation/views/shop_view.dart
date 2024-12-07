@@ -1,11 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_shopping/Features/shop/data/data_source/shop_data_source.dart';
-import 'package:online_shopping/Features/shop/data/repo/shop_repo_impl.dart';
-import 'package:online_shopping/Features/shop/domain/use_cases/get_newest_products_by_cat.dart';
-import 'package:online_shopping/Features/shop/domain/use_cases/get_products_by_cat.dart';
-import 'package:online_shopping/Features/shop/presentation/manger/cubit/shop_cubit.dart';
 import 'package:online_shopping/Features/shop/presentation/views/widgets/shop_view_body.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/core/utiles/constants.dart';
