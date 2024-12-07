@@ -19,7 +19,7 @@ class BagRepoImpl extends BagRepo {
     if (user.bag!.isNotEmpty) {
       final QuerySnapshot result = await FirebaseFirestore.instance.collection('products').where(FieldPath.documentId, whereIn: user.bag).get();
       for (int i = 0; i < result.docs.length; i++) {
-        products.add(ProductModel.fromJson(result.docs[i], user.bag![i]));
+        products.add(ProductModel.fromJson(result.docs[i], result.docs[i].id));
       }
     }
 
@@ -78,7 +78,6 @@ class BagRepoImpl extends BagRepo {
 
   Future<void> getBagAndFavourites() async {
     if (user.bag == null) {
-      
       user.setMyBagItems([]);
     }
 

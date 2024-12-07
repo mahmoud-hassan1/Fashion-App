@@ -32,7 +32,12 @@ class ProductModel {
   });
 
   factory ProductModel.fromJson(dynamic json, String id) {
-    List<ReviewModel> reviewModels = json['reviews'] != null ? List.generate(json['reviews'].length, (int index) => ReviewModel.fromJson(json['reviews'][index])) : [];
+    List<ReviewModel> reviewModels = json['reviews'] != null
+        ? List.generate(
+            json['reviews'].length,
+            (int index) => ReviewModel.fromJson(json['reviews'][index]),
+          )
+        : [];
 
     return ProductModel(
       id: id,
@@ -62,7 +67,10 @@ class ProductModel {
       'image': image,
       'categories': categories,
       'date': date.toIso8601String(),
-      'subtitle': subtitle
+      'subtitle': subtitle,
+      'reviews': List.generate(reviews.length, (int index) {
+        return reviews[index].toMap();
+      }),
     };
   }
 
