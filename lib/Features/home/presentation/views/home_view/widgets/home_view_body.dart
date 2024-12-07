@@ -2,7 +2,7 @@ import 'package:flutter/material.dart' hide CarouselController;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/home/presentation/cubits/newest_cubit/newest_cubit.dart';
 import 'package:online_shopping/Features/home/presentation/cubits/sale_cubit/sale_cubit.dart';
-import 'package:online_shopping/Features/home/presentation/views/home_view/widgets/header_titles.dart';
+
 import 'package:online_shopping/Features/home/presentation/views/home_view/widgets/offers_list_view.dart';
 import 'package:online_shopping/Features/home/presentation/views/home_view/widgets/product_list_view.dart';
 

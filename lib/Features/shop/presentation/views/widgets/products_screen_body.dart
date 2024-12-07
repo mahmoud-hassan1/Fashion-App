@@ -14,11 +14,11 @@ class ProductsScreenBody extends StatelessWidget {
       child: products==null? BlocBuilder<ShopCubit, ShopState>(
         builder: (context, state) {
           if(state is ShopLoadedState){
-          return ListView.separated(
+          return state.products.isNotEmpty? ListView.separated(
             itemBuilder: (context, index) => ProductItem(product: state.products[index]),
             itemCount: state.products.length,
             separatorBuilder: (context, index) => const SizedBox(height: 16,),
-          );
+          ):const Center(child: Text("No Products Yet"));
           }
           else if (state is ShopLoadingState){
             return const Center(child: CircularProgressIndicator());
@@ -30,10 +30,11 @@ class ProductsScreenBody extends StatelessWidget {
             return const Center(child: Text("SomeThing went Wrong"));
           }
         },
-      ):  ListView.separated(
+      ): products!.isNotEmpty?  ListView.separated(
             itemBuilder: (context, index) => ProductItem(product: products![index]),
             itemCount: products!.length,
             separatorBuilder: (context, index) => const SizedBox(height: 16,),
-          ));
+          ):const Center(child: Text("No Products Yet"))
+          );
   }
 }
