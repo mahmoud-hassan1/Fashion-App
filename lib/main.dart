@@ -10,6 +10,12 @@ import 'package:online_shopping/Features/favourite/data/repo_impl/favourite_repo
 import 'package:online_shopping/Features/product/presentation/cubits/product_details_cubit/product_details_cubit.dart';
 import 'package:online_shopping/Features/reviews/data/repo_impl/product_reviews_repo_impl.dart';
 import 'package:online_shopping/Features/reviews/presentation/cubits/product_reviews_cubit/product_reviews_cubit.dart';
+import 'package:online_shopping/Features/shop/data/data_source/shop_data_source.dart';
+import 'package:online_shopping/Features/shop/data/repo/shop_repo_impl.dart';
+import 'package:online_shopping/Features/shop/domain/use_cases/get_newest_products_by_cat.dart';
+import 'package:online_shopping/Features/shop/domain/use_cases/get_products_by_cat.dart';
+import 'package:online_shopping/Features/shop/domain/use_cases/get_sale_products_by_cat.dart';
+import 'package:online_shopping/Features/shop/presentation/manger/cubit/shop_cubit.dart';
 import 'package:online_shopping/Features/splash/presentation/views/splash_view.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/firebase_options.dart';
@@ -33,6 +39,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     final shopRepo = ShopRepoImpl(dataSource: ShopRemoteDataSource(FirebaseFirestore.instance));
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
@@ -43,6 +50,12 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       child: MultiBlocProvider(
         providers: [
+          BlocProvider<ShopCubit>(
+      create: (context) => ShopCubit(
+        getSaleProductsByCategory: GetSaleProductsByCategory(shopRepo),
+        getNewestProductsByCategory: GetNewestProductsByCategory(shopRepo),
+        getProductsByCategory: GetProductsByCategory(shopRepo),
+      ),),
           BlocProvider(
             create: (BuildContext context) => ProductReviewsCubit(ProductReviewsRepoImpl()),
           ),

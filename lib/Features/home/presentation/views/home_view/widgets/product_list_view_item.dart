@@ -4,6 +4,7 @@ import 'package:online_shopping/Features/favourite/presentation/cubits/manage_fa
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/home/presentation/cubits/newest_cubit/newest_cubit.dart';
 import 'package:online_shopping/Features/home/presentation/cubits/sale_cubit/sale_cubit.dart';
+import 'package:online_shopping/Features/home/presentation/views/home_view/widgets/favourites_button.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
@@ -63,24 +64,7 @@ class ProductListViewItem extends StatelessWidget {
                         return Positioned(
                           top: 5,
                           right: 5,
-                          child: InkWell(
-                            onTap: () {
-                              if (blocInstance.isFavourite(productId: product.id)) {
-                                blocInstance.removeFromFavourites(product.id);
-                              } else {
-                                blocInstance.addToFavourites(product.id);
-                              }
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(3),
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: AppColors.kItemBackgroundColor,
-                              ),
-                              child: Icon(blocInstance.isFavourite(productId: product.id) ? Icons.favorite : Icons.favorite_border_rounded,
-                                  color: blocInstance.isFavourite(productId: product.id) ? AppColors.kRed : Colors.black),
-                            ),
-                          ),
+                          child: FavouritesButton(blocInstance: blocInstance, product: product),
                         );
                       },
                     ),
@@ -113,3 +97,4 @@ class ProductListViewItem extends StatelessWidget {
     );
   }
 }
+

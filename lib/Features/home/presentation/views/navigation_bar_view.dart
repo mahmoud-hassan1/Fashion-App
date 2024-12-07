@@ -27,12 +27,12 @@ import 'package:online_shopping/core/utiles/app_colors.dart';
 class NavigationBarView extends StatelessWidget {
   const NavigationBarView({super.key});
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomeView(),
-    ShopView(),
-    BagView(),
-    FavouriteView(),
-    ProfileView(),
+  static  final List<Widget> _widgetOptions = <Widget>[
+    const HomeView(),
+     ShopView(),
+    const BagView(),
+    const FavouriteView(),
+    const ProfileView(),
   ];
 
   @override

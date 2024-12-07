@@ -4,20 +4,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_shopping/Features/favourite/presentation/cubits/add_to_cart_cubit/add_to_cart_cubit.dart';
 import 'package:online_shopping/Features/favourite/presentation/cubits/manage_favourites/manage_favourites_cubit.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
+import 'package:online_shopping/Features/home/presentation/views/home_view/widgets/favourites_button.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custom_rating_bar.dart';
+import 'package:online_shopping/core/widgets/snackbar.dart';
 
-class FavouritesItem extends StatelessWidget {
+class ProductItem extends StatelessWidget {
+  const ProductItem({super.key, required this.product});
   final Product product;
-  const FavouritesItem({
-    super.key,
-    required this.product,
-  });
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return  Stack(
       children: [
         SizedBox(
           height: 113.h,
@@ -45,13 +44,26 @@ class FavouritesItem extends StatelessWidget {
                 flex: 2,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const SizedBox(height: 24),
                     Text(
                       product.name,
                       style: Styles.kMediumTextStyle(context),
                     ),
-                    const Spacer(),
+                    Row(
+                          children: [
+                            CustomRatingBar(product: product),
+                            Text(
+                              "(${product.rate})",
+                              style: Styles.kFontSize17(context).copyWith(
+                                color: AppColors.kSeconderyTextColor,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            SizedBox(width: 47.r)
+                          ],
+                        ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -65,19 +77,7 @@ class FavouritesItem extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 4),
-                        Row(
-                          children: [
-                            CustomRatingBar(product: product),
-                            Text(
-                              "${product.rate}",
-                              style: Styles.kFontSize17(context).copyWith(
-                                color: AppColors.kSeconderyTextColor,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            SizedBox(width: 47.r)
-                          ],
-                        ),
+                       
                       ],
                     ),
                     const SizedBox(height: 8)
@@ -87,41 +87,23 @@ class FavouritesItem extends StatelessWidget {
             ],
           ),
         ),
-        Positioned(
-          top: 4,
-          right: 4,
-          child: IconButton(
-            onPressed: () async {
-              await BlocProvider.of<ManageFavouritesCubit>(context).removeFromFavourites(product.id);
-            },
-            icon: Icon(
-              Icons.close,
-              color: AppColors.kSeconderyTextColor,
-              size: 25.r,
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 0,
-          right: 0,
-          child: IconButton(
-            icon: const Icon(
-              Icons.shopping_bag,
-              color: Colors.white,
-            ),
-            onPressed: () async {
-              await BlocProvider.of<AddToCartCubit>(context).addToCart(product.id);
-            },
-            style: IconButton.styleFrom(
-              backgroundColor: AppColors.kRed,
-              iconSize: 24.r,
-              padding: const EdgeInsets.all(10),
-            ),
-          ),
-        )
+        
+        BlocConsumer<ManageFavouritesCubit, ManageFavouritesState>(
+                    listener: (context, state) {
+                      if (state is ManageFavouritesError) {
+                        snackBar(content: state.error, context: context);
+                      }
+                    },
+                    builder: (context, state) {
+                      final blocInstance = BlocProvider.of<ManageFavouritesCubit>(context);
+                      return Positioned(
+                        bottom: 5,
+                        right: 5,
+                        child: FavouritesButton(blocInstance: blocInstance, product: product),
+                      );
+                    },
+                  )
       ],
     );
   }
 }
-
-
