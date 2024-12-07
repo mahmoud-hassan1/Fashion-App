@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/favourite/presentation/cubits/manage_favourites/manage_favourites_cubit.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
-import 'package:online_shopping/Features/home/presentation/cubits/newest_cubit/newest_cubit.dart';
-import 'package:online_shopping/Features/home/presentation/cubits/sale_cubit/sale_cubit.dart';
 import 'package:online_shopping/Features/home/presentation/views/home_view/widgets/favourites_button.dart';
 
 import 'package:online_shopping/core/utiles/styles.dart';
@@ -28,12 +26,10 @@ class ProductListViewItem extends StatelessWidget {
         );
 
         if (context.mounted) {
-          await BlocProvider.of<SaleCubit>(context).getProductsOnSale();
+         BlocProvider.of<ManageFavouritesCubit>(context).emitState();
         }
 
-        if (context.mounted) {
-          await BlocProvider.of<NewestCubit>(context).getNewestProductsOnSale();
-        }
+        
       },
       child: SizedBox(
         height: 200,

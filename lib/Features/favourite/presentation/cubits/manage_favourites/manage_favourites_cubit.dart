@@ -46,4 +46,7 @@ class ManageFavouritesCubit extends Cubit<ManageFavouritesState> {
       return false;
     }
   }
+  void emitState(){
+    emit(ManageFavouritesSuccess(productId: ""));
+  }
 }

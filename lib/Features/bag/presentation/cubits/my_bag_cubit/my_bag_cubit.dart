@@ -24,7 +24,7 @@ class MyBagCubit extends Cubit<MyBagState> {
       }
 
       emit(MyBagDataReceieved());
-    } catch (_) {
+    } catch (e) {
       emit(MyBagFailed());
     }
   }

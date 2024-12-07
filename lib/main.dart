@@ -7,6 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_shopping/Features/bag/data/repo_impl/bag_repo_impl.dart';
 import 'package:online_shopping/Features/favourite/data/repo_impl/favourite_repo_impl.dart';
+import 'package:online_shopping/Features/favourite/domain/use_cases/add_to_favourites.dart';
+import 'package:online_shopping/Features/favourite/domain/use_cases/remove_from_favourites.dart';
+import 'package:online_shopping/Features/favourite/presentation/cubits/manage_favourites/manage_favourites_cubit.dart';
 import 'package:online_shopping/Features/product/presentation/cubits/product_details_cubit/product_details_cubit.dart';
 import 'package:online_shopping/Features/reviews/data/repo_impl/product_reviews_repo_impl.dart';
 import 'package:online_shopping/Features/reviews/presentation/cubits/product_reviews_cubit/product_reviews_cubit.dart';
@@ -40,6 +43,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
      final shopRepo = ShopRepoImpl(dataSource: ShopRemoteDataSource(FirebaseFirestore.instance));
+     final favRepo = FavouriteRepoImpl(firestore: FirebaseFirestore.instance);
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
@@ -64,6 +68,9 @@ class MyApp extends StatelessWidget {
               BagRepoImpl(FavouriteRepoImpl(firestore: FirebaseFirestore.instance)),
               ProductReviewsRepoImpl(),
             ),
+          ),
+          BlocProvider(
+            create: (context) => ManageFavouritesCubit(addToFavouritesUseCase: AddToFavouritesUseCase(favRepo),removeFromFavouritesUseCase: RemoveFromFavouritesUseCase(favRepo)),
           ),
         ],
         child: MaterialApp(
