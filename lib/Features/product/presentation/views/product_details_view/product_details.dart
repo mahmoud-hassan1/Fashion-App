@@ -7,7 +7,6 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/product/presentation/cubits/product_details_cubit/product_details_cubit.dart';
 import 'package:online_shopping/Features/product/presentation/views/product_details_view/widgets/details_list_view_item.dart';
-import 'package:online_shopping/Features/reviews/data/models/review_model.dart';
 import 'package:online_shopping/Features/reviews/data/repo_impl/product_reviews_repo_impl.dart';
 import 'package:online_shopping/Features/reviews/presentation/cubits/product_reviews_cubit/product_reviews_cubit.dart';
 import 'package:online_shopping/Features/reviews/presentation/views/product_reviews_view.dart';
@@ -130,7 +129,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   await Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => ProductReviewsView(product: widget.product)));
                                 },
                                 child: RatingBarIndicator(
-                                  rating: getRate(widget.product.reviews),
+                                  rating: widget.product.rate,
                                   itemSize: 15.r,
                                   itemBuilder: (context, _) => const Icon(
                                     Icons.star,
@@ -171,18 +170,5 @@ class _ProductDetailsState extends State<ProductDetails> {
         },
       ),
     );
-  }
-
-  double getRate(List<ReviewModel> reviews) {
-    if (reviews.isEmpty) {
-      return 0;
-    }
-
-    double sum = 0;
-    for (ReviewModel review in reviews) {
-      sum += review.rate;
-    }
-    sum /= reviews.length;
-    return sum;
   }
 }
