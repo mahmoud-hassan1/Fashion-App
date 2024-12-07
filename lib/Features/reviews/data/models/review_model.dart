@@ -4,8 +4,16 @@ class ReviewModel {
   final int rate;
   final String userName;
   final String profilePicture;
+  final String userId;
 
-  const ReviewModel({required this.review, required this.dateTime, required this.rate, required this.userName, required this.profilePicture});
+  const ReviewModel({
+    required this.review,
+    required this.dateTime,
+    required this.rate,
+    required this.userName,
+    required this.profilePicture,
+    required this.userId,
+  });
 
   factory ReviewModel.fromJson(dynamic json) {
     return ReviewModel(
@@ -14,6 +22,7 @@ class ReviewModel {
       rate: json['rate'],
       userName: json['userName'],
       profilePicture: json['profilePicture'],
+      userId: json['userId'],
     );
   }
 
@@ -24,6 +33,7 @@ class ReviewModel {
       "rate": rate,
       "userName": userName,
       "profilePicture": profilePicture,
+      "userId": userId,
     };
   }
 }

@@ -9,6 +9,12 @@ final class ProductDetailsLoading extends ProductDetailsState {}
 
 final class ProductDetailsSuccess extends ProductDetailsState {}
 
+final class ProductDetailsRefresh extends ProductDetailsState {
+  final Product product;
+
+  ProductDetailsRefresh(this.product);
+}
+
 final class ProductDetailsAddedToCart extends ProductDetailsState {}
 
 final class ProductDetailsFailed extends ProductDetailsState {

@@ -20,7 +20,7 @@ class RatingStatistics extends StatelessWidget {
               FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
-                  product.rate.toStringAsFixed(1),
+                  getRate(product.reviews).toStringAsFixed(1),
                   style: Styles.kLargeTextStyle(context),
                 ),
               ),
@@ -65,6 +65,19 @@ class RatingStatistics extends StatelessWidget {
       }
     }
 
+    return sum;
+  }
+
+  double getRate(List<ReviewModel> reviews) {
+    if (reviews.isEmpty) {
+      return 0;
+    }
+
+    double sum = 0;
+    for (ReviewModel review in reviews) {
+      sum += review.rate;
+    }
+    sum /= reviews.length;
     return sum;
   }
 }

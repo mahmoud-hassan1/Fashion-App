@@ -1,25 +1,26 @@
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:online_shopping/Features/bag/data/repo_impl/bag_repo_impl.dart';
-import 'package:online_shopping/Features/favourite/data/repo_impl/favourite_repo_impl.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/product/presentation/cubits/product_details_cubit/product_details_cubit.dart';
 import 'package:online_shopping/Features/product/presentation/views/product_details_view/widgets/details_list_view_item.dart';
+import 'package:online_shopping/Features/reviews/data/models/review_model.dart';
+import 'package:online_shopping/Features/reviews/data/repo_impl/product_reviews_repo_impl.dart';
+import 'package:online_shopping/Features/reviews/presentation/cubits/product_reviews_cubit/product_reviews_cubit.dart';
 import 'package:online_shopping/Features/reviews/presentation/views/product_reviews_view.dart';
 import 'package:online_shopping/core/models/user_model.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 import '../../../../../core/widgets/custtom_button.dart';
 
+// ignore: must_be_immutable
 class ProductDetails extends StatefulWidget {
-  const ProductDetails({super.key, required this.product});
+  ProductDetails({super.key, required this.product});
 
-  final Product product;
+  Product product;
 
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
@@ -42,7 +43,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     double height = MediaQuery.of(context).size.height;
 
     return BlocProvider(
-      create: (context) => ProductDetailsCubit(BagRepoImpl(FavouriteRepoImpl(firestore: FirebaseFirestore.instance))),
+      create: (BuildContext context) => ProductReviewsCubit(ProductReviewsRepoImpl()),
       child: BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
         listener: (context, state) {
           if (state is ProductDetailsLoading) {
@@ -50,6 +51,8 @@ class _ProductDetailsState extends State<ProductDetails> {
             return;
           } else if (state is ProductDetailsFailed) {
             snackBar(content: state.message, context: context);
+          } else if (state is ProductDetailsRefresh) {
+            widget.product = state.product;
           }
           isLoading = false;
         },
@@ -58,10 +61,6 @@ class _ProductDetailsState extends State<ProductDetails> {
             inAsyncCall: isLoading,
             child: Scaffold(
               appBar: AppBar(
-                leading: IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(Icons.arrow_back_ios),
-                ),
                 title: Text(
                   widget.product.subtitle,
                   style: Styles.kFontSize30(context),
@@ -131,7 +130,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   await Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => ProductReviewsView(product: widget.product)));
                                 },
                                 child: RatingBarIndicator(
-                                  rating: widget.product.rate,
+                                  rating: getRate(widget.product.reviews),
                                   itemSize: 15.r,
                                   itemBuilder: (context, _) => const Icon(
                                     Icons.star,
@@ -172,5 +171,18 @@ class _ProductDetailsState extends State<ProductDetails> {
         },
       ),
     );
+  }
+
+  double getRate(List<ReviewModel> reviews) {
+    if (reviews.isEmpty) {
+      return 0;
+    }
+
+    double sum = 0;
+    for (ReviewModel review in reviews) {
+      sum += review.rate;
+    }
+    sum /= reviews.length;
+    return sum;
   }
 }
