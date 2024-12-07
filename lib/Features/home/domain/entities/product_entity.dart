@@ -1,3 +1,5 @@
+import 'package:online_shopping/Features/reviews/data/models/review_model.dart';
+
 class Product {
   final String id;
   final String name;
@@ -9,6 +11,7 @@ class Product {
   final String image;
   final List<String> categories;
   final String subtitle;
+  final List<ReviewModel> reviews;
 
   Product({
     required this.id,
@@ -21,10 +24,11 @@ class Product {
     required this.image,
     required this.categories,
     required this.subtitle,
+    required this.reviews,
   });
 
   @override
   String toString() {
-    return 'Product(id: $id, name: $name, description: $description, rate: $rate, sellerId: $sellerId, stock: $stock, price: $price, image: $image, categories: $categories, subTitle: $subtitle)';
+    return 'Product(id: $id, name: $name, description: $description, rate: $rate, sellerId: $sellerId, stock: $stock, price: $price, image: $image, categories: $categories, subTitle: $subtitle, reviews: $reviews)';
   }
 }
