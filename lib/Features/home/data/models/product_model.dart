@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
-import 'package:online_shopping/Features/reviews/data/models/review_model.dart';
+import 'package:online_shopping/Features/reviews/data/models/product_review_model.dart';
 
 class ProductModel {
   final String id;
@@ -14,7 +14,7 @@ class ProductModel {
   final List<String> categories;
   final DateTime date;
   final String subtitle;
-  final List<ReviewModel> reviews;
+  final List<ProductReviewModel> reviews;
 
   ProductModel({
     required this.id,
@@ -32,10 +32,10 @@ class ProductModel {
   });
 
   factory ProductModel.fromJson(dynamic json, String id) {
-    List<ReviewModel> reviewModels = json['reviews'] != null
+    List<ProductReviewModel> reviewModels = json['reviews'] != null
         ? List.generate(
             json['reviews'].length,
-            (int index) => ReviewModel.fromJson(json['reviews'][index]),
+            (int index) => ProductReviewModel.fromJson(json['reviews'][index]),
           )
         : [];
 
@@ -90,13 +90,13 @@ class ProductModel {
     );
   }
 
-  static double getRate(List<ReviewModel> reviewModels) {
+  static double getRate(List<ProductReviewModel> reviewModels) {
     if (reviewModels.isEmpty) {
       return 0;
     }
 
     double sum = 0;
-    for (ReviewModel review in reviewModels) {
+    for (ProductReviewModel review in reviewModels) {
       sum += review.rate;
     }
     sum /= reviewModels.length;

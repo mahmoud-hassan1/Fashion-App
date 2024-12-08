@@ -2,14 +2,14 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:online_shopping/Features/auth/data/models/signup_model.dart';
-import 'package:online_shopping/Features/auth/data/repo_impl/auth_repo_imp.dart';
 import 'package:online_shopping/Features/auth/domain/entities/user.dart';
+import 'package:online_shopping/Features/auth/domain/repo_interface/auth_repo.dart';
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this.authRepo) : super(AuthInitial());
-  final AuthRepositoryImpl authRepo;
+  final AuthRepository authRepo;
 
   void resetPassword(String email) async {
     emit(AuthLoading());

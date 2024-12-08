@@ -30,8 +30,6 @@ class MyBagCubit extends Cubit<MyBagState> {
   }
 
   double calculateTotalPrice() {
-    emit(MyBagLoading());
-
     if (items == null) {
       return 0.0;
     }
@@ -41,6 +39,12 @@ class MyBagCubit extends Cubit<MyBagState> {
       sum += ele.product.price * ele.quan;
     }
 
+    return sum;
+  }
+
+  double updateTotalPrice() {
+    emit(MyBagLoading());
+    double sum = calculateTotalPrice();
     emit(MyBagDataReceieved());
 
     return sum;
@@ -65,7 +69,7 @@ class MyBagCubit extends Cubit<MyBagState> {
     emit(MyBagLoading());
 
     try {
-      if (UserModel.getInstance().favourites!.contains(productId)) {
+      if (UserModel.getInstance().favourites.contains(productId)) {
         return emit(MyBagAlreadyInFavourites());
       }
 

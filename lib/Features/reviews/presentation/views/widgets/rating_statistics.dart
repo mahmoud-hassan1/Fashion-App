@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
-import 'package:online_shopping/Features/reviews/data/models/review_model.dart';
+import 'package:online_shopping/Features/reviews/data/models/product_review_model.dart';
 import 'package:online_shopping/Features/reviews/presentation/views/widgets/stars.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 
@@ -56,10 +56,10 @@ class RatingStatistics extends StatelessWidget {
     );
   }
 
-  int getNumOfReviews(List<ReviewModel> reviews, int stars) {
+  int getNumOfReviews(List<ProductReviewModel> reviews, int stars) {
     int sum = 0;
 
-    for (ReviewModel review in reviews) {
+    for (ProductReviewModel review in reviews) {
       if (review.rate == stars) {
         sum++;
       }

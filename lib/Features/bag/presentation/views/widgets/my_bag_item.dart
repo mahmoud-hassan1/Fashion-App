@@ -52,7 +52,7 @@ class MyBagItem extends StatelessWidget {
                     maxValue: myBagItemModel.product.stock,
                     onChanged: (number) {
                       myBagItemModel.quan = number;
-                      BlocProvider.of<MyBagCubit>(context).calculateTotalPrice();
+                      BlocProvider.of<MyBagCubit>(context).updateTotalPrice();
                     },
                   ),
                 ],

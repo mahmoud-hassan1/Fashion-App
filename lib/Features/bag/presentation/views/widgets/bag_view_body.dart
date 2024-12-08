@@ -11,24 +11,18 @@ import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/scale_down.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 
-class BagViewBody extends StatefulWidget {
-  const BagViewBody({super.key});
+// ignore: must_be_immutable
+class BagViewBody extends StatelessWidget {
+  BagViewBody({super.key});
 
-  @override
-  State<BagViewBody> createState() => _BagViewBodyState();
-}
-
-class _BagViewBodyState extends State<BagViewBody> {
   bool isLoading = false;
 
   @override
-  void initState() {
-    BlocProvider.of<MyBagCubit>(context).getMyProducts();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await BlocProvider.of<MyBagCubit>(context).getMyProducts();
+    });
+
     return BlocConsumer<MyBagCubit, MyBagState>(
       listener: (context, state) {
         if (state is MyBagLoading) {

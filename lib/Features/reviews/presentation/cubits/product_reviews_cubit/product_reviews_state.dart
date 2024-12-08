@@ -10,7 +10,7 @@ final class ProductReviewsLoading extends ProductReviewsState {}
 final class ProductReviewsSuccess extends ProductReviewsState {}
 
 final class ProductReviewsRefresh extends ProductReviewsState {
-  final List<ReviewModel> reviews;
+  final List<ProductReviewModel> reviews;
 
   ProductReviewsRefresh({required this.reviews});
 }

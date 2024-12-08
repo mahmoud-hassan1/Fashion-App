@@ -18,11 +18,7 @@ class ManageFavouritesCubit extends Cubit<ManageFavouritesState> {
   Future<void> addToFavourites(String productId) async {
     try {
       await addToFavouritesUseCase.call(UserModel.getInstance().uid, productId);
-      if (UserModel.getInstance().favourites != null) {
-        UserModel.getInstance().favourites!.add(productId);
-      } else {
-        UserModel.getInstance().favourites = [productId, productId];
-      }
+      UserModel.getInstance().favourites.add(productId);
       emit(ManageFavouritesSuccess(productId: productId));
     } catch (e) {
       emit(ManageFavouritesError(error: 'Failed to add to favourites: $e'));
@@ -32,7 +28,7 @@ class ManageFavouritesCubit extends Cubit<ManageFavouritesState> {
   Future<void> removeFromFavourites(String productId) async {
     try {
       await removeFromFavouritesUseCase.call(UserModel.getInstance().uid, productId);
-      UserModel.getInstance().favourites!.remove(productId);
+      UserModel.getInstance().favourites.remove(productId);
       emit(ManageFavouritesSuccess(productId: productId));
     } catch (e) {
       emit(ManageFavouritesError(error: 'Failed to remove from favourites: $e'));
@@ -40,13 +36,10 @@ class ManageFavouritesCubit extends Cubit<ManageFavouritesState> {
   }
 
   bool isFavourite({required String productId}) {
-    if (UserModel.getInstance().favourites != null) {
-      return UserModel.getInstance().favourites!.contains(productId);
-    } else {
-      return false;
-    }
+    return UserModel.getInstance().favourites.contains(productId);
   }
-  void emitState(){
+
+  void emitState() {
     emit(ManageFavouritesSuccess(productId: ""));
   }
 }
