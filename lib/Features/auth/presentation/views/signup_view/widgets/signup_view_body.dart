@@ -45,12 +45,13 @@ class SignupViewBody extends StatelessWidget {
         listener: (context, state) {
           if (state is AuthLoading) {
             isLoading = true;
+            return;
           } else if (state is AuthError) {
-            isLoading = false;
             snackBar(content: state.message, context: context);
           } else if (state is AuthAuthenticated) {
             isLoading = false;
             snackBar(color: Colors.green, content: "Verfication link sent to your email", context: context);
+
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -71,6 +72,7 @@ class SignupViewBody extends StatelessWidget {
               (Route<dynamic> route) => false,
             );
           }
+          isLoading = false;
         },
         builder: (context, state) {
           return SafeArea(

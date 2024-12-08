@@ -59,7 +59,7 @@ class AuthRepositoryImpl implements AuthRepository {
     if (user != null) {
       SignupModel signupModel = SignupModel(email: user.email!, name: name, dateOfBirth: dateOfBirth, uid: user.uid);
       await FirebaseFirestore.instance.collection('users').doc(user.uid).set(signupModel.toMap(), SetOptions(merge: true));
-      final userData = await UserRepoImpl(UserDataSource(FirebaseFirestore.instance)).getUserById();
+      final UserModel userData = await UserRepoImpl(UserDataSource(FirebaseFirestore.instance)).getUserById();
       UserModel.setInstance(userData);
       return UserClass(uid: user.uid, email: user.email!);
     }

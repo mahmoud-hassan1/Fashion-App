@@ -12,6 +12,9 @@ class SignupModel {
       'name': name,
       'dateOfBirth': dateOfBirth.toIso8601String(),
       'uid': uid,
+      'bag': [],
+      'favourites': [],
+      'orders': [],
     };
   }
 

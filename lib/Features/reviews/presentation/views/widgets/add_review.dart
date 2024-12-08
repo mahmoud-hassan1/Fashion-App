@@ -3,10 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/product/presentation/cubits/product_details_cubit/product_details_cubit.dart';
-import 'package:online_shopping/Features/reviews/data/models/review_model.dart';
+import 'package:online_shopping/Features/reviews/data/models/product_review_model.dart';
 import 'package:online_shopping/Features/reviews/presentation/cubits/product_reviews_cubit/product_reviews_cubit.dart';
 import 'package:online_shopping/Features/reviews/presentation/views/widgets/review_text_field.dart';
-import 'package:online_shopping/constants.dart';
 import 'package:online_shopping/core/models/user_model.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custtom_button.dart';
@@ -73,13 +72,13 @@ class AddReview extends StatelessWidget {
                     CustomButton(
                       onTap: () async {
                         if (controller.text.isNotEmpty) {
-                          final ReviewModel reviewModel = ReviewModel(
+                          final ProductReviewModel reviewModel = ProductReviewModel(
                             review: controller.text,
                             dateTime: DateTime.now(),
                             rate: rating,
                             userId: UserModel.getInstance().uid,
                             userName: UserModel.getInstance().name,
-                            profilePicture: UserModel.getInstance().profilePicturePath ?? defaultProfileImage,
+                            profilePicture: UserModel.getInstance().profilePicturePath,
                           );
                           await BlocProvider.of<ProductReviewsCubit>(context).createReview(product, reviewModel, product.id);
                           if (context.mounted) {

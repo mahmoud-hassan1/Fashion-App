@@ -31,7 +31,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   @override
   void initState() {
-    _fav = UserModel.getInstance().favourites!.contains(widget.product.id);
+    _fav = UserModel.getInstance().favourites.contains(widget.product.id);
     isLoading = false;
     super.initState();
   }
@@ -52,6 +52,9 @@ class _ProductDetailsState extends State<ProductDetails> {
             snackBar(content: state.message, context: context);
           } else if (state is ProductDetailsRefresh) {
             widget.product = state.product;
+          } else if (state is ProductDetailsAddedToCart) {
+            snackBar(content: "Product added to cart successfully", context: context);
+            Navigator.of(context).pop();
           }
           isLoading = false;
         },

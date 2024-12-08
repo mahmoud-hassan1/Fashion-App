@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:online_shopping/Features/reviews/data/models/review_model.dart';
+import 'package:online_shopping/Features/reviews/data/models/product_review_model.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 
 class ReviewItem extends StatelessWidget {
   const ReviewItem({super.key, required this.reviewModel});
 
-  final ReviewModel reviewModel;
+  final ProductReviewModel reviewModel;
 
   @override
   Widget build(BuildContext context) {

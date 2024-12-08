@@ -6,18 +6,18 @@ class UserModel {
   final String email;
   final String name;
   final String uid;
-  String? profilePicturePath;
-  List<String>? favourites;
-  List<String>? bag;
+  late String profilePicturePath;
+  late List<String> favourites;
+  late List<String> bag;
 
   UserModel({
     required this.dateOfBirth,
     required this.email,
     required this.name,
     required this.uid,
-    this.profilePicturePath,
-    this.favourites,
-    this.bag,
+    required this.profilePicturePath,
+    required this.favourites,
+    required this.bag,
   });
 
   @override
@@ -32,8 +32,8 @@ class UserModel {
       name: json['name'],
       uid: json['uid'],
       profilePicturePath: json['profilePicturePath'] ?? defaultProfileImage,
-      favourites: json['favourites'] != null ? List<String>.from(json['favourites']) : [],
-      bag: json['bag'] != null ? List<String>.from(json['bag']) : [],
+      favourites: List<String>.from(json['favourites']),
+      bag: List<String>.from(json['bag']),
     );
   }
 
@@ -44,6 +44,8 @@ class UserModel {
       name: '',
       uid: '',
       profilePicturePath: '',
+      favourites: [],
+      bag: [],
     );
   }
 
@@ -53,16 +55,8 @@ class UserModel {
         userModel.name == name &&
         userModel.uid == uid &&
         userModel.profilePicturePath == profilePicturePath &&
-        userModel.favourites == null &&
-        userModel.bag == null;
-  }
-
-  void setMyBagItems(dynamic json) {
-    bag = json != null ? List<String>.from(json) : null;
-  }
-
-  void setFavouritesItems(dynamic json) {
-    favourites = json != null ? List<String>.from(json) : null;
+        userModel.favourites.isEmpty &&
+        userModel.bag.isEmpty;
   }
 
   static UserModel getInstance() {
