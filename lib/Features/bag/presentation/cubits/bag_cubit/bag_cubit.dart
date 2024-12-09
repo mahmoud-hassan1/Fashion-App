@@ -1,41 +1,43 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:online_shopping/Features/bag/data/mappers/order_mapper.dart';
 import 'package:online_shopping/Features/bag/data/models/bag_item_model.dart';
+import 'package:online_shopping/Features/bag/data/models/order_item_model.dart';
 import 'package:online_shopping/Features/bag/domain/repo_interface/bag_repo.dart';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
 import 'package:online_shopping/core/models/user_model.dart';
 
-part 'my_bag_state.dart';
+part 'bag_state.dart';
 
 class MyBagCubit extends Cubit<MyBagState> {
   MyBagCubit({required this.repo}) : super(MyBagInitial());
 
   final BagRepo repo;
-  List<MyBagItemModel>? items;
+  late List<MyBagItemModel> bagItems;
 
   Future<void> getMyProducts() async {
     emit(MyBagLoading());
 
     try {
       List<ProductModel> products = await repo.getMyBagItems();
-      items = [];
-      for (var product in products) {
-        items!.add(MyBagItemModel(product: product));
+      bagItems = [];
+      for (ProductModel product in products) {
+        bagItems.add(MyBagItemModel(product: product));
       }
 
-      emit(MyBagDataReceieved());
+      emit(MyBagSuccessed(null, bagItems));
     } catch (e) {
       emit(MyBagFailed());
     }
   }
 
   double calculateTotalPrice() {
-    if (items == null) {
+    if (bagItems.isEmpty) {
       return 0.0;
     }
 
     double sum = 0;
-    for (MyBagItemModel ele in items!) {
+    for (MyBagItemModel ele in bagItems) {
       sum += ele.product.price * ele.quan;
     }
 
@@ -45,7 +47,7 @@ class MyBagCubit extends Cubit<MyBagState> {
   double updateTotalPrice() {
     emit(MyBagLoading());
     double sum = calculateTotalPrice();
-    emit(MyBagDataReceieved());
+    emit(MyBagSuccessed(null, bagItems));
 
     return sum;
   }
@@ -55,11 +57,11 @@ class MyBagCubit extends Cubit<MyBagState> {
 
     try {
       await repo.deleteFromBag(productId);
-      items?.removeWhere((ele) {
+      bagItems.removeWhere((ele) {
         return ele.product.id == productId;
       });
 
-      emit(MyBagDataReceieved());
+      emit(MyBagSuccessed(null, bagItems));
     } catch (_) {
       emit(MyBagFailed());
     }
@@ -70,12 +72,12 @@ class MyBagCubit extends Cubit<MyBagState> {
 
     try {
       if (UserModel.getInstance().favourites.contains(productId)) {
-        return emit(MyBagAlreadyInFavourites());
+        return emit(MyBagSuccessed("Product already in favourites", bagItems));
       }
 
       await repo.addToFavourites(productId);
 
-      emit(MyBagDataReceieved());
+      emit(MyBagSuccessed(null, bagItems));
     } catch (_) {
       emit(MyBagFailed());
     }
@@ -85,9 +87,14 @@ class MyBagCubit extends Cubit<MyBagState> {
     emit(MyBagLoading());
 
     try {
-      await repo.checkOut();
-      items = [];
-      emit(MyBagCheckOutDone());
+      List<OrderItemModel> orderItems = [];
+      for (var item in bagItems) {
+        orderItems.add(OrderMapper.toOrderItemModel(item));
+      }
+
+      await repo.checkOut(orderItems);
+      bagItems = [];
+      emit(MyBagSuccessed("Checkout done successfully", bagItems));
     } catch (_) {
       emit(MyBagFailed());
     }

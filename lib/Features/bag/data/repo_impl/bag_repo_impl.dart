@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:online_shopping/Features/bag/data/models/order_item_model.dart';
+import 'package:online_shopping/Features/bag/data/models/order_model.dart';
 import 'package:online_shopping/Features/bag/domain/repo_interface/bag_repo.dart';
 import 'package:online_shopping/Features/favourite/domain/repo_interface/favourite_repo.dart';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
@@ -25,10 +27,17 @@ class BagRepoImpl extends BagRepo {
   }
 
   @override
-  Future<void> checkOut() async {
+  Future<void> checkOut(List<OrderItemModel> items) async {
     if (user.bag.isNotEmpty) {
-      user.bag = [];
-      await FirebaseFirestore.instance.collection('users').doc(user.uid).update({'bag': []});
+      user.bag.clear();
+
+      OrderModel orderModel = OrderModel(items: items);
+      DocumentReference doc = FirebaseFirestore.instance.collection('users').doc(user.uid);
+
+      await doc.update({'bag': []});
+      await doc.update({
+        'orders': FieldValue.arrayUnion([orderModel.toMap()])
+      });
     }
   }
 
