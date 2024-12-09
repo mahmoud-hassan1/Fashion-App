@@ -19,10 +19,10 @@ class ProductItem extends StatelessWidget {
     return  Stack(
       children: [
         SizedBox(
-          height: 113.h,
+          height: 115.h,
         ),
         Container(
-          height: 100.h,
+          height: 110.h,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
           child: Row(
             children: [
@@ -61,7 +61,7 @@ class ProductItem extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
-                            SizedBox(width: 47.r)
+                            
                           ],
                         ),
                     Row(
