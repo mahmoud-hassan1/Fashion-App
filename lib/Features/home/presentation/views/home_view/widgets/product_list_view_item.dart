@@ -7,7 +7,7 @@ import 'package:online_shopping/Features/home/presentation/views/home_view/widge
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 
-import '../../../../../product/presentation/views/product_details_view/product_details.dart';
+import '../../../../../product_details/presentation/views/product_details_view/product_details.dart';
 
 class ProductListViewItem extends StatelessWidget {
   const ProductListViewItem({super.key, required this.product});

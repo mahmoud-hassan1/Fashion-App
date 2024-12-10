@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/favourite/presentation/cubits/manage_favourites/manage_favourites_cubit.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
-import 'package:online_shopping/Features/product/presentation/views/product_details_view/product_details.dart';
+import 'package:online_shopping/Features/product_details/presentation/views/product_details_view/product_details.dart';
 import 'package:online_shopping/Features/shop/presentation/views/widgets/product_item.dart';
 
 class ProductsScreenListView extends StatelessWidget {
