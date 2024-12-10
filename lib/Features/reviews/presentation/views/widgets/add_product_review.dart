@@ -5,14 +5,14 @@ import 'package:online_shopping/Features/home/domain/entities/product_entity.dar
 import 'package:online_shopping/Features/product_details/presentation/cubits/product_details_cubit/product_details_cubit.dart';
 import 'package:online_shopping/Features/reviews/data/models/product_review_model.dart';
 import 'package:online_shopping/Features/reviews/presentation/cubits/product_reviews_cubit/product_reviews_cubit.dart';
-import 'package:online_shopping/Features/reviews/presentation/views/widgets/review_text_field.dart';
+import 'package:online_shopping/core/widgets/review_text_field.dart';
 import 'package:online_shopping/core/models/user_model.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custtom_button.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 
-class AddReview extends StatelessWidget {
-  AddReview({super.key, required this.product});
+class AddProductReview extends StatelessWidget {
+  AddProductReview({super.key, required this.product});
 
   final TextEditingController controller = TextEditingController();
   final Product product;
