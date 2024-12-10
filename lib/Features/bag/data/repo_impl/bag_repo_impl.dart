@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:online_shopping/Features/bag/data/models/order_item_model.dart';
 import 'package:online_shopping/Features/bag/data/models/order_model.dart';
+import 'package:online_shopping/Features/bag/data/models/order_review_model.dart';
 import 'package:online_shopping/Features/bag/domain/repo_interface/bag_repo.dart';
 import 'package:online_shopping/Features/favourite/domain/repo_interface/favourite_repo.dart';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
@@ -71,5 +72,13 @@ class BagRepoImpl extends BagRepo {
       user.bag.remove(productUID);
       await FirebaseFirestore.instance.collection('users').doc(user.uid).update({'bag': user.bag});
     }
+  }
+
+  @override
+  Future<void> addReview(OrderReviewModel review) async {
+    DocumentReference doc = FirebaseFirestore.instance.collection('users').doc(user.uid);
+    List<dynamic> orders = (await doc.get()).get('orders');
+    orders.last['review'] = review.toMap();
+    await doc.update({'orders': orders});
   }
 }

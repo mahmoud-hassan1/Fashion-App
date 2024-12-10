@@ -95,6 +95,7 @@ class MyBagCubit extends Cubit<MyBagState> {
       await repo.checkOut(orderItems);
       bagItems = [];
       emit(MyBagSuccessed("Checkout done successfully", bagItems));
+      emit(MyBagGoToOrderReview());
     } catch (_) {
       emit(MyBagFailed());
     }

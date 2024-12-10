@@ -16,6 +16,7 @@ class OrderModel {
   Map<String, dynamic> toMap() {
     return {
       'items': items.map((OrderItemModel item) => item.toMap()).toList(),
+      'review': {},
     };
   }
 

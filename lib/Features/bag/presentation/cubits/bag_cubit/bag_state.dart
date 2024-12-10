@@ -7,6 +7,8 @@ final class MyBagInitial extends MyBagState {}
 
 final class MyBagLoading extends MyBagState {}
 
+final class MyBagGoToOrderReview extends MyBagState {}
+
 final class MyBagSuccessed extends MyBagState {
   final String? message;
   final List<MyBagItemModel> items;

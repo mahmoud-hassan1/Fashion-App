@@ -5,6 +5,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/custtom_button.dart';
 import 'package:online_shopping/Features/bag/presentation/cubits/bag_cubit/bag_cubit.dart';
 import 'package:online_shopping/Features/bag/presentation/views/widgets/bag_item.dart';
+import 'package:online_shopping/Features/bag/presentation/views/widgets/order_review_view.dart';
 import 'package:online_shopping/core/utiles/assets.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/scale_down.dart';
@@ -25,6 +26,10 @@ class BagViewBody extends StatelessWidget {
           state.message != null ? snackBar(content: state.message, context: context) : null;
         } else if (state is MyBagFailed) {
           snackBar(content: "Something went wrong", context: context);
+        } else if (state is MyBagGoToOrderReview) {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => OrderReviewView()),
+          );
         }
       },
       builder: (context, state) {
@@ -40,7 +45,7 @@ class BagViewBody extends StatelessWidget {
                 const SizedBox(height: 24),
                 if (state is MyBagFailed)
                   error(context)
-                else if (state is MyBagSuccessed && state.items.isEmpty)
+                else if ((state is MyBagSuccessed && state.items.isEmpty) || state is MyBagGoToOrderReview)
                   noThingToShow(context)
                 else if (state is MyBagSuccessed && state.items.isNotEmpty)
                   Expanded(
