@@ -96,7 +96,11 @@ class NavigationBarView extends StatelessWidget {
                 pageController.jumpToPage(index); // Update PageView
               },
             ),
+          
           ),
+          floatingActionButton:  FloatingActionButton(onPressed: (){
+            
+          }),
         ),
       ),
     );
