@@ -6,28 +6,26 @@ import 'package:online_shopping/Features/shop/presentation/views/widgets/product
 
 class ProductsScreenBody extends StatelessWidget {
   const ProductsScreenBody({super.key, this.products});
-  final List<Product>?products;
+  final List<Product>? products;
   @override
   Widget build(BuildContext context) {
-    return  Padding(
+    return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: products==null? BlocBuilder<ShopCubit, ShopState>(
-        builder: (context, state) {
-          if(state is ShopLoadedState){
-          return  ProductsScreenListView(products: state.products);
-          }
-          else if (state is ShopLoadingState){
-            return const Center(child: CircularProgressIndicator());
-          }
-          else if (state is ShopErrorState){
-            return Center(child: Text(state.message));
-          }
-          else{
-            return const Center(child: Text("SomeThing went Wrong"));
-          }
-        },
-      ): ProductsScreenListView(products: products!)
-          );
+      child: products == null
+          ? BlocBuilder<ShopCubit, ShopState>(
+              builder: (context, state) {
+                if (state is ShopLoadedState) {
+                  return ProductsScreenListView(products: state.products);
+                } else if (state is ShopLoadingState) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is ShopErrorState) {
+                  return Center(child: Text(state.message));
+                } else {
+                  return const Center(child: Text("SomeThing went Wrong"));
+                }
+              },
+            )
+          : ProductsScreenListView(products: products!),
+    );
   }
 }
-

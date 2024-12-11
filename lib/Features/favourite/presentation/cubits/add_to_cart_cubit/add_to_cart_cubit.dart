@@ -1,13 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:online_shopping/Features/bag/domain/repo_interface/bag_repo.dart';
+import 'package:online_shopping/Features/bag/domain/repo_interface/my_bag_repo.dart';
 
 part 'add_to_cart_state.dart';
 
 class AddToCartCubit extends Cubit<AddToCartState> {
   AddToCartCubit(this.bagRepo) : super(AddToCartInitial());
 
-  final BagRepo bagRepo;
+  final MyBagRepo bagRepo;
 
   Future<void> addToCart(String uid) async {
     try {

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart' hide CarouselController;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/add_product/presentation/views/add_product_view.dart';
-import 'package:online_shopping/Features/bag/data/repo_impl/bag_repo_impl.dart';
+import 'package:online_shopping/Features/bag/data/repo_impl/my_bag_repo_impl.dart';
 import 'package:online_shopping/Features/bag/presentation/cubits/my_bag_cubit/my_bag_cubit.dart';
 import 'package:online_shopping/Features/favourite/data/repo_impl/favourite_repo_impl.dart';
 import 'package:online_shopping/Features/favourite/domain/repo_interface/favourite_repo.dart';
@@ -17,7 +17,7 @@ import 'package:online_shopping/Features/home/presentation/cubits/newest_cubit/n
 import 'package:online_shopping/Features/home/presentation/cubits/sale_cubit/sale_cubit.dart';
 import 'package:online_shopping/Features/home/presentation/views/home_view/home_view.dart';
 import 'package:online_shopping/features/shop/presentation/views/shop_view.dart';
-import 'package:online_shopping/features/bag/presentation/views/bag_view.dart';
+import 'package:online_shopping/features/bag/presentation/views/my_bag_view.dart';
 import 'package:online_shopping/features/favourite/presentation/views/favourite_view.dart';
 import 'package:online_shopping/features/profile/presentation/views/profile_view.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
@@ -28,7 +28,7 @@ class NavigationBarView extends StatelessWidget {
   static  final List<Widget> _widgetOptions = <Widget>[
     const HomeView(),
      ShopView(),
-    const BagView(),
+    const MyBagView(),
     const FavouriteView(),
     const ProfileView(),
   ];
@@ -58,7 +58,7 @@ class NavigationBarView extends StatelessWidget {
         ),
      
         BlocProvider<MyBagCubit>(
-          create: (context) => MyBagCubit(repo: BagRepoImpl(FavouriteRepoImpl(firestore: FirebaseFirestore.instance))),
+          create: (context) => MyBagCubit(repo: MyBagRepoImpl(FavouriteRepoImpl(firestore: FirebaseFirestore.instance))),
         ),
       ],
       child: BlocBuilder<NavigationCubit, NavigationState>(
