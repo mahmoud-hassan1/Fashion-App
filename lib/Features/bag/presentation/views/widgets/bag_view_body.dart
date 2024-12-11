@@ -3,16 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/custtom_button.dart';
-import 'package:online_shopping/Features/bag/presentation/cubits/bag_cubit/bag_cubit.dart';
-import 'package:online_shopping/Features/bag/presentation/views/widgets/bag_item.dart';
-import 'package:online_shopping/Features/bag/presentation/views/widgets/order_review_view.dart';
+import 'package:online_shopping/Features/bag/data/models/bag_item_model.dart';
+import 'package:online_shopping/Features/bag/presentation/cubits/my_bag_cubit/my_bag_cubit.dart';
+import 'package:online_shopping/Features/bag/presentation/views/widgets/my_bag_item.dart';
 import 'package:online_shopping/core/utiles/assets.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/scale_down.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 
+// ignore: must_be_immutable
 class BagViewBody extends StatelessWidget {
-  const BagViewBody({super.key});
+  BagViewBody({super.key});
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -22,19 +25,20 @@ class BagViewBody extends StatelessWidget {
 
     return BlocConsumer<MyBagCubit, MyBagState>(
       listener: (context, state) {
-        if (state is MyBagSuccessed) {
-          state.message != null ? snackBar(content: state.message, context: context) : null;
-        } else if (state is MyBagFailed) {
-          snackBar(content: "Something went wrong", context: context);
-        } else if (state is MyBagGoToOrderReview) {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => OrderReviewView()),
-          );
+        if (state is MyBagLoading) {
+          isLoading = true;
+          return;
+        } else if (state is MyBagCheckOutDone) {
+          snackBar(content: "Checkout done successfully", context: context);
+        } else if (state is MyBagAlreadyInFavourites) {
+          snackBar(content: "Already in favourites", context: context);
         }
+        isLoading = false;
       },
       builder: (context, state) {
+        List<MyBagItemModel>? items = BlocProvider.of<MyBagCubit>(context).items;
         return ModalProgressHUD(
-          inAsyncCall: state is MyBagLoading,
+          inAsyncCall: isLoading,
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -43,11 +47,11 @@ class BagViewBody extends StatelessWidget {
                 const SizedBox(height: 24),
                 ScaleDown(child: Text("My Bag", style: Styles.kMediumTextStyle(context).copyWith(fontSize: 34))),
                 const SizedBox(height: 24),
-                if (state is MyBagFailed)
-                  error(context)
-                else if ((state is MyBagSuccessed && state.items.isEmpty) || state is MyBagGoToOrderReview)
+                if ((state is MyBagDataReceieved || state is MyBagCheckOutDone) && items!.isEmpty)
                   noThingToShow(context)
-                else if (state is MyBagSuccessed && state.items.isNotEmpty)
+                else if (state is MyBagFailed)
+                  error(context)
+                else if ((state is MyBagDataReceieved || state is MyBagAlreadyInFavourites) && items!.isNotEmpty)
                   Expanded(
                     flex: 6,
                     child: Column(
@@ -55,11 +59,11 @@ class BagViewBody extends StatelessWidget {
                         Expanded(
                           flex: 5,
                           child: ListView.builder(
-                            itemCount: state.items.length,
+                            itemCount: items.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Column(
                                 children: [
-                                  MyBagItem(myBagItemModel: state.items[index]),
+                                  MyBagItem(myBagItemModel: items[index]),
                                   const SizedBox(height: 12),
                                 ],
                               );
@@ -90,7 +94,7 @@ class BagViewBody extends StatelessWidget {
                               height: 600,
                               label: "CHECK OUT",
                               onTap: () async {
-                                await BlocProvider.of<MyBagCubit>(context).checkOut();
+                                BlocProvider.of<MyBagCubit>(context).checkOut();
                               },
                             ),
                           ],
