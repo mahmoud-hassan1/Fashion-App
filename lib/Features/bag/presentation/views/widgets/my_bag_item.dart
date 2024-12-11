@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_shopping/Features/bag/data/models/bag_item_model.dart';
+import 'package:online_shopping/Features/bag/data/models/my_bag_item_model.dart';
 import 'package:online_shopping/Features/bag/presentation/cubits/my_bag_cubit/my_bag_cubit.dart';
 import 'package:online_shopping/Features/bag/presentation/views/widgets/quantity_picker.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
