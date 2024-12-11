@@ -10,13 +10,13 @@ class ProductModel {
   final String sellerId;
   final int stock;
   final double price;
-  final String image;
+   String image;
   final List<String> categories;
   final DateTime date;
   final String subtitle;
   final List<ProductReviewModel> reviews;
-
-  ProductModel({
+   List<String> images;
+  ProductModel( {
     required this.id,
     required this.name,
     required this.description,
@@ -29,6 +29,7 @@ class ProductModel {
     required this.date,
     required this.subtitle,
     required this.reviews,
+    required this.images,
   });
 
   factory ProductModel.fromJson(dynamic json, String id) {
@@ -52,6 +53,7 @@ class ProductModel {
       date: (json['date'] as Timestamp).toDate(),
       subtitle: json['subtitle'],
       reviews: reviewModels,
+      images: json['images']?? [],
     );
   }
 
@@ -71,6 +73,7 @@ class ProductModel {
       'reviews': List.generate(reviews.length, (int index) {
         return reviews[index].toMap();
       }),
+      'images': images,
     };
   }
 
