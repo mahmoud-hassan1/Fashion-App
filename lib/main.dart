@@ -10,7 +10,7 @@ import 'package:online_shopping/Features/favourite/data/repo_impl/favourite_repo
 import 'package:online_shopping/Features/favourite/domain/use_cases/add_to_favourites.dart';
 import 'package:online_shopping/Features/favourite/domain/use_cases/remove_from_favourites.dart';
 import 'package:online_shopping/Features/favourite/presentation/cubits/manage_favourites/manage_favourites_cubit.dart';
-import 'package:online_shopping/Features/product/presentation/cubits/product_details_cubit/product_details_cubit.dart';
+import 'package:online_shopping/Features/product_details/presentation/cubits/product_details_cubit/product_details_cubit.dart';
 import 'package:online_shopping/Features/reviews/data/repo_impl/product_reviews_repo_impl.dart';
 import 'package:online_shopping/Features/reviews/presentation/cubits/product_reviews_cubit/product_reviews_cubit.dart';
 import 'package:online_shopping/Features/shop/data/data_source/shop_data_source.dart';

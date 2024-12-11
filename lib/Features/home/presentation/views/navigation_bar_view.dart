@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart' hide CarouselController;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_shopping/Features/add_product/presentation/views/add_product_view.dart';
 import 'package:online_shopping/Features/bag/data/repo_impl/bag_repo_impl.dart';
-import 'package:online_shopping/Features/bag/presentation/cubits/my_bag_cubit/my_bag_cubit.dart';
+import 'package:online_shopping/Features/bag/presentation/cubits/bag_cubit/bag_cubit.dart';
 import 'package:online_shopping/Features/favourite/data/repo_impl/favourite_repo_impl.dart';
 import 'package:online_shopping/Features/favourite/domain/repo_interface/favourite_repo.dart';
 import 'package:online_shopping/Features/favourite/domain/use_cases/get_favourites_poducts.dart';
@@ -96,7 +97,11 @@ class NavigationBarView extends StatelessWidget {
                 pageController.jumpToPage(index); // Update PageView
               },
             ),
+          
           ),
+          floatingActionButton:  FloatingActionButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const AddProductView(),));
+          }),
         ),
       ),
     );
