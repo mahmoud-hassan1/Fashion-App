@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:online_shopping/Features/bag/data/repo_impl/bag_repo_impl.dart';
+import 'package:online_shopping/Features/bag/data/repo_impl/my_bag_repo_impl.dart';
 import 'package:online_shopping/Features/favourite/data/repo_impl/favourite_repo_impl.dart';
 import 'package:online_shopping/Features/favourite/domain/use_cases/add_to_favourites.dart';
 import 'package:online_shopping/Features/favourite/domain/use_cases/remove_from_favourites.dart';
@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => ProductDetailsCubit(
-              BagRepoImpl(FavouriteRepoImpl(firestore: FirebaseFirestore.instance)),
+              MyBagRepoImpl(FavouriteRepoImpl(firestore: FirebaseFirestore.instance)),
               ProductReviewsRepoImpl(),
             ),
           ),

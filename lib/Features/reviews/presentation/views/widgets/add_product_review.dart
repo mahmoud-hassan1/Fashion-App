@@ -11,8 +11,8 @@ import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custtom_button.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 
-class AddReview extends StatelessWidget {
-  AddReview({super.key, required this.product});
+class AddProductReview extends StatelessWidget {
+  AddProductReview({super.key, required this.product});
 
   final TextEditingController controller = TextEditingController();
   final Product product;
