@@ -52,7 +52,10 @@ class ProductReviewsViewBody extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) {
                           return Column(
                             children: [
-                              ReviewItem(reviewModel: product.reviews[index]),
+                              Padding(
+                                padding: const EdgeInsets.all(18),
+                                child: ReviewItem(reviewModel: product.reviews[index]),
+                              ),
                               const SizedBox(height: 15),
                             ],
                           );

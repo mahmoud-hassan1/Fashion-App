@@ -32,7 +32,7 @@ class MyBagRepoImpl extends MyBagRepo {
     if (user.bag.isNotEmpty) {
       user.bag.clear();
 
-      OrderModel orderModel = OrderModel(items: items);
+      OrderModel orderModel = OrderModel(items: items, date: DateTime.now());
       DocumentReference doc = FirebaseFirestore.instance.collection('users').doc(user.uid);
 
       await doc.update({'bag': []});
