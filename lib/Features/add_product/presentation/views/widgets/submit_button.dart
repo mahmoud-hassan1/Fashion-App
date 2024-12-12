@@ -43,6 +43,12 @@ final TextEditingController _discountController;
                   context: context);
               return;
             }
+            if(_selectedCategories.isEmpty){
+                snackBar(
+                  content: "Please add at least one Category.",
+                  context: context);
+              return;
+            }
             ProductModel product = ProductModel(
               name: _nameController.text,
               subtitle: _subtitleController.text,
