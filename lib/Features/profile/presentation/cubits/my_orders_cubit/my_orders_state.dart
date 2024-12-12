@@ -7,10 +7,16 @@ final class MyOrdersInitial extends MyOrdersState {}
 
 final class MyOrdersLoading extends MyOrdersState {}
 
-final class MyOrdersSuccess extends MyOrdersState {
+final class MyOrdersUserSuccess extends MyOrdersState {
+  final List<OrderModel> orders;
+
+  MyOrdersUserSuccess(this.orders);
+}
+
+final class MyOrdersAdminSuccess extends MyOrdersState {
   final List<SpecificOrderModel> orders;
 
-  MyOrdersSuccess(this.orders);
+  MyOrdersAdminSuccess(this.orders);
 }
 
 final class MyOrdersFailed extends MyOrdersState {}

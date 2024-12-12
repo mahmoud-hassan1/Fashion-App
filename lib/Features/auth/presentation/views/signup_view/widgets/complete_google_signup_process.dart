@@ -6,8 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:online_shopping/Features/auth/data/repo_impl/auth_repo_imp.dart';
 import 'package:online_shopping/Features/auth/presentation/cubits/auth_cubit/auth_cubit.dart';
-import 'package:online_shopping/Features/auth/presentation/views/signup_view/widgets/date_of_birth.dart';
+import 'package:online_shopping/Features/auth/presentation/views/signup_view/widgets/date_text_field.dart';
 import 'package:online_shopping/Features/home/presentation/views/navigation_bar_view.dart';
+import 'package:online_shopping/core/utiles/is_same_day.dart';
 import 'package:online_shopping/core/widgets/custtom_button.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custtom_text_field.dart';
@@ -20,8 +21,7 @@ class CompleteGoogleSignupProcess extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
   final OAuthCredential oAuthCredential;
   bool isLoading = false;
-  final DateTime initDateTime = DateTime(1000);
-  DateTime dateTime = DateTime(1000);
+  DateTime dateTime = DateTime.now();
   GlobalKey<FormState> keyForm = GlobalKey();
 
   @override
@@ -81,7 +81,8 @@ class CompleteGoogleSignupProcess extends StatelessWidget {
                             expand: false,
                           ),
                           const SizedBox(height: 8),
-                          DateOfBirth(
+                          DateTextField(
+                            label: 'Date of Birth',
                             dateTime: dateTime,
                             onChanged: (date) => dateTime = date,
                           ),
@@ -107,7 +108,7 @@ class CompleteGoogleSignupProcess extends StatelessWidget {
 
   void ontapSignUp(context) {
     debugPrint("sssssssssssssssssss");
-    if (dateTime.isAtSameMomentAs(initDateTime)) {
+    if (isSameDay(dateTime, DateTime.now())) {
       snackBar(content: "Please select date of birth", context: context);
       return;
     }

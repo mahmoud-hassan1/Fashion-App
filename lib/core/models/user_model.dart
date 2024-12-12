@@ -9,7 +9,8 @@ class UserModel {
   late String profilePicturePath;
   late List<String> favourites;
   late List<String> bag;
-  final String role;
+  final Role role;
+
   UserModel({
     required this.dateOfBirth,
     required this.email,
@@ -18,7 +19,7 @@ class UserModel {
     required this.profilePicturePath,
     required this.favourites,
     required this.bag,
-     required this.role
+    required this.role,
   });
 
   @override
@@ -35,8 +36,21 @@ class UserModel {
       profilePicturePath: json['profilePicturePath'] ?? defaultProfileImage,
       favourites: List<String>.from(json['favourites']),
       bag: List<String>.from(json['bag']),
-      role: json['role']?? 'user',
+      role: Role.getRole(json['role'] ?? Role.user.value),
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'uid': uid,
+      'name': name,
+      'email': email,
+      'dateOfBirth': dateOfBirth,
+      'profilePicturePath': profilePicturePath,
+      'favourites': favourites.map((e) => e).toList(),
+      'bag': bag.map((e) => e).toList(),
+      'role': role.value,
+    };
   }
 
   factory UserModel.init() {
@@ -48,7 +62,7 @@ class UserModel {
       profilePicturePath: '',
       favourites: [],
       bag: [],
-      role: ''
+      role: Role.user,
     );
   }
 
@@ -59,14 +73,32 @@ class UserModel {
         userModel.uid == uid &&
         userModel.profilePicturePath == profilePicturePath &&
         userModel.favourites.isEmpty &&
-        userModel.bag.isEmpty;
+        userModel.bag.isEmpty &&
+        userModel.role == role;
   }
 
   static UserModel getInstance() {
     return _instance ??= UserModel.init();
   }
 
-  static void setInstance(UserModel model) {
+  static void setInstance(UserModel? model) {
     _instance = model;
   }
+}
+
+enum Role {
+  user("user"),
+  admin("admin");
+
+  final String value;
+
+  static Role getRole(String role) {
+    if (role == Role.user.value) {
+      return Role.user;
+    } else {
+      return Role.admin;
+    }
+  }
+
+  const Role(this.value);
 }

@@ -4,6 +4,10 @@ import 'package:online_shopping/Features/profile/data/models/specific_orders_mod
 abstract class ProfileRepo {
   Future<void> updateProfileImage();
   Future<void> deleteProfileImage();
-  Future<List<OrderModel>> getMyTodayOrders();
+  Future<List<OrderModel>> getMyTodayOrders(DateTime date);
   Future<List<SpecificOrderModel>> getMyOrdersOnSpecificDate(DateTime date);
+  Future<void> saveUserChanges(String name, DateTime dateOfBirth);
+  Future<void> savePassword(String newPassword);
+  Future<void> logout();
+  Future<void> deleteAccount();
 }
