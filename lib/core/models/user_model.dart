@@ -9,7 +9,7 @@ class UserModel {
   late String profilePicturePath;
   late List<String> favourites;
   late List<String> bag;
-
+  final String role;
   UserModel({
     required this.dateOfBirth,
     required this.email,
@@ -18,6 +18,7 @@ class UserModel {
     required this.profilePicturePath,
     required this.favourites,
     required this.bag,
+     required this.role
   });
 
   @override
@@ -34,6 +35,7 @@ class UserModel {
       profilePicturePath: json['profilePicturePath'] ?? defaultProfileImage,
       favourites: List<String>.from(json['favourites']),
       bag: List<String>.from(json['bag']),
+      role: json['role']?? 'user',
     );
   }
 
@@ -46,6 +48,7 @@ class UserModel {
       profilePicturePath: '',
       favourites: [],
       bag: [],
+      role: ''
     );
   }
 

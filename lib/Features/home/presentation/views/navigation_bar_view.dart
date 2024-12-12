@@ -16,6 +16,7 @@ import 'package:online_shopping/Features/home/presentation/cubits/navigation_cub
 import 'package:online_shopping/Features/home/presentation/cubits/newest_cubit/newest_cubit.dart';
 import 'package:online_shopping/Features/home/presentation/cubits/sale_cubit/sale_cubit.dart';
 import 'package:online_shopping/Features/home/presentation/views/home_view/home_view.dart';
+import 'package:online_shopping/core/models/user_model.dart';
 import 'package:online_shopping/features/shop/presentation/views/shop_view.dart';
 import 'package:online_shopping/features/bag/presentation/views/my_bag_view.dart';
 import 'package:online_shopping/features/favourite/presentation/views/favourite_view.dart';
@@ -99,9 +100,11 @@ class NavigationBarView extends StatelessWidget {
             ),
           
           ),
-          floatingActionButton:  FloatingActionButton(onPressed: (){
+          floatingActionButton: UserModel.getInstance().role =='admin'? FloatingActionButton(onPressed: (){
             Navigator.push(context, MaterialPageRoute(builder: (context) => const AddProductView(),));
-          }),
+          },
+          child: const Icon(Icons.add),
+          ):const SizedBox(),
         ),
       ),
     );
