@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:online_shopping/core/widgets/custtom_text_field.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:online_shopping/Features/add_product/presentation/manger/manage_products/manage_products_cubit.dart';
+import 'package:online_shopping/Features/add_product/presentation/views/widgets/categories_gridview.dart';
+import 'package:online_shopping/Features/add_product/presentation/views/widgets/image_selector.dart';
+import 'package:online_shopping/Features/add_product/presentation/views/widgets/submit_button.dart';
+import 'package:online_shopping/Features/add_product/presentation/views/widgets/text_input_section.dart';
+import 'package:online_shopping/Features/home/presentation/views/navigation_bar_view.dart';
+import 'package:online_shopping/core/widgets/snackbar.dart';
+import 'dart:io';
 
 class AddProductBody extends StatefulWidget {
   const AddProductBody({super.key});
@@ -14,7 +23,13 @@ class _AddProductBodyState extends State<AddProductBody> {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _stockController = TextEditingController();
+  final TextEditingController _discountController = TextEditingController();
+  final TextEditingController _priceAfterDiscountController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final ValueNotifier<List<File>> _selectedImages =
+      ValueNotifier<List<File>>([]);
+
+  final Set<String> _selectedCategories = {};
 
   @override
   void dispose() {
@@ -23,128 +38,85 @@ class _AddProductBodyState extends State<AddProductBody> {
     _descriptionController.dispose();
     _priceController.dispose();
     _stockController.dispose();
+    _selectedImages.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        const SliverAppBar(
-          title: Text('Add Product'),
-        ),
-        SliverList(
-          delegate: SliverChildListDelegate([
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    CustomTextField(
-                      label: "Name",
-                      controller: _nameController,
-                      prefixIcon: const Icon(Icons.edit),
-                       validate: true,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter product name';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    CustomTextField(
-                      label: "Subtitle",
-                      controller: _subtitleController,
-                       validate: true,
-                      prefixIcon: const Icon(Icons.short_text),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter product subtitle';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    CustomTextField(
-                      label: "Description",
-                      controller: _descriptionController,
-                      prefixIcon: const Icon(Icons.description_outlined),
-                      expand: true,
-                      validate: true,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter product description';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    CustomTextField(
-                      label: "Price",
-                      controller: _priceController,
-                      prefixIcon: const Icon(Icons.attach_money),
-                       validate: true,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter product price';
-                        }
-                        if (double.tryParse(value) == null) {
-                          return 'Please enter a valid number';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    CustomTextField(
-                      label: "Stock",
-                      controller: _stockController,
-                      prefixIcon: const Icon(Icons.inventory_2_outlined),
-                      validate: true,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter stock quantity';
-                        }
-                        if (int.tryParse(value) == null) {
-                          return 'Please enter a valid number';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 24),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            // Form is valid, proceed with adding product
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).primaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+    return BlocConsumer<ManageProductsCubit, ManageProductsState>(
+      listener: (context, state) {
+        if (state is AddProductsFailed) {
+          snackBar(
+            content: Text(state.error),
+            context: context,
+          );
+        } else if (state is AddProductsSucsses) {
+          snackBar(
+              content: 'Product added successfully',
+              context: context,
+              color: Colors.green);
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const NavigationBarView(),
+              ));
+        }
+      },
+      builder: (context, state) {
+        return ModalProgressHUD(
+          inAsyncCall: state is AddProductsLoading,
+          child: CustomScrollView(
+            slivers: [
+              const SliverAppBar(
+                title: Text('Add Product'),
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          TextInputSection(
+                              nameController: _nameController,
+                              subtitleController: _subtitleController,
+                              descriptionController: _descriptionController,
+                              priceController: _priceController,
+                              stockController: _stockController,
+                              discountController: _discountController,
+                              priceAfterDiscountController: _priceAfterDiscountController,
+                              ),
+                          CategoriesGridview(
+                              selectedCategories: _selectedCategories),
+                          const SizedBox(
+                            height: 16,
                           ),
-                        ),
-                        child: const Text(
-                          'Add Product',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
+                          ImageSelector(selectedImages: _selectedImages),
+                          const SizedBox(height: 24),
+                          SubmitEditsButton(
+                              formKey: _formKey,
+                              selectedImages: _selectedImages,
+                              nameController: _nameController,
+                              subtitleController: _subtitleController,
+                              descriptionController: _descriptionController,
+                              priceController: _priceController,
+                              stockController: _stockController,
+                              selectedCategories: _selectedCategories,
+                              discountController:_discountController ,
+                              priceAfterDiscountController: _priceAfterDiscountController,
+                              ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ]),
               ),
-            ),
-          ]),
-        ),
-      ],
+            ],
+          ),
+        );
+      },
     );
   }
 }

@@ -53,7 +53,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           } else if (state is ProductDetailsRefresh) {
             widget.product = state.product;
           } else if (state is ProductDetailsAddedToCart) {
-            snackBar(content: "Product added to cart successfully", context: context);
+            snackBar(content: "Product added to cart successfully", context: context,color: Colors.green);
             Navigator.of(context).pop();
           }
           isLoading = false;
