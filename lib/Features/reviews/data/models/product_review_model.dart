@@ -1,4 +1,4 @@
-class ProductReviewModel {
+class ReviewModel {
   final String review;
   final DateTime dateTime;
   final int rate;
@@ -6,7 +6,7 @@ class ProductReviewModel {
   final String profilePicture;
   final String userId;
 
-  const ProductReviewModel({
+  const ReviewModel({
     required this.review,
     required this.dateTime,
     required this.rate,
@@ -15,8 +15,8 @@ class ProductReviewModel {
     required this.userId,
   });
 
-  factory ProductReviewModel.fromJson(dynamic json) {
-    return ProductReviewModel(
+  factory ReviewModel.fromJson(dynamic json) {
+    return ReviewModel(
       review: json['review'],
       dateTime: DateTime.parse(json['dateTime']),
       rate: json['rate'],

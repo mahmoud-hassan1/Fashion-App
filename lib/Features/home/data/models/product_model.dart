@@ -10,15 +10,13 @@ class ProductModel {
   final String sellerId;
   final int stock;
   final double price;
-  final double priceBeforeDiscount;
-   String image;
+  final String image;
   final List<String> categories;
   final DateTime date;
   final String subtitle;
-  final List<ProductReviewModel> reviews;
-  final double discount;
-   List<String> images;
-  ProductModel(  {
+  final List<ReviewModel> reviews;
+
+  ProductModel({
     required this.id,
     required this.name,
     required this.description,
@@ -31,16 +29,13 @@ class ProductModel {
     required this.date,
     required this.subtitle,
     required this.reviews,
-    required this.images,
-    required this.priceBeforeDiscount,
-    required this.discount,
   });
 
   factory ProductModel.fromJson(dynamic json, String id) {
-    List<ProductReviewModel> reviewModels = json['reviews'] != null
+    List<ReviewModel> reviewModels = json['reviews'] != null
         ? List.generate(
             json['reviews'].length,
-            (int index) => ProductReviewModel.fromJson(json['reviews'][index]),
+            (int index) => ReviewModel.fromJson(json['reviews'][index]),
           )
         : [];
 
@@ -57,14 +52,12 @@ class ProductModel {
       date: (json['date'] as Timestamp).toDate(),
       subtitle: json['subtitle'],
       reviews: reviewModels,
-   images: (json['images'] as List<dynamic>?)?.cast<String>() ?? [],
-    priceBeforeDiscount: (json['priceBeforeDiscount']??0 as num).toDouble(),
-    discount: (json['discount']??0 as num).toDouble(),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'name': name,
       'description': description,
       'rate': rate,
@@ -73,14 +66,11 @@ class ProductModel {
       'price': price,
       'image': image,
       'categories': categories,
-      'date': date,
+      'date': date.toIso8601String(),
       'subtitle': subtitle,
       'reviews': List.generate(reviews.length, (int index) {
         return reviews[index].toMap();
       }),
-      'images': images,
-      'priceBeforeDiscount': priceBeforeDiscount,
-      'discount':discount
     };
   }
 
@@ -100,13 +90,13 @@ class ProductModel {
     );
   }
 
-  static double getRate(List<ProductReviewModel> reviewModels) {
+  static double getRate(List<ReviewModel> reviewModels) {
     if (reviewModels.isEmpty) {
       return 0;
     }
 
     double sum = 0;
-    for (ProductReviewModel review in reviewModels) {
+    for (ReviewModel review in reviewModels) {
       sum += review.rate;
     }
     sum /= reviewModels.length;

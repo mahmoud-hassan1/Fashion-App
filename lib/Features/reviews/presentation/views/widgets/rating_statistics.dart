@@ -56,10 +56,10 @@ class RatingStatistics extends StatelessWidget {
     );
   }
 
-  int getNumOfReviews(List<ProductReviewModel> reviews, int stars) {
+  int getNumOfReviews(List<ReviewModel> reviews, int stars) {
     int sum = 0;
 
-    for (ProductReviewModel review in reviews) {
+    for (ReviewModel review in reviews) {
       if (review.rate == stars) {
         sum++;
       }

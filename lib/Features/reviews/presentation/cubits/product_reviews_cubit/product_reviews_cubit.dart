@@ -12,7 +12,7 @@ class ProductReviewsCubit extends Cubit<ProductReviewsState> {
 
   final ProductReviewsRepo reviewsRepo;
 
-  Future<void> createReview(Product product, ProductReviewModel reviewModel, String productId) async {
+  Future<void> createReview(Product product, ReviewModel reviewModel, String productId) async {
     emit(ProductReviewsLoading());
     try {
       if (reviewsRepo.checkUserExistance(product, UserModel.getInstance().uid)) {

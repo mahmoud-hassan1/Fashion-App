@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:online_shopping/Features/reviews/data/models/product_review_model.dart';
+import 'package:online_shopping/core/utiles/get_date.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 
 class ReviewItem extends StatelessWidget {
   const ReviewItem({super.key, required this.reviewModel});
 
-  final ProductReviewModel reviewModel;
+  final ReviewModel reviewModel;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       clipBehavior: Clip.hardEdge,
-      padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -58,7 +59,7 @@ class ReviewItem extends StatelessWidget {
               ),
               const Expanded(child: SizedBox(width: 10)),
               Text(
-                "${reviewModel.dateTime.day}/${reviewModel.dateTime.month}/${reviewModel.dateTime.year}",
+                getDate(reviewModel.dateTime),
                 style: Styles.kFontSize14(context).copyWith(color: Colors.grey),
               ),
             ],

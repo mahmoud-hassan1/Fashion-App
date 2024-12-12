@@ -20,7 +20,7 @@ class OrderItemModel {
   factory OrderItemModel.fromJson(dynamic json) {
     return OrderItemModel(
       productId: json['productId'],
-      price: json['price'],
+      price: json['price'].toDouble(),
       quantity: json['quantity'],
     );
   }

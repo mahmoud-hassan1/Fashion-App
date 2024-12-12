@@ -2,6 +2,10 @@
 class Assets {
   Assets._();
   
+  /// Assets for animationsEmptyAnimation
+  /// assets/animations/Empty_Animation.json
+  static const String animationsEmptyAnimation = "assets/animations/Empty_Animation.json";
+
   /// Assets for icons7123025LogoGoogleGIcon
   /// assets/icons/7123025_logo_google_g_icon.svg
   static const String icons7123025LogoGoogleGIcon = "assets/icons/7123025_logo_google_g_icon.svg";
@@ -13,9 +17,6 @@ class Assets {
   /// Assets for iconsGoogle
   /// assets/icons/google.svg
   static const String iconsGoogle = "assets/icons/google.svg";
-  static const String productDetails1 = "assets/images/shortyDress.png";
-
-
 
   /// Assets for imagesAccesories
   /// assets/images/Accesories.png
@@ -25,9 +26,29 @@ class Assets {
   /// assets/images/Clothes.png
   static const String imagesClothes = "assets/images/Clothes.png";
 
+  /// Assets for imagesDefaultProfileImage
+  /// assets/images/DefaultProfileImage.jpeg
+  static const String imagesDefaultProfileImage = "assets/images/DefaultProfileImage.jpeg";
+
   /// Assets for imagesItem
   /// assets/images/item.png
   static const String imagesItem = "assets/images/item.png";
+
+  /// Assets for imagesKidsAcc
+  /// assets/images/kids_acc.jpg
+  static const String imagesKidsAcc = "assets/images/kids_acc.jpg";
+
+  /// Assets for imagesKidsClothes
+  /// assets/images/kids_clothes.jpg
+  static const String imagesKidsClothes = "assets/images/kids_clothes.jpg";
+
+  /// Assets for imagesKidsNew
+  /// assets/images/kids_new.jpg
+  static const String imagesKidsNew = "assets/images/kids_new.jpg";
+
+  /// Assets for imagesKidsShoes
+  /// assets/images/kids_shoes.png
+  static const String imagesKidsShoes = "assets/images/kids_shoes.png";
 
   /// Assets for imagesLogo
   /// assets/images/logo.png
@@ -36,6 +57,22 @@ class Assets {
   /// Assets for imagesLogo1
   /// assets/images/logo1.svg
   static const String imagesLogo1 = "assets/images/logo1.svg";
+
+  /// Assets for imagesMenNew
+  /// assets/images/men_new.png
+  static const String imagesMenNew = "assets/images/men_new.png";
+
+  /// Assets for imagesMensAcc
+  /// assets/images/mens_acc.jpg
+  static const String imagesMensAcc = "assets/images/mens_acc.jpg";
+
+  /// Assets for imagesMensClothes
+  /// assets/images/mens_clothes.jpg
+  static const String imagesMensClothes = "assets/images/mens_clothes.jpg";
+
+  /// Assets for imagesMensShoes
+  /// assets/images/mens_shoes.png
+  static const String imagesMensShoes = "assets/images/mens_shoes.png";
 
   /// Assets for imagesNew
   /// assets/images/New.png
@@ -52,8 +89,9 @@ class Assets {
   /// Assets for imagesShoes
   /// assets/images/Shoes.png
   static const String imagesShoes = "assets/images/Shoes.png";
-  /// Assets for animations
-  /// assets/animations/empty_animation.svg
-  static const String animationsEmptyAnimation = "assets/animations/Empty_Animation.json";
+
+  /// Assets for imagesShortyDress
+  /// assets/images/shortyDress.png
+  static const String imagesShortyDress = "assets/images/shortyDress.png";
 }
 

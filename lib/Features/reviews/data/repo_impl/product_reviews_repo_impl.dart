@@ -7,7 +7,7 @@ import 'package:online_shopping/core/models/user_model.dart';
 
 class ProductReviewsRepoImpl extends ProductReviewsRepo {
   @override
-  Future<bool> createReview(Product product, ProductReviewModel newReview, String productId) async {
+  Future<bool> createReview(Product product, ReviewModel newReview, String productId) async {
     bool isExist = checkUserExistance(product, UserModel.getInstance().uid);
 
     if (!isExist) {
@@ -27,7 +27,7 @@ class ProductReviewsRepoImpl extends ProductReviewsRepo {
 
   @override
   bool checkUserExistance(Product product, String userId) {
-    for (ProductReviewModel review in product.reviews) {
+    for (ReviewModel review in product.reviews) {
       if (review.userId == userId) {
         return true;
       }

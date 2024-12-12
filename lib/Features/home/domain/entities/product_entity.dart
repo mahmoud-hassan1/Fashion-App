@@ -11,7 +11,7 @@ class Product {
   final String image;
   final List<String> categories;
   final String subtitle;
-  final List<ProductReviewModel> reviews;
+  final List<ReviewModel> reviews;
 
   Product({
     required this.id,

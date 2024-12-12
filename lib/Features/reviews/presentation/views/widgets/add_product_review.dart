@@ -72,7 +72,7 @@ class AddProductReview extends StatelessWidget {
                     CustomButton(
                       onTap: () async {
                         if (controller.text.isNotEmpty) {
-                          final ProductReviewModel reviewModel = ProductReviewModel(
+                          final ReviewModel reviewModel = ReviewModel(
                             review: controller.text,
                             dateTime: DateTime.now(),
                             rate: rating,
