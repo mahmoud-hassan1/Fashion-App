@@ -6,6 +6,7 @@ import 'package:online_shopping/Features/add_product/presentation/views/widgets/
 import 'package:online_shopping/Features/add_product/presentation/views/widgets/image_selector.dart';
 import 'package:online_shopping/Features/add_product/presentation/views/widgets/submit_button.dart';
 import 'package:online_shopping/Features/add_product/presentation/views/widgets/text_input_section.dart';
+import 'package:online_shopping/Features/home/data/models/product_model.dart';
 import 'package:online_shopping/Features/home/presentation/views/navigation_bar_view.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 import 'dart:io';
@@ -24,7 +25,8 @@ class _AddProductBodyState extends State<AddProductBody> {
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _stockController = TextEditingController();
   final TextEditingController _discountController = TextEditingController();
-  final TextEditingController _priceAfterDiscountController = TextEditingController();
+  final TextEditingController _priceAfterDiscountController =
+      TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final ValueNotifier<List<File>> _selectedImages =
       ValueNotifier<List<File>>([]);
@@ -40,6 +42,40 @@ class _AddProductBodyState extends State<AddProductBody> {
     _stockController.dispose();
     _selectedImages.dispose();
     super.dispose();
+  }
+
+  void _addProduct() async {
+    if (_formKey.currentState!.validate()) {
+      if (_selectedImages.value.isEmpty) {
+        snackBar(content: "Please add at least one image.", context: context);
+        return;
+      }
+      if (_selectedCategories.isEmpty) {
+        snackBar(
+            content: "Please add at least one Category.", context: context);
+        return;
+      }
+      ProductModel product = ProductModel(
+          name: _nameController.text,
+          subtitle: _subtitleController.text,
+          description: _descriptionController.text,
+          priceBeforeDiscount: double.parse(_priceController.text),
+          price: double.parse(_priceAfterDiscountController.text),
+          stock: int.parse(_stockController.text),
+          images: [],
+          id: '',
+          rate: 0,
+          sellerId: '',
+          image: '',
+          categories: _selectedCategories
+              .map((category) => category.toLowerCase())
+              .toList(),
+          date: DateTime.now(),
+          reviews: [],
+          discount: double.parse(_discountController.text) / 100);
+      await BlocProvider.of<ManageProductsCubit>(context)
+          .addProduct(product: product, selectedImages: _selectedImages.value);
+    }
   }
 
   @override
@@ -80,14 +116,15 @@ class _AddProductBodyState extends State<AddProductBody> {
                       child: Column(
                         children: [
                           TextInputSection(
-                              nameController: _nameController,
-                              subtitleController: _subtitleController,
-                              descriptionController: _descriptionController,
-                              priceController: _priceController,
-                              stockController: _stockController,
-                              discountController: _discountController,
-                              priceAfterDiscountController: _priceAfterDiscountController,
-                              ),
+                            nameController: _nameController,
+                            subtitleController: _subtitleController,
+                            descriptionController: _descriptionController,
+                            priceController: _priceController,
+                            stockController: _stockController,
+                            discountController: _discountController,
+                            priceAfterDiscountController:
+                                _priceAfterDiscountController,
+                          ),
                           CategoriesGridview(
                               selectedCategories: _selectedCategories),
                           const SizedBox(
@@ -96,17 +133,8 @@ class _AddProductBodyState extends State<AddProductBody> {
                           ImageSelector(selectedImages: _selectedImages),
                           const SizedBox(height: 24),
                           SubmitEditsButton(
-                              formKey: _formKey,
-                              selectedImages: _selectedImages,
-                              nameController: _nameController,
-                              subtitleController: _subtitleController,
-                              descriptionController: _descriptionController,
-                              priceController: _priceController,
-                              stockController: _stockController,
-                              selectedCategories: _selectedCategories,
-                              discountController:_discountController ,
-                              priceAfterDiscountController: _priceAfterDiscountController,
-                              ),
+                            onPressed: _addProduct, title: 'Add Product',
+                          ),
                         ],
                       ),
                     ),

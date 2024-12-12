@@ -38,6 +38,6 @@ List<String> kTypes = ['Women', 'Men', 'Kids'];
     "Women",
     "Kids",
     "Shoes",
-    "Accessories",
+    "Accesories",
     "Clothes"
   ];

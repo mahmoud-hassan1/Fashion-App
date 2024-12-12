@@ -15,7 +15,9 @@ class Product {
   final List<String> images;
   final double priceBeforeDiscount;
   final double discount;
-  Product({
+   final DateTime date;
+  Product( {
+    required this.date,
     required this.discount,
     required this.priceBeforeDiscount,
     required this.images,
