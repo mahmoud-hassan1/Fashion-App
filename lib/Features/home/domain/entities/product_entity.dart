@@ -1,4 +1,4 @@
-import 'package:online_shopping/Features/reviews/data/models/product_review_model.dart';
+import 'package:online_shopping/Features/reviews/data/models/review_model.dart';
 
 class Product {
   final String id;
@@ -12,8 +12,15 @@ class Product {
   final List<String> categories;
   final String subtitle;
   final List<ReviewModel> reviews;
-
-  Product({
+  final List<String> images;
+  final double priceBeforeDiscount;
+  final double discount;
+   final DateTime date;
+  Product( {
+    required this.date,
+    required this.discount,
+    required this.priceBeforeDiscount,
+    required this.images,
     required this.id,
     required this.name,
     required this.description,
