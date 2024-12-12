@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:online_shopping/Features/reviews/data/models/product_review_model.dart';
+import 'package:online_shopping/Features/reviews/data/models/review_model.dart';
 import 'package:online_shopping/core/utiles/get_date.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_shopping/Features/bag/data/models/order_item_model.dart';
 import 'package:online_shopping/Features/bag/data/models/order_model.dart';
-import 'package:online_shopping/Features/reviews/data/models/product_review_model.dart';
+import 'package:online_shopping/Features/reviews/data/models/review_model.dart';
 import 'package:online_shopping/Features/reviews/presentation/views/widgets/review_item.dart';
 import 'package:online_shopping/core/models/user_model.dart';
 import 'package:online_shopping/core/utiles/get_date.dart';

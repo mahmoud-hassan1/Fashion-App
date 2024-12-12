@@ -4,7 +4,7 @@ import 'package:online_shopping/Features/profile/presentation/views/widgets/date
 import 'package:online_shopping/Features/profile/presentation/views/widgets/my_orders_item.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:online_shopping/Features/profile/presentation/cubits/my_orders_cubit/my_orders_cubit.dart';
-import 'package:online_shopping/Features/reviews/data/models/product_review_model.dart';
+import 'package:online_shopping/Features/reviews/data/models/review_model.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 

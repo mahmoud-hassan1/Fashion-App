@@ -33,4 +33,7 @@ class ManageProductsDataSource {
      
 
   }
+  Future<void> editProduct(ProductModel product)async{
+   await FirebaseFirestore.instance.collection('products').doc(product.id).update(product.toJson());
+  }
 }

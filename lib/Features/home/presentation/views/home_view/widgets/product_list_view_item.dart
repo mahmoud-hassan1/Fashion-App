@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_shopping/Features/add_product/presentation/views/edit_product_view.dart';
 import 'package:online_shopping/Features/favourite/presentation/cubits/manage_favourites/manage_favourites_cubit.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/home/presentation/views/home_view/widgets/favourites_button.dart';
+import 'package:online_shopping/core/models/user_model.dart';
 
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
@@ -26,10 +28,8 @@ class ProductListViewItem extends StatelessWidget {
         );
 
         if (context.mounted) {
-         BlocProvider.of<ManageFavouritesCubit>(context).emitState();
+          BlocProvider.of<ManageFavouritesCubit>(context).emitState();
         }
-
-        
       },
       child: SizedBox(
         height: 200,
@@ -56,14 +56,28 @@ class ProductListViewItem extends StatelessWidget {
                         }
                       },
                       builder: (context, state) {
-                        final blocInstance = BlocProvider.of<ManageFavouritesCubit>(context);
+                        final blocInstance =
+                            BlocProvider.of<ManageFavouritesCubit>(context);
                         return Positioned(
                           top: 5,
                           right: 5,
-                          child: FavouritesButton(blocInstance: blocInstance, product: product),
+                          child: FavouritesButton(
+                              blocInstance: blocInstance, product: product),
                         );
                       },
                     ),
+                    UserModel.getInstance().role == 'admin'
+                        ? IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        EditProductView(product: product),
+                                  ));
+                            },
+                            icon: const Icon(Icons.edit))
+                        : SizedBox()
                   ],
                 )),
             const SizedBox(
@@ -80,7 +94,8 @@ class ProductListViewItem extends StatelessWidget {
                 Flexible(
                   child: Text(
                     "${product.price}\$",
-                    style: Styles.kMediumTextStyle(context).copyWith(fontSize: 16),
+                    style:
+                        Styles.kMediumTextStyle(context).copyWith(fontSize: 16),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
@@ -93,4 +108,3 @@ class ProductListViewItem extends StatelessWidget {
     );
   }
 }
-

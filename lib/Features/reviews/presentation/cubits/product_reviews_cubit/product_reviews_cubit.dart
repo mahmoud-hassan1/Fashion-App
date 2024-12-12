@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
-import 'package:online_shopping/Features/reviews/data/models/product_review_model.dart';
+import 'package:online_shopping/Features/reviews/data/models/review_model.dart';
 import 'package:online_shopping/Features/reviews/domain/repo_interface/product_reviews_repo.dart';
 import 'package:online_shopping/core/models/user_model.dart';
 
