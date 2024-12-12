@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/product_details/presentation/cubits/product_details_cubit/product_details_cubit.dart';
-import 'package:online_shopping/Features/reviews/data/models/product_review_model.dart';
+import 'package:online_shopping/Features/reviews/data/models/review_model.dart';
 import 'package:online_shopping/Features/reviews/presentation/cubits/product_reviews_cubit/product_reviews_cubit.dart';
 import 'package:online_shopping/Features/reviews/presentation/views/widgets/review_text_field.dart';
 import 'package:online_shopping/core/models/user_model.dart';
@@ -72,7 +72,7 @@ class AddProductReview extends StatelessWidget {
                     CustomButton(
                       onTap: () async {
                         if (controller.text.isNotEmpty) {
-                          final ProductReviewModel reviewModel = ProductReviewModel(
+                          final ReviewModel reviewModel = ReviewModel(
                             review: controller.text,
                             dateTime: DateTime.now(),
                             rate: rating,

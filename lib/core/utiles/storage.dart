@@ -3,7 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 class Storage {
   Future<String> uploadFile(String filePath, String uploadPath) async {
-    final Reference ref = FirebaseStorage.instance.ref("firstimage.jpg");
+    final Reference ref = FirebaseStorage.instance.ref(uploadPath);
     File file = File(filePath);
     await ref.putFile(file);
     return await ref.getDownloadURL();
