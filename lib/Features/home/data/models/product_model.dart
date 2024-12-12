@@ -10,13 +10,15 @@ class ProductModel {
   final String sellerId;
   final int stock;
   final double price;
+  final double priceBeforeDiscount;
    String image;
   final List<String> categories;
   final DateTime date;
   final String subtitle;
   final List<ProductReviewModel> reviews;
+  final double discount;
    List<String> images;
-  ProductModel( {
+  ProductModel(  {
     required this.id,
     required this.name,
     required this.description,
@@ -30,6 +32,8 @@ class ProductModel {
     required this.subtitle,
     required this.reviews,
     required this.images,
+    required this.priceBeforeDiscount,
+    required this.discount,
   });
 
   factory ProductModel.fromJson(dynamic json, String id) {
@@ -54,6 +58,8 @@ class ProductModel {
       subtitle: json['subtitle'],
       reviews: reviewModels,
    images: (json['images'] as List<dynamic>?)?.cast<String>() ?? [],
+    priceBeforeDiscount: (json['priceBeforeDiscount']??0 as num).toDouble(),
+    discount: (json['discount']??0 as num).toDouble(),
     );
   }
 
@@ -73,6 +79,8 @@ class ProductModel {
         return reviews[index].toMap();
       }),
       'images': images,
+      'priceBeforeDiscount': priceBeforeDiscount,
+      'discount':discount
     };
   }
 

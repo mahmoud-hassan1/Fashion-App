@@ -47,7 +47,8 @@ final TextEditingController _discountController;
               name: _nameController.text,
               subtitle: _subtitleController.text,
               description: _descriptionController.text,
-              price: double.parse(_priceController.text),
+              priceBeforeDiscount:double.parse(_priceController.text),
+              price: double.parse(_priceAfterDiscountController.text),
               stock: int.parse(_stockController.text),
               images: [],
               id: '',
@@ -59,10 +60,11 @@ final TextEditingController _discountController;
                   .toList(),
               date: DateTime.now(),
               reviews: [],
+              discount: double.parse(_discountController.text)/100
             );
             await BlocProvider.of<ManageProductsCubit>(
                     context)
-                .uploadProduct(
+                .addProduct(
                     product: product,
                     selectedImages: _selectedImages.value);
           }

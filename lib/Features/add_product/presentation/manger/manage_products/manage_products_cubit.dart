@@ -10,7 +10,7 @@ part 'manage_products_state.dart';
 class ManageProductsCubit extends Cubit<ManageProductsState> {
   final UploadProductUsecase uploadProductUsecase;
   ManageProductsCubit({required this.uploadProductUsecase}) : super(ManageProductsInitial());
-  uploadProduct({required ProductModel product,  required List<File> selectedImages,}) async{
+  addProduct({required ProductModel product,  required List<File> selectedImages,}) async{
   try{emit(AddProductsLoading());
   await uploadProductUsecase.call(product: product, selectedImages: selectedImages);
   emit(AddProductsSucsses());
