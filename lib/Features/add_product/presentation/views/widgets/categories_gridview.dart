@@ -12,10 +12,10 @@ final Set<String> selectedCategories ;
 class _CategoriesGridviewState extends State<CategoriesGridview> {
     void _toggleCategorySelection(String category) {
     setState(() {
-      if (widget.selectedCategories.contains(category)) {
-        widget.selectedCategories.remove(category);
+      if (widget.selectedCategories.contains(category.toLowerCase())) {
+        widget.selectedCategories.remove(category.toLowerCase());
       } else {
-        widget.selectedCategories.add(category);
+        widget.selectedCategories.add(category.toLowerCase());
       }
     });
   }
@@ -35,7 +35,7 @@ class _CategoriesGridviewState extends State<CategoriesGridview> {
                           itemBuilder: (context, index) {
                             final category = kAllCategories[index];
                             final isSelected =
-                                widget.selectedCategories.contains(category);
+                                widget.selectedCategories.contains(category.toLowerCase());
                             return GestureDetector(
                               onTap: () => _toggleCategorySelection(category),
                               child: Container(

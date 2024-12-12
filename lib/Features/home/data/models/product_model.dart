@@ -87,6 +87,7 @@ class ProductModel {
   Product toEntity() {
     return Product(
       id: id,
+      date:date,
       name: name,
       description: description,
       rate: getRate(reviews),
@@ -96,7 +97,9 @@ class ProductModel {
       image: image,
       categories: categories,
       subtitle: subtitle,
-      reviews: reviews,
+      reviews: reviews, discount: discount,
+      images: images,
+      priceBeforeDiscount: priceBeforeDiscount
     );
   }
 

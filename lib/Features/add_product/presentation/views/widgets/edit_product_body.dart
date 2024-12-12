@@ -3,35 +3,50 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:online_shopping/Features/add_product/presentation/manger/manage_products/manage_products_cubit.dart';
 import 'package:online_shopping/Features/add_product/presentation/views/widgets/categories_gridview.dart';
-import 'package:online_shopping/Features/add_product/presentation/views/widgets/image_selector.dart';
+// import 'package:online_shopping/Features/add_product/presentation/views/widgets/image_selector.dart';
 import 'package:online_shopping/Features/add_product/presentation/views/widgets/submit_button.dart';
 import 'package:online_shopping/Features/add_product/presentation/views/widgets/text_input_section.dart';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
+import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/home/presentation/views/navigation_bar_view.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
-import 'dart:io';
 
-class AddProductBody extends StatefulWidget {
-  const AddProductBody({super.key});
-
+class EditProductBody extends StatefulWidget {
+  const EditProductBody({super.key, required this.product});
+  final Product product;
   @override
-  State<AddProductBody> createState() => _AddProductBodyState();
+  State<EditProductBody> createState() => _EditProductBodyState();
 }
 
-class _AddProductBodyState extends State<AddProductBody> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _subtitleController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
-  final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _stockController = TextEditingController();
-  final TextEditingController _discountController = TextEditingController();
-  final TextEditingController _priceAfterDiscountController =
-      TextEditingController();
+class _EditProductBodyState extends State<EditProductBody> {
+  late TextEditingController _nameController;
+  late TextEditingController _subtitleController;
+  late TextEditingController _descriptionController;
+  late TextEditingController _priceController;
+  late TextEditingController _stockController;
+  late TextEditingController _discountController;
+  late TextEditingController _priceAfterDiscountController;
   final _formKey = GlobalKey<FormState>();
-  final ValueNotifier<List<File>> _selectedImages =
-      ValueNotifier<List<File>>([]);
+  // final ValueNotifier<List<File>> _selectedImages =
+  //     ValueNotifier<List<File>>([]);
 
   final Set<String> _selectedCategories = {};
+  @override
+  void initState() {
+    _priceAfterDiscountController =
+        TextEditingController(text: '${widget.product.priceBeforeDiscount}');
+    _discountController = TextEditingController(
+        text: '${(widget.product.discount * 100).toInt()}');
+    _stockController = TextEditingController(text: '${widget.product.stock}');
+    _priceController = TextEditingController(text: '${widget.product.price}');
+    _descriptionController =
+        TextEditingController(text: widget.product.description);
+    _subtitleController = TextEditingController(text: widget.product.subtitle);
+    _nameController = TextEditingController(text: widget.product.name);
+    _selectedCategories.addAll(widget.product.categories);
+    print(_selectedCategories);
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -40,16 +55,10 @@ class _AddProductBodyState extends State<AddProductBody> {
     _descriptionController.dispose();
     _priceController.dispose();
     _stockController.dispose();
-    _selectedImages.dispose();
     super.dispose();
   }
-
-  void _addProduct() async {
+  void _editProduct() async {
     if (_formKey.currentState!.validate()) {
-      if (_selectedImages.value.isEmpty) {
-        snackBar(content: "Please add at least one image.", context: context);
-        return;
-      }
       if (_selectedCategories.isEmpty) {
         snackBar(
             content: "Please add at least one Category.", context: context);
@@ -62,19 +71,19 @@ class _AddProductBodyState extends State<AddProductBody> {
           priceBeforeDiscount: double.parse(_priceController.text),
           price: double.parse(_priceAfterDiscountController.text),
           stock: int.parse(_stockController.text),
-          images: [],
-          id: '',
-          rate: 0,
-          sellerId: '',
-          image: '',
+          images: widget.product.images,
+          id: widget.product.id,
+          rate: widget.product.rate,
+          sellerId: widget.product.sellerId,
+          image: widget.product.image,
           categories: _selectedCategories
               .map((category) => category.toLowerCase())
               .toList(),
-          date: DateTime.now(),
-          reviews: [],
+          date: widget.product.date,
+          reviews: widget.product.reviews,
           discount: double.parse(_discountController.text) / 100);
       await BlocProvider.of<ManageProductsCubit>(context)
-          .addProduct(product: product, selectedImages: _selectedImages.value);
+          .editProduct(product: product,);
     }
   }
 
@@ -130,10 +139,10 @@ class _AddProductBodyState extends State<AddProductBody> {
                           const SizedBox(
                             height: 16,
                           ),
-                          ImageSelector(selectedImages: _selectedImages),
+                          // ImageSelector(selectedImages: _selectedImages),
                           const SizedBox(height: 24),
                           SubmitEditsButton(
-                            onPressed: _addProduct, title: 'Add Product',
+                            onPressed: _editProduct, title: 'Edit Product',
                           ),
                         ],
                       ),
