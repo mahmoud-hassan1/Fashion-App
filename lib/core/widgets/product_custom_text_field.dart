@@ -10,7 +10,8 @@ class ProductCustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool isNumber;
   final bool isDecimal;
-
+  final bool enabled;
+  final Function(String)? onChange;
   const ProductCustomTextField({
     super.key,
     required this.label,
@@ -21,11 +22,13 @@ class ProductCustomTextField extends StatelessWidget {
     this.validator,
     this.isNumber = false,
     this.isDecimal = false,
+    this.enabled=true, this.onChange
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: enabled,
       controller: controller,
       minLines: 1,
       maxLines: expand ? 4 : 1,
@@ -51,6 +54,7 @@ class ProductCustomTextField extends StatelessWidget {
           : null,
       validator: validate ? validator : null,
       autovalidateMode: AutovalidateMode.onUserInteraction,
+      onChanged: onChange,
     );
   }
 }

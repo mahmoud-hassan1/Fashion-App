@@ -53,13 +53,12 @@ class ProductModel {
       date: (json['date'] as Timestamp).toDate(),
       subtitle: json['subtitle'],
       reviews: reviewModels,
-      images: json['images']?? [],
+   images: (json['images'] as List<dynamic>?)?.cast<String>() ?? [],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'name': name,
       'description': description,
       'rate': rate,
@@ -68,7 +67,7 @@ class ProductModel {
       'price': price,
       'image': image,
       'categories': categories,
-      'date': date.toIso8601String(),
+      'date': date,
       'subtitle': subtitle,
       'reviews': List.generate(reviews.length, (int index) {
         return reviews[index].toMap();

@@ -33,3 +33,11 @@ List<List<dynamic>> kCategoryList = [
   ],
 ];
 List<String> kTypes = ['Women', 'Men', 'Kids'];
+ final List<String>  kAllCategories= [
+    "Men",
+    "Women",
+    "Kids",
+    "Shoes",
+    "Accessories",
+    "Clothes"
+  ];

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
-import 'package:online_shopping/core/widgets/snackbar.dart';
 
 class ManageProductsDataSource {
   final FirebaseFirestore _firestore;
@@ -27,14 +26,11 @@ class ManageProductsDataSource {
     required List<File> selectedImages,
   }) async {
       List<String> imageUrls = await _uploadImages(selectedImages);
-
       product.images = imageUrls;
       product.image = imageUrls[0];
 
-      DocumentReference docRef =
-          await _firestore.collection('products').add(product.toJson());
-
-      await docRef.update({'id': docRef.id});
+        await _firestore.collection('products').doc().set(product.toJson());  
+     
 
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
 import 'package:online_shopping/Features/add_product/domain/usecases/upload_product_usecase.dart';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
 
