@@ -12,8 +12,13 @@ class Product {
   final List<String> categories;
   final String subtitle;
   final List<ProductReviewModel> reviews;
-
+  final List<String> images;
+  final double priceBeforeDiscount;
+  final double discount;
   Product({
+    required this.discount,
+    required this.priceBeforeDiscount,
+    required this.images,
     required this.id,
     required this.name,
     required this.description,

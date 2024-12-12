@@ -96,7 +96,9 @@ class ProductModel {
       image: image,
       categories: categories,
       subtitle: subtitle,
-      reviews: reviews,
+      reviews: reviews, discount: discount,
+      images: images,
+      priceBeforeDiscount: priceBeforeDiscount
     );
   }
 
