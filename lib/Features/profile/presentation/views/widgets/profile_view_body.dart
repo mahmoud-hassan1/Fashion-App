@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/profile/data/repo_impl/profile_repo_impl.dart';
 import 'package:online_shopping/Features/profile/presentation/cubits/my_orders_cubit/my_orders_cubit.dart';
 import 'package:online_shopping/Features/profile/presentation/cubits/my_profile_cubit/my_profile_cubit.dart';
+import 'package:online_shopping/Features/profile/presentation/cubits/product_statistics_cubit/products_statistics_cubit.dart';
+import 'package:online_shopping/Features/profile/presentation/cubits/settings_cubit/settings_cubit.dart';
 import 'package:online_shopping/Features/profile/presentation/views/widgets/my_orders_view.dart';
 import 'package:online_shopping/Features/profile/presentation/views/widgets/my_profile_list_tile_item.dart';
 import 'package:online_shopping/Features/profile/presentation/views/widgets/products_statistics.dart';
@@ -88,7 +90,7 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                                   await Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (BuildContext context) => BlocProvider(
-                                        create: (context) => MyOrdersCubit(ProfileRepoImpl(Storage())),
+                                        create: (context) => ProductsStatisticsCubit(ProfileRepoImpl(Storage())),
                                         child: const ProductsStatistics(),
                                       ),
                                     ),
@@ -103,7 +105,7 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                             await Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (BuildContext context) => BlocProvider(
-                                  create: (context) => MyOrdersCubit(ProfileRepoImpl(Storage())),
+                                  create: (context) => SettingsCubit(ProfileRepoImpl(Storage())),
                                   child: SettingsView(),
                                 ),
                               ),

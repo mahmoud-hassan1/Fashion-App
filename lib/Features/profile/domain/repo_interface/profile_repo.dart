@@ -1,4 +1,5 @@
 import 'package:online_shopping/Features/bag/data/models/order_model.dart';
+import 'package:online_shopping/Features/profile/data/models/products_statistics_model.dart';
 import 'package:online_shopping/Features/profile/data/models/specific_orders_model.dart';
 
 abstract class ProfileRepo {
@@ -10,4 +11,5 @@ abstract class ProfileRepo {
   Future<void> savePassword(String newPassword);
   Future<void> logout();
   Future<void> deleteAccount();
+  Future<List<ProductStatisticsModel>> getProductsBestSelling();
 }

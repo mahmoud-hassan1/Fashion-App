@@ -2,7 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:online_shopping/Features/bag/data/models/order_item_model.dart';
 import 'package:online_shopping/Features/bag/data/models/order_model.dart';
+import 'package:online_shopping/Features/home/data/models/product_model.dart';
+import 'package:online_shopping/Features/profile/data/models/products_statistics_model.dart';
 import 'package:online_shopping/Features/profile/data/models/specific_orders_model.dart';
 import 'package:online_shopping/Features/profile/domain/repo_interface/profile_repo.dart';
 import 'package:online_shopping/constants.dart';
@@ -108,5 +111,61 @@ class ProfileRepoImpl extends ProfileRepo {
     await FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
     UserModel.setInstance(null);
+  }
+
+  @override
+  Future<List<ProductStatisticsModel>> getProductsBestSelling() async {
+    QuerySnapshot ordersQuerySnapshot = await FirebaseFirestore.instance.collection('users').get();
+    QuerySnapshot productsQuerySnapshot = await FirebaseFirestore.instance.collection('products').get();
+    List<String> productsIDs = List<String>.generate(productsQuerySnapshot.docs.length, (int index) {
+      return productsQuerySnapshot.docs[index].id;
+    });
+
+    Map<String, int> productsQuantities = {};
+    for (QueryDocumentSnapshot queryDocumentSnapshot in ordersQuerySnapshot.docs) {
+      for (dynamic json in queryDocumentSnapshot.get('orders')) {
+        OrderModel order = OrderModel.fromJson(json);
+        for (OrderItemModel item in order.items) {
+          if (productsIDs.contains(item.productId)) {
+            if (productsQuantities.containsKey(item.productId)) {
+              productsQuantities[item.productId] = productsQuantities[item.productId]! + item.quantity;
+            } else {
+              productsQuantities[item.productId] = item.quantity;
+            }
+          }
+        }
+      }
+    }
+
+    List<MapEntry<String, int>> entries = productsQuantities.entries.toList();
+    entries.sort((a, b) => a.value.compareTo(b.value));
+    Map<String, int> sortedProductsQuantities = Map.fromEntries(entries);
+    List<ProductStatisticsModel> productsStatistics = [];
+
+    int totalQuantity = 0;
+    for (int quan in sortedProductsQuantities.values) {
+      totalQuantity += quan;
+    }
+
+    List<QueryDocumentSnapshot> filteredProductsSnapshot = productsQuerySnapshot.docs.where((doc) => sortedProductsQuantities.containsKey(doc.id)).toList();
+
+    for (QueryDocumentSnapshot json in filteredProductsSnapshot) {
+      ProductModel productModel = ProductModel.fromJson(json.data(), json.id);
+      double percentage = ((sortedProductsQuantities[productModel.id] ?? 0) / totalQuantity) * 100;
+      percentage = double.parse(percentage.toStringAsFixed(2));
+
+      productsStatistics.add(
+        ProductStatisticsModel(
+          name: productModel.name,
+          uid: productModel.id,
+          percentage: percentage,
+          quantity: sortedProductsQuantities[productModel.id] ?? 0,
+        ),
+      );
+    }
+
+    productsStatistics.sort((a, b) => b.percentage.compareTo(a.percentage));
+
+    return productsStatistics;
   }
 }
