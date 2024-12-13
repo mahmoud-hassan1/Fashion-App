@@ -25,11 +25,9 @@ class _AddProductBodyState extends State<AddProductBody> {
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _stockController = TextEditingController();
   final TextEditingController _discountController = TextEditingController();
-  final TextEditingController _priceAfterDiscountController =
-      TextEditingController();
+  final TextEditingController _priceAfterDiscountController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final ValueNotifier<List<File>> _selectedImages =
-      ValueNotifier<List<File>>([]);
+  final ValueNotifier<List<File>> _selectedImages = ValueNotifier<List<File>>([]);
 
   final Set<String> _selectedCategories = {};
 
@@ -51,8 +49,7 @@ class _AddProductBodyState extends State<AddProductBody> {
         return;
       }
       if (_selectedCategories.isEmpty) {
-        snackBar(
-            content: "Please add at least one Category.", context: context);
+        snackBar(content: "Please add at least one Category.", context: context);
         return;
       }
       ProductModel product = ProductModel(
@@ -67,14 +64,11 @@ class _AddProductBodyState extends State<AddProductBody> {
           rate: 0,
           sellerId: '',
           image: '',
-          categories: _selectedCategories
-              .map((category) => category.toLowerCase())
-              .toList(),
+          categories: _selectedCategories.map((category) => category.toLowerCase()).toList(),
           date: DateTime.now(),
           reviews: [],
           discount: double.parse(_discountController.text) / 100);
-      await BlocProvider.of<ManageProductsCubit>(context)
-          .addProduct(product: product, selectedImages: _selectedImages.value);
+      await BlocProvider.of<ManageProductsCubit>(context).addProduct(product: product, selectedImages: _selectedImages.value);
     }
   }
 
@@ -88,15 +82,13 @@ class _AddProductBodyState extends State<AddProductBody> {
             context: context,
           );
         } else if (state is AddProductsSucsses) {
-          snackBar(
-              content: 'Product added successfully',
-              context: context,
-              color: Colors.green);
+          snackBar(content: 'Product added successfully', context: context, color: Colors.green);
           Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const NavigationBarView(),
-              ));
+            context,
+            MaterialPageRoute(
+              builder: (context) => const NavigationBarView(),
+            ),
+          );
         }
       },
       builder: (context, state) {
@@ -122,18 +114,17 @@ class _AddProductBodyState extends State<AddProductBody> {
                             priceController: _priceController,
                             stockController: _stockController,
                             discountController: _discountController,
-                            priceAfterDiscountController:
-                                _priceAfterDiscountController,
+                            priceAfterDiscountController: _priceAfterDiscountController,
                           ),
-                          CategoriesGridview(
-                              selectedCategories: _selectedCategories),
+                          CategoriesGridview(selectedCategories: _selectedCategories),
                           const SizedBox(
                             height: 16,
                           ),
                           ImageSelector(selectedImages: _selectedImages),
                           const SizedBox(height: 24),
-                          SubmitEditsButton(
-                            onPressed: _addProduct, title: 'Add Product',
+                          EditsButton(
+                            onPressed: _addProduct,
+                            title: 'Add Product',
                           ),
                         ],
                       ),

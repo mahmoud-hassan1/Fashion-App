@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:online_shopping/Features/add_product/presentation/views/edit_product_view.dart';
 import 'package:online_shopping/Features/favourite/presentation/cubits/manage_favourites/manage_favourites_cubit.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/home/presentation/views/home_view/widgets/favourites_button.dart';
+import 'package:online_shopping/core/models/user_model.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custom_rating_bar.dart';
@@ -16,7 +17,7 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Stack(
+    return Stack(
       children: [
         SizedBox(
           height: 115.h,
@@ -52,18 +53,17 @@ class ProductItem extends StatelessWidget {
                       style: Styles.kMediumTextStyle(context),
                     ),
                     Row(
-                          children: [
-                            CustomRatingBar(product: product),
-                            Text(
-                              "(${product.rate})",
-                              style: Styles.kFontSize17(context).copyWith(
-                                color: AppColors.kSeconderyTextColor,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            
-                          ],
+                      children: [
+                        CustomRatingBar(product: product),
+                        Text(
+                          "(${product.rate})",
+                          style: Styles.kFontSize17(context).copyWith(
+                            color: AppColors.kSeconderyTextColor,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
+                      ],
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -77,7 +77,6 @@ class ProductItem extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 4),
-                       
                       ],
                     ),
                     const SizedBox(height: 8)
@@ -87,22 +86,47 @@ class ProductItem extends StatelessWidget {
             ],
           ),
         ),
-        
         BlocConsumer<ManageFavouritesCubit, ManageFavouritesState>(
-                    listener: (context, state) {
-                      if (state is ManageFavouritesError) {
-                        snackBar(content: state.error, context: context);
-                      }
-                    },
-                    builder: (context, state) {
-                      final blocInstance = BlocProvider.of<ManageFavouritesCubit>(context);
-                      return Positioned(
-                        bottom: 5,
-                        right: 5,
-                        child: FavouritesButton(blocInstance: blocInstance, product: product),
-                      );
-                    },
-                  )
+          listener: (context, state) {
+            if (state is ManageFavouritesError) {
+              snackBar(content: state.error, context: context);
+            }
+          },
+          builder: (context, state) {
+            final blocInstance = BlocProvider.of<ManageFavouritesCubit>(context);
+            return Positioned(
+              bottom: 5,
+              right: 5,
+              child: FavouritesButton(blocInstance: blocInstance, product: product),
+            );
+          },
+        ),
+        BlocConsumer<ManageFavouritesCubit, ManageFavouritesState>(
+          listener: (context, state) {
+            if (state is ManageFavouritesError) {
+              snackBar(content: state.error, context: context);
+            }
+          },
+          builder: (context, state) {
+            return Positioned(
+              top: 0,
+              right: 0,
+              child: UserModel.getInstance().role == Role.admin
+                  ? IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditProductView(product: product),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.edit),
+                    )
+                  : const SizedBox(),
+            );
+          },
+        )
       ],
     );
   }

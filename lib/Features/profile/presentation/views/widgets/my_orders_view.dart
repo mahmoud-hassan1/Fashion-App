@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_shopping/Features/profile/presentation/views/widgets/date_text_field.dart';
-import 'package:online_shopping/Features/profile/presentation/views/widgets/my_orders_item.dart';
+import 'package:online_shopping/Features/auth/presentation/views/signup_view/widgets/date_text_field.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:online_shopping/Features/profile/presentation/cubits/my_orders_cubit/my_orders_cubit.dart';
-import 'package:online_shopping/Features/reviews/data/models/review_model.dart';
+import 'package:online_shopping/Features/profile/presentation/views/widgets/orders_list_view_for_admins.dart';
+import 'package:online_shopping/Features/profile/presentation/views/widgets/orders_list_view_for_users.dart';
+import 'package:online_shopping/core/models/user_model.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 
@@ -17,7 +18,11 @@ class MyOrdersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await BlocProvider.of<MyOrdersCubit>(context).getMyOrders(date);
+      if (UserModel.getInstance().role == Role.user) {
+        await BlocProvider.of<MyOrdersCubit>(context).getMyOrders(date);
+      } else if (UserModel.getInstance().role == Role.admin) {
+        await BlocProvider.of<MyOrdersCubit>(context).getMyOrdersOnSpecificDate(date);
+      }
     });
 
     return BlocConsumer<MyOrdersCubit, MyOrdersState>(
@@ -39,42 +44,23 @@ class MyOrdersView extends StatelessWidget {
                     Text("My Orders", style: Styles.kMediumTextStyle(context).copyWith(fontSize: 34)),
                     const SizedBox(height: 10),
                     DateTextField(
-                      initialDate: date,
-                      onDateChanged: (dateTime) async {
+                      label: "Date",
+                      dateTime: date,
+                      onChanged: (dateTime) async {
                         date = dateTime;
-                        await BlocProvider.of<MyOrdersCubit>(context).getMyOrders(date);
+                        if (UserModel.getInstance().role == Role.user) {
+                          await BlocProvider.of<MyOrdersCubit>(context).getMyOrders(date);
+                        } else if (UserModel.getInstance().role == Role.admin) {
+                          await BlocProvider.of<MyOrdersCubit>(context).getMyOrdersOnSpecificDate(date);
+                        }
                       },
                     ),
                     const SizedBox(height: 10),
                     <Widget>() {
-                      if (state is MyOrdersSuccess) {
-                        return Expanded(
-                          flex: 10,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: state.orders.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              ReviewModel? review;
-                              if (state.orders[index].orderModel.orderReview != null) {
-                                review = ReviewModel(
-                                  review: state.orders[index].orderModel.orderReview!.review,
-                                  dateTime: state.orders[index].orderModel.orderReview!.date,
-                                  rate: state.orders[index].orderModel.orderReview!.rate,
-                                  userName: state.orders[index].name,
-                                  profilePicture: state.orders[index].profilePicturePath,
-                                  userId: state.orders[index].uid,
-                                );
-                              }
-
-                              return Column(
-                                children: [
-                                  MyOrdersItem(order: state.orders[index].orderModel, index: index, review: review),
-                                  const SizedBox(height: 10),
-                                ],
-                              );
-                            },
-                          ),
-                        );
+                      if (state is MyOrdersUserSuccess) {
+                        return OrdersListViewForUsers(orders: state.orders);
+                      } else if (state is MyOrdersAdminSuccess) {
+                        return OrdersListViewForAdmins(orders: state.orders);
                       } else if (state is MyOrdersLoading) {
                         return const Column();
                       } else {

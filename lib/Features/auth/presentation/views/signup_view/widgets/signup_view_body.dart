@@ -8,9 +8,10 @@ import 'package:online_shopping/Features/auth/data/repo_impl/auth_repo_imp.dart'
 import 'package:online_shopping/Features/auth/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:online_shopping/Features/auth/presentation/views/login_view/login_view.dart';
 import 'package:online_shopping/Features/auth/presentation/views/signup_view/widgets/complete_google_signup_process.dart';
-import 'package:online_shopping/Features/auth/presentation/views/signup_view/widgets/date_of_birth.dart';
+import 'package:online_shopping/Features/auth/presentation/views/signup_view/widgets/date_text_field.dart';
 import 'package:online_shopping/Features/auth/presentation/views/signup_view/widgets/go_to_login.dart';
 import 'package:online_shopping/Features/home/presentation/views/navigation_bar_view.dart';
+import 'package:online_shopping/core/utiles/is_same_day.dart';
 import 'package:online_shopping/core/widgets/custtom_button.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/email_password_section.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/google_section.dart';
@@ -25,8 +26,7 @@ class SignupViewBody extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final DateTime initDateTime = DateTime(1000);
-  DateTime dateTime = DateTime(1000);
+  DateTime dateTime = DateTime.now();
   bool isLoading = false;
 
   GlobalKey<FormState> keyForm = GlobalKey();
@@ -103,11 +103,16 @@ class SignupViewBody extends StatelessWidget {
                           expand: false,
                         ),
                         const SizedBox(height: 8),
-                        EmailAndPasswordFields(keyForm: keyForm, emailController: emailController, passwordController: passwordController),
+                        EmailAndPasswordFields(
+                          keyForm: keyForm,
+                          emailController: emailController,
+                          passwordController: passwordController,
+                        ),
                         const SizedBox(
                           height: 8,
                         ),
-                        DateOfBirth(
+                        DateTextField(
+                          label: 'Date of Birth',
                           dateTime: dateTime,
                           onChanged: (date) {
                             dateTime = date;
@@ -137,7 +142,7 @@ class SignupViewBody extends StatelessWidget {
 
   void ontapSignUp(context) {
     debugPrint("sssssssssssssssssss");
-    if (dateTime.isAtSameMomentAs(initDateTime)) {
+    if (isSameDay(dateTime, DateTime.now())) {
       snackBar(content: "Please select date of birth", context: context);
       return;
     }

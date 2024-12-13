@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:online_shopping/Features/add_product/presentation/manger/manage_products/manage_products_cubit.dart';
 import 'package:online_shopping/Features/add_product/presentation/views/widgets/categories_gridview.dart';
-// import 'package:online_shopping/Features/add_product/presentation/views/widgets/image_selector.dart';
 import 'package:online_shopping/Features/add_product/presentation/views/widgets/submit_button.dart';
 import 'package:online_shopping/Features/add_product/presentation/views/widgets/text_input_section.dart';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
@@ -33,18 +32,14 @@ class _EditProductBodyState extends State<EditProductBody> {
   final Set<String> _selectedCategories = {};
   @override
   void initState() {
-    _priceAfterDiscountController =
-        TextEditingController(text: '${widget.product.priceBeforeDiscount}');
-    _discountController = TextEditingController(
-        text: '${(widget.product.discount * 100).toInt()}');
+    _priceAfterDiscountController = TextEditingController(text: '${widget.product.priceBeforeDiscount}');
+    _discountController = TextEditingController(text: '${(widget.product.discount * 100).toInt()}');
     _stockController = TextEditingController(text: '${widget.product.stock}');
     _priceController = TextEditingController(text: '${widget.product.price}');
-    _descriptionController =
-        TextEditingController(text: widget.product.description);
+    _descriptionController = TextEditingController(text: widget.product.description);
     _subtitleController = TextEditingController(text: widget.product.subtitle);
     _nameController = TextEditingController(text: widget.product.name);
     _selectedCategories.addAll(widget.product.categories);
-    print(_selectedCategories);
     super.initState();
   }
 
@@ -57,55 +52,62 @@ class _EditProductBodyState extends State<EditProductBody> {
     _stockController.dispose();
     super.dispose();
   }
+
   void _editProduct() async {
     if (_formKey.currentState!.validate()) {
       if (_selectedCategories.isEmpty) {
-        snackBar(
-            content: "Please add at least one Category.", context: context);
+        snackBar(content: "Please add at least one Category.", context: context);
         return;
       }
-      ProductModel product = ProductModel(
-          name: _nameController.text,
-          subtitle: _subtitleController.text,
-          description: _descriptionController.text,
-          priceBeforeDiscount: double.parse(_priceController.text),
-          price: double.parse(_priceAfterDiscountController.text),
-          stock: int.parse(_stockController.text),
-          images: widget.product.images,
-          id: widget.product.id,
-          rate: widget.product.rate,
-          sellerId: widget.product.sellerId,
-          image: widget.product.image,
-          categories: _selectedCategories
-              .map((category) => category.toLowerCase())
-              .toList(),
-          date: widget.product.date,
-          reviews: widget.product.reviews,
-          discount: double.parse(_discountController.text) / 100);
-      await BlocProvider.of<ManageProductsCubit>(context)
-          .editProduct(product: product,);
+
+      ProductModel product = getProductModel();
+      await BlocProvider.of<ManageProductsCubit>(context).editProduct(product: product);
     }
+  }
+
+  void _deleteProduct() async {
+    ProductModel product = getProductModel();
+    await BlocProvider.of<ManageProductsCubit>(context).deleteProduct(product: product);
+  }
+
+  ProductModel getProductModel() {
+    return ProductModel(
+      name: _nameController.text,
+      subtitle: _subtitleController.text,
+      description: _descriptionController.text,
+      priceBeforeDiscount: double.parse(_priceController.text),
+      price: double.parse(_priceAfterDiscountController.text),
+      stock: int.parse(_stockController.text),
+      images: widget.product.images,
+      id: widget.product.id,
+      rate: widget.product.rate,
+      sellerId: widget.product.sellerId,
+      image: widget.product.image,
+      categories: _selectedCategories.map((category) => category.toLowerCase()).toList(),
+      date: widget.product.date,
+      reviews: widget.product.reviews,
+      discount: double.parse(_discountController.text) / 100,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ManageProductsCubit, ManageProductsState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is AddProductsFailed) {
           snackBar(
             content: Text(state.error),
             context: context,
           );
         } else if (state is AddProductsSucsses) {
-          snackBar(
-              content: 'Product added successfully',
-              context: context,
-              color: Colors.green);
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const NavigationBarView(),
-              ));
+          snackBar(content: 'Changes saved successfully', context: context, color: Colors.green);
+          await Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => const NavigationBarView(),
+            ),
+            (Route<dynamic> route) => false,
+          );
+          setState(() {});
         }
       },
       builder: (context, state) {
@@ -114,7 +116,7 @@ class _EditProductBodyState extends State<EditProductBody> {
           child: CustomScrollView(
             slivers: [
               const SliverAppBar(
-                title: Text('Add Product'),
+                title: Text('Edit Product'),
               ),
               SliverList(
                 delegate: SliverChildListDelegate([
@@ -131,18 +133,23 @@ class _EditProductBodyState extends State<EditProductBody> {
                             priceController: _priceController,
                             stockController: _stockController,
                             discountController: _discountController,
-                            priceAfterDiscountController:
-                                _priceAfterDiscountController,
+                            priceAfterDiscountController: _priceAfterDiscountController,
                           ),
-                          CategoriesGridview(
-                              selectedCategories: _selectedCategories),
+                          CategoriesGridview(selectedCategories: _selectedCategories),
                           const SizedBox(
                             height: 16,
                           ),
                           // ImageSelector(selectedImages: _selectedImages),
                           const SizedBox(height: 24),
-                          SubmitEditsButton(
-                            onPressed: _editProduct, title: 'Edit Product',
+                          EditsButton(
+                            onPressed: _editProduct,
+                            title: 'Edit Product',
+                          ),
+                          const SizedBox(height: 24),
+                          EditsButton(
+                            onPressed: _deleteProduct,
+                            color: Colors.red,
+                            title: 'Delete Product',
                           ),
                         ],
                       ),

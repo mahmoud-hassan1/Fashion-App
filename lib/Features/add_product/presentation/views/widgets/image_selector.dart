@@ -1,9 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:online_shopping/core/widgets/snackbar.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class ImageSelector extends StatefulWidget {
   const ImageSelector({super.key, required this.selectedImages});
@@ -15,22 +12,23 @@ class ImageSelector extends StatefulWidget {
 class _ImageSelectorState extends State<ImageSelector> {
   final ImagePicker _imagePicker = ImagePicker();
   Future<void> _pickImage() async {
-    final status = await Permission.photos.request();
+    // final status = await Permission.photos.request();
 
-    if (status.isGranted) {
+    // if (status.isGranted) {
       final XFile? image =
           await _imagePicker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         widget.selectedImages.value = [... widget.selectedImages.value, File(image.path)];
       }
-    } else if (status.isDenied) {
-      snackBar(
-          content: "Permission denied. Please allow access to continue.",
-          // ignore: use_build_context_synchronously
-          context: context);
-    } else if (status.isPermanentlyDenied) {
-      openAppSettings();
-    }
+    // }
+    //  else if (status.isDenied) {
+    //   snackBar(
+    //       content: "Permission denied. Please allow access to continue.",
+    //       // ignore: use_build_context_synchronously
+    //       context: context);
+    // } else if (status.isPermanentlyDenied) {
+    //   openAppSettings();
+    // }
   }
 
 

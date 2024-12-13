@@ -31,7 +31,7 @@ void main() async {
 
   runApp(
     DevicePreview(
-      enabled: true,
+      enabled: false,
       builder: (context) => const MyApp(),
     ),
   );
@@ -42,12 +42,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final shopRepo = ShopRepoImpl(dataSource: ShopRemoteDataSource(FirebaseFirestore.instance));
-     final favRepo = FavouriteRepoImpl(firestore: FirebaseFirestore.instance);
+    final shopRepo = ShopRepoImpl(dataSource: ShopRemoteDataSource(FirebaseFirestore.instance));
+    final favRepo = FavouriteRepoImpl(firestore: FirebaseFirestore.instance);
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
     ));
+
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       minTextAdapt: true,
@@ -55,11 +56,12 @@ class MyApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider<ShopCubit>(
-      create: (context) => ShopCubit(
-        getSaleProductsByCategory: GetSaleProductsByCategory(shopRepo),
-        getNewestProductsByCategory: GetNewestProductsByCategory(shopRepo),
-        getProductsByCategory: GetProductsByCategory(shopRepo),
-      ),),
+            create: (context) => ShopCubit(
+              getSaleProductsByCategory: GetSaleProductsByCategory(shopRepo),
+              getNewestProductsByCategory: GetNewestProductsByCategory(shopRepo),
+              getProductsByCategory: GetProductsByCategory(shopRepo),
+            ),
+          ),
           BlocProvider(
             create: (BuildContext context) => ProductReviewsCubit(ProductReviewsRepoImpl()),
           ),
@@ -70,7 +72,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           BlocProvider(
-            create: (context) => ManageFavouritesCubit(addToFavouritesUseCase: AddToFavouritesUseCase(favRepo),removeFromFavouritesUseCase: RemoveFromFavouritesUseCase(favRepo)),
+            create: (context) => ManageFavouritesCubit(addToFavouritesUseCase: AddToFavouritesUseCase(favRepo), removeFromFavouritesUseCase: RemoveFromFavouritesUseCase(favRepo)),
           ),
         ],
         child: MaterialApp(
