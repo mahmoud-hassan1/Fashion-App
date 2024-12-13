@@ -26,9 +26,9 @@ import 'package:online_shopping/core/utiles/app_colors.dart';
 class NavigationBarView extends StatelessWidget {
   const NavigationBarView({super.key});
 
-  static  final List<Widget> _widgetOptions = <Widget>[
+  static final List<Widget> _widgetOptions = <Widget>[
     const HomeView(),
-     ShopView(),
+    ShopView(),
     const MyBagView(),
     const FavouriteView(),
     const ProfileView(),
@@ -57,7 +57,6 @@ class NavigationBarView extends StatelessWidget {
         BlocProvider<FavouritesCubit>(
           create: (context) => FavouritesCubit(getFavouritesPoductsUseCase: getFavouritesPoducts),
         ),
-     
         BlocProvider<MyBagCubit>(
           create: (context) => MyBagCubit(repo: MyBagRepoImpl(FavouriteRepoImpl(firestore: FirebaseFirestore.instance))),
         ),
@@ -98,13 +97,21 @@ class NavigationBarView extends StatelessWidget {
                 pageController.jumpToPage(index); // Update PageView
               },
             ),
-          
           ),
-          floatingActionButton: UserModel.getInstance().role =='admin'? FloatingActionButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const AddProductView(),));
-          },
-          child: const Icon(Icons.add),
-          ):const SizedBox(),
+          floatingActionButton: UserModel.getInstance().role.value == 'admin'
+              ? FloatingActionButton(
+                  backgroundColor: const Color(0xffdb3022),
+                  child: const Icon(Icons.add, color: Colors.white),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AddProductView(),
+                      ),
+                    );
+                  },
+                )
+              : const SizedBox(),
         ),
       ),
     );

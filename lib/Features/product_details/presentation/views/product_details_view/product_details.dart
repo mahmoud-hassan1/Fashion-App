@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:online_shopping/Features/add_product/presentation/views/edit_product_view.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/product_details/presentation/cubits/product_details_cubit/product_details_cubit.dart';
 import 'package:online_shopping/Features/product_details/presentation/views/product_details_view/widgets/details_list_view_item.dart';
@@ -12,8 +13,8 @@ import 'package:online_shopping/Features/reviews/presentation/cubits/product_rev
 import 'package:online_shopping/Features/reviews/presentation/views/product_reviews_view.dart';
 import 'package:online_shopping/core/models/user_model.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
+import 'package:online_shopping/core/widgets/custtom_button.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
-import '../../../../../core/widgets/custtom_button.dart';
 
 // ignore: must_be_immutable
 class ProductDetails extends StatefulWidget {
@@ -53,7 +54,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           } else if (state is ProductDetailsRefresh) {
             widget.product = state.product;
           } else if (state is ProductDetailsAddedToCart) {
-            snackBar(content: "Product added to cart successfully", context: context,color: Colors.green);
+            snackBar(content: "Product added to cart successfully", context: context, color: Colors.green);
             Navigator.of(context).pop();
           }
           isLoading = false;
@@ -67,6 +68,20 @@ class _ProductDetailsState extends State<ProductDetails> {
                   widget.product.subtitle,
                   style: Styles.kFontSize30(context),
                 ),
+                actions: [
+                  UserModel.getInstance().role.value == 'admin'
+                      ? IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditProductView(product: widget.product),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.edit))
+                      : const SizedBox()
+                ],
               ),
               body: SingleChildScrollView(
                 child: Column(

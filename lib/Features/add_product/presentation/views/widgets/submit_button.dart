@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-class SubmitEditsButton extends StatelessWidget {
-final VoidCallback? onPressed;
-final String title;
-  const SubmitEditsButton({
-    super.key,
-     required this.onPressed,
-     required this.title,
 
-  });
+class EditsButton extends StatelessWidget {
+  final String title;
+  final VoidCallback? onPressed;
+  final Color? color;
+
+  const EditsButton({super.key, required this.onPressed, required this.title, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +15,13 @@ final String title;
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: color ?? Theme.of(context).primaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        child:  Text(
-        title,
+        child: Text(
+          title,
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
