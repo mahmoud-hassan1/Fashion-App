@@ -1,3 +1,6 @@
+import 'package:online_shopping/constants.dart';
+import 'package:online_shopping/core/models/user_model.dart';
+
 class SignupModel {
   final String email;
   final String name;
@@ -15,6 +18,8 @@ class SignupModel {
       'bag': [],
       'favourites': [],
       'orders': [],
+      'role': Role.user.value,
+      'profilePicturePath': defaultProfileImage,
     };
   }
 

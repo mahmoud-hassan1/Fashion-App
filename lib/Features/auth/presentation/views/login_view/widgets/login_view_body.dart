@@ -51,6 +51,11 @@ class LoginViewBody extends StatelessWidget {
               MaterialPageRoute(builder: (context) => const NavigationBarView()),
               (Route<dynamic> route) => false,
             );
+          } else if (state is AuthGoToHome) {
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => const NavigationBarView()),
+              (Route<dynamic> route) => false,
+            );
           } else if (state is AuthCompleteGoogleAuthProcess) {
             Navigator.of(context).push(
               MaterialPageRoute(
