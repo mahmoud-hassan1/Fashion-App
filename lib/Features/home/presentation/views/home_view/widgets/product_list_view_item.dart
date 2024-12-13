@@ -62,7 +62,7 @@ class ProductListViewItem extends StatelessWidget {
                       );
                     },
                   ),
-                  UserModel.getInstance().role.value == 'admin'
+                  UserModel.getInstance().role == Role.admin
                       ? IconButton(
                           onPressed: () {
                             Navigator.push(

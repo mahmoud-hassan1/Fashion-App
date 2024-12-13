@@ -98,7 +98,7 @@ class NavigationBarView extends StatelessWidget {
               },
             ),
           ),
-          floatingActionButton: UserModel.getInstance().role.value == 'admin'
+          floatingActionButton: UserModel.getInstance().role == Role.admin
               ? FloatingActionButton(
                   backgroundColor: const Color(0xffdb3022),
                   child: const Icon(Icons.add, color: Colors.white),

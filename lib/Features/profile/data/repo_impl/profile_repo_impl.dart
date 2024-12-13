@@ -33,7 +33,7 @@ class ProfileRepoImpl extends ProfileRepo {
     if (UserModel.getInstance().profilePicturePath != defaultProfileImage) {
       await storage.deleteFile(UserModel.getInstance().profilePicturePath);
       UserModel.getInstance().profilePicturePath = defaultProfileImage;
-      await Firestore.updateField(collectionPath: 'users', docName: UserModel.getInstance().uid, data: {'profileURL': defaultProfileImage});
+      await Firestore.updateField(collectionPath: 'users', docName: UserModel.getInstance().uid, data: {'profilePicturePath': defaultProfileImage});
     }
   }
 

@@ -69,7 +69,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   style: Styles.kFontSize30(context),
                 ),
                 actions: [
-                  UserModel.getInstance().role.value == 'admin'
+                  UserModel.getInstance().role == Role.admin
                       ? IconButton(
                           onPressed: () {
                             Navigator.push(

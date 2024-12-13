@@ -111,7 +111,7 @@ class ProductItem extends StatelessWidget {
             return Positioned(
               top: 0,
               right: 0,
-              child: UserModel.getInstance().role.value == 'admin'
+              child: UserModel.getInstance().role == Role.admin
                   ? IconButton(
                       onPressed: () {
                         Navigator.push(
