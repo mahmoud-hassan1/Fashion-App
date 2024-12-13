@@ -2,7 +2,6 @@ import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart' hide CarouselController;
 import 'package:online_shopping/Features/home/presentation/views/home_view/widgets/offers_list_view_item.dart';
 
-
 class OffersListView extends StatefulWidget {
   const OffersListView({super.key});
 
@@ -15,16 +14,18 @@ class OffersListViewState extends State<OffersListView> {
 
   @override
   Widget build(BuildContext context) {
-    double width =MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
     return Column(
       children: [
         CarouselSlider.builder(
           itemCount: 2, // Number of items in the slider
           itemBuilder: (context, index, realIndex) {
-            return   OffersListViewItem(index: index,);
+            return OffersListViewItem(
+              index: index,
+            );
           },
           options: CarouselOptions(
-            height: (width*1.3).clamp(0, 800),
+            height: (width * 1.3).clamp(0, 800),
             autoPlay: true,
             enlargeCenterPage: true,
             viewportFraction: 1,
@@ -46,12 +47,12 @@ class OffersListViewState extends State<OffersListView> {
 
   Widget buildIndicator(int index) {
     return Container(
-      width:_current ==index? 15:8.0,
+      width: _current == index ? 15 : 8.0,
       height: 8.0,
       margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
       decoration: BoxDecoration(
-        borderRadius:_current ==index? BorderRadius.circular(10):null,
-        shape: _current ==index?BoxShape.rectangle :BoxShape.circle,
+        borderRadius: _current == index ? BorderRadius.circular(10) : null,
+        shape: _current == index ? BoxShape.rectangle : BoxShape.circle,
         color: _current == index ? Colors.black : Colors.grey,
       ),
     );

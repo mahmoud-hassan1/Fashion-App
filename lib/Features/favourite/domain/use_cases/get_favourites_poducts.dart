@@ -11,8 +11,7 @@ class GetFavouritesPoductsUseCase {
       final products = await repository.getFavouritsProduct();
       return products;
     } catch (e) {
-      throw Exception('Failed to load newest products: $e'); 
+      throw Exception('Failed to load newest products: $e');
     }
   }
 }
-

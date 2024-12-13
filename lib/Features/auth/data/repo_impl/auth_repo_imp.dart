@@ -87,7 +87,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<UserClass?> checkUserExistance(String email) async {
     try {
       QuerySnapshot query = await FirebaseFirestore.instance.collection('users').where('email', isEqualTo: email).get();
-      
+
       SignupModel model = SignupModel.fromJson(query.docs.first.data());
       UserClass user = UserClass(uid: model.uid!, email: model.email);
       return user;

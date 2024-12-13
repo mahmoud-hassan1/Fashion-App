@@ -24,19 +24,9 @@ class FavouritesButton extends StatelessWidget {
         }
       },
       child: Container(
-        margin:const EdgeInsets.all(3) ,
+        margin: const EdgeInsets.all(3),
         padding: const EdgeInsets.all(3),
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: AppColors.kItemBackgroundColor,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 5,
-              color: Colors.grey ,
-              offset: Offset(4, 4)
-            )
-          ]
-        ),
+        decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.kItemBackgroundColor, boxShadow: [BoxShadow(blurRadius: 5, color: Colors.grey, offset: Offset(4, 4))]),
         child: Icon(blocInstance.isFavourite(productId: product.id) ? Icons.favorite : Icons.favorite_border_rounded,
             color: blocInstance.isFavourite(productId: product.id) ? AppColors.kRed : Colors.black),
       ),

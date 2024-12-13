@@ -22,8 +22,7 @@ class ForgetPasswordSection extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        const ResetPasswordView(),
+                    builder: (context) => const ResetPasswordView(),
                   ));
             },
             icon: const Icon(
@@ -34,4 +33,3 @@ class ForgetPasswordSection extends StatelessWidget {
     );
   }
 }
-

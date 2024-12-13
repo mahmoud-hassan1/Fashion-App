@@ -21,10 +21,9 @@ class ShopCubit extends Cubit<ShopState> {
     emit(ShopLoadingState());
     try {
       final products = await getNewestProductsByCategory.call(category);
-  
+
       emit(ShopLoadedState(products: products));
     } catch (e) {
-      
       emit(ShopErrorState(message: 'Failed to load newest products: $e'));
     }
   }
@@ -38,7 +37,8 @@ class ShopCubit extends Cubit<ShopState> {
       emit(ShopErrorState(message: 'Failed to load products: $e'));
     }
   }
-    Future<void> fetchSaleProductsByCategory(List<String> category) async {
+
+  Future<void> fetchSaleProductsByCategory(List<String> category) async {
     emit(ShopLoadingState());
     try {
       final products = await getSaleProductsByCategory.call(category);

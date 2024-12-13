@@ -15,17 +15,21 @@ class ProductsScreenListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return products.isNotEmpty? ListView.separated(
-      itemBuilder: (context, index) => InkWell(
-        onTap: () async{
-           await Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetails(product: products[index])));
-            if(context.mounted){
-              BlocProvider.of<ManageFavouritesCubit>(context).emitState();
-            }
-        },
-        child: ProductItem(product: products[index])),
-      itemCount: products.length,
-      separatorBuilder: (context, index) => const SizedBox(height: 16,),
-    ):const Center(child: Text("No Products Yet"));
+    return products.isNotEmpty
+        ? ListView.separated(
+            itemBuilder: (context, index) => InkWell(
+                onTap: () async {
+                  await Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetails(product: products[index])));
+                  if (context.mounted) {
+                    BlocProvider.of<ManageFavouritesCubit>(context).emitState();
+                  }
+                },
+                child: ProductItem(product: products[index])),
+            itemCount: products.length,
+            separatorBuilder: (context, index) => const SizedBox(
+              height: 16,
+            ),
+          )
+        : const Center(child: Text("No Products Yet"));
   }
 }

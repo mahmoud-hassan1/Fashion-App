@@ -15,8 +15,6 @@ class HomeRepoImpl implements HomeRepo {
     return await dataSource.getNewestProducts();
   }
 
-
-
   @override
   Future<List<ProductModel>> getProductsOnSale() async {
     return await dataSource.getProductsOnSale();

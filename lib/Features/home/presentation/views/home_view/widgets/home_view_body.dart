@@ -16,11 +16,13 @@ class HomeViewBody extends StatelessWidget {
       child: Column(
         children: [
           const OffersListView(),
-          
           BlocBuilder<NewestCubit, NewestState>(
             builder: (context, state) {
               if (state is NewestSuccess) {
-                return ProductListView(products: state.products,title: "New",);
+                return ProductListView(
+                  products: state.products,
+                  title: "New",
+                );
               } else if (state is NewestFail) {
                 return Center(child: Text(state.message));
               } else {
@@ -28,11 +30,13 @@ class HomeViewBody extends StatelessWidget {
               }
             },
           ),
-        
           BlocBuilder<SaleCubit, SaleState>(
             builder: (context, state) {
               if (state is SaleSuccess) {
-                return ProductListView(products: state.products,title: "Sales",);
+                return ProductListView(
+                  products: state.products,
+                  title: "Sales",
+                );
               } else if (state is SaleFailed) {
                 return Center(child: Text(state.message));
               } else {

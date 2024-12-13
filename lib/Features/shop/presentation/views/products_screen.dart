@@ -17,19 +17,12 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FavouriteRepo favouriteRepo =
-        FavouriteRepoImpl(firestore: FirebaseFirestore.instance);
+    final FavouriteRepo favouriteRepo = FavouriteRepoImpl(firestore: FirebaseFirestore.instance);
     return BlocProvider(
-      create: (context) => ManageFavouritesCubit(
-          addToFavouritesUseCase: AddToFavouritesUseCase(favouriteRepo),
-          removeFromFavouritesUseCase:
-              RemoveFromFavouritesUseCase(favouriteRepo)),
+      create: (context) => ManageFavouritesCubit(addToFavouritesUseCase: AddToFavouritesUseCase(favouriteRepo), removeFromFavouritesUseCase: RemoveFromFavouritesUseCase(favouriteRepo)),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            title,
-         style:  Styles.kFontSize30(context).copyWith(fontWeight: FontWeight.w600)
-          ),
+          title: Text(title, style: Styles.kFontSize30(context).copyWith(fontWeight: FontWeight.w600)),
           centerTitle: true,
         ),
         body: ProductsScreenBody(

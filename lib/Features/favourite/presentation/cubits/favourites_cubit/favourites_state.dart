@@ -4,6 +4,7 @@ part of 'favourites_cubit.dart';
 sealed class FavouritesState {}
 
 final class FavouritesInitial extends FavouritesState {}
+
 final class FavouritesSuccess extends FavouritesState {
   final List<Product> products;
 
@@ -17,4 +18,3 @@ final class FavouritesFail extends FavouritesState {
 }
 
 final class FavouritesLoading extends FavouritesState {}
-

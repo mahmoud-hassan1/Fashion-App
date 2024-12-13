@@ -19,49 +19,47 @@ class EmailAndPasswordFields extends StatelessWidget {
       children: [
         CustomTextField(
           expand: false,
-            keyForm: keyForm,
-            validator: (value){
-              RegExp regex=RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-               if (value!.isEmpty) {
-                return 'Please enter mail';
+          keyForm: keyForm,
+          validator: (value) {
+            RegExp regex = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+            if (value!.isEmpty) {
+              return 'Please enter mail';
+            } else {
+              if (!regex.hasMatch(value)) {
+                return 'Enter valid mail';
               } else {
-                if (!regex.hasMatch(value)) {
-                  return 'Enter valid mail';
-                } else {
-                  return null;
-                }
-                }
-            },
+                return null;
+              }
+            }
+          },
           prefixIcon: const Icon(Icons.mail_outline),
           label: "Email",
           controller: emailController,
         ),
-         const SizedBox(
-      height: 8,
-    ),
-    CustomTextField(
-      expand: false,
-        keyForm: keyForm,
-       validator: (value){
-          RegExp regex =
-              RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
-          if (value!.isEmpty) {
-            return 'Please enter password';
-          } else {
-            if (!regex.hasMatch(value)) {
-              return 'Enter valid password';
+        const SizedBox(
+          height: 8,
+        ),
+        CustomTextField(
+          expand: false,
+          keyForm: keyForm,
+          validator: (value) {
+            RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+            if (value!.isEmpty) {
+              return 'Please enter password';
             } else {
-              return null;
-            } 
-       }
-                        
-        },
-      password: true,
-      obscure: true,
-      prefixIcon: const Icon(Icons.lock_outline),
-      label: "Password",
-      controller: passwordController,
-    ),
+              if (!regex.hasMatch(value)) {
+                return 'Enter valid password';
+              } else {
+                return null;
+              }
+            }
+          },
+          password: true,
+          obscure: true,
+          prefixIcon: const Icon(Icons.lock_outline),
+          label: "Password",
+          controller: passwordController,
+        ),
       ],
     );
   }

@@ -11,8 +11,7 @@ class GetSaleProducts {
       final productModels = await repository.getProductsOnSale();
       return productModels.map((model) => model.toEntity()).toList();
     } catch (e) {
-      throw Exception('Failed to load sale products: $e'); 
+      throw Exception('Failed to load sale products: $e');
     }
   }
 }
-

@@ -11,14 +11,14 @@ class ProductModel {
   final int stock;
   final double price;
   final double priceBeforeDiscount;
-   String image;
+  String image;
   final List<String> categories;
   final DateTime date;
   final String subtitle;
   final List<ReviewModel> reviews;
   final double discount;
-   List<String> images;
-  ProductModel(  {
+  List<String> images;
+  ProductModel({
     required this.id,
     required this.name,
     required this.description,
@@ -57,9 +57,9 @@ class ProductModel {
       date: (json['date'] as Timestamp).toDate(),
       subtitle: json['subtitle'],
       reviews: reviewModels,
-   images: (json['images'] as List<dynamic>?)?.cast<String>() ?? [],
-    priceBeforeDiscount: (json['priceBeforeDiscount']??0 as num).toDouble(),
-    discount: (json['discount']??0 as num).toDouble(),
+      images: (json['images'] as List<dynamic>?)?.cast<String>() ?? [],
+      priceBeforeDiscount: (json['priceBeforeDiscount'] ?? 0 as num).toDouble(),
+      discount: (json['discount'] ?? 0 as num).toDouble(),
     );
   }
 
@@ -80,28 +80,27 @@ class ProductModel {
       }),
       'images': images,
       'priceBeforeDiscount': priceBeforeDiscount,
-      'discount':discount
+      'discount': discount
     };
   }
 
   Product toEntity() {
     return Product(
-      id: id,
-      date:date,
-      name: name,
-      description: description,
-      rate: getRate(reviews),
-      sellerId: sellerId,
-      stock: stock,
-      price: price,
-      image: image,
-      categories: categories,
-      subtitle: subtitle,
-      reviews: reviews,
-       discount: discount,
-      images: images,
-      priceBeforeDiscount: priceBeforeDiscount
-    );
+        id: id,
+        date: date,
+        name: name,
+        description: description,
+        rate: getRate(reviews),
+        sellerId: sellerId,
+        stock: stock,
+        price: price,
+        image: image,
+        categories: categories,
+        subtitle: subtitle,
+        reviews: reviews,
+        discount: discount,
+        images: images,
+        priceBeforeDiscount: priceBeforeDiscount);
   }
 
   static double getRate(List<ReviewModel> reviewModels) {

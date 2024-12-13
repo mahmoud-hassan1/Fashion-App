@@ -14,12 +14,13 @@ class ProductListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-           Header(
-            title: title, products: products,
-          ),
-          const SizedBox(
-            height: 16,
-          ),
+        Header(
+          title: title,
+          products: products,
+        ),
+        const SizedBox(
+          height: 16,
+        ),
         Padding(
           padding: const EdgeInsets.only(left: 16),
           child: SizedBox(

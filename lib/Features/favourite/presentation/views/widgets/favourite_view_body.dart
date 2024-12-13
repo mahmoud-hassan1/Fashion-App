@@ -7,20 +7,22 @@ class FavouriteViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: CustomScrollView(
         slivers: [
           SliverAppBar(
-            actions:  [
+            actions: [
               IconButton(
-                onPressed: (){},
-                icon: const Icon(Icons.search),)
+                onPressed: () {},
+                icon: const Icon(Icons.search),
+              )
             ],
           ),
           SliverToBoxAdapter(
-            child: Text("Favourites",
-            style: Styles.kLargeTextStyle(context),
+            child: Text(
+              "Favourites",
+              style: Styles.kLargeTextStyle(context),
             ),
           ),
           const FavouritesListView()

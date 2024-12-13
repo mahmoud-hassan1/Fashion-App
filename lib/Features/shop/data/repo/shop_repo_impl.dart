@@ -14,10 +14,11 @@ class ShopRepoImpl implements ShopRepo {
 
   @override
   Future<List<ProductModel>> getNewestProductsByCategory(List<String> category) async {
-  return await dataSource.getNewestProductsByCategory(category);
-}
- @override
- Future<List<ProductModel>> getSaleProductsByCategory(List<String> category) async {
-  return await dataSource.getSaleProductsByCategory(category);
-}
+    return await dataSource.getNewestProductsByCategory(category);
+  }
+
+  @override
+  Future<List<ProductModel>> getSaleProductsByCategory(List<String> category) async {
+    return await dataSource.getSaleProductsByCategory(category);
+  }
 }

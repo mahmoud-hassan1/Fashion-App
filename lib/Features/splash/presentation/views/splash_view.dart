@@ -15,7 +15,7 @@ class SplashView extends StatelessWidget {
     return BlocProvider<UserCubit>(
       create: (context) => UserCubit(getUserDataUseCase: GetUserDataUseCase(UserRepoImpl(UserDataSource(FirebaseFirestore.instance)))),
       child: const Scaffold(
-        body: SplashViewBody() ,
+        body: SplashViewBody(),
       ),
     );
   }

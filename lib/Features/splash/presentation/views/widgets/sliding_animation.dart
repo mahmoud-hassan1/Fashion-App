@@ -13,21 +13,16 @@ class SlidingAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: slidingAnimation,
-      builder: (context, snapshot) {
-        return SlideTransition(
-         position: slidingAnimation,
-          child: Text(
-           "Easy Shopping",
-           style: TextStyle(
-             fontSize: 18.sp,
-             color: kMainColor,
-             fontWeight: FontWeight.bold
-           ),
-           textAlign: TextAlign.center,
-         ),
-        );
-      }
-    );
+        animation: slidingAnimation,
+        builder: (context, snapshot) {
+          return SlideTransition(
+            position: slidingAnimation,
+            child: Text(
+              "Easy Shopping",
+              style: TextStyle(fontSize: 18.sp, color: kMainColor, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+          );
+        });
   }
 }

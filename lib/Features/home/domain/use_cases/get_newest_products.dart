@@ -11,8 +11,7 @@ class GetNewestProducts {
       final productModels = await repository.getNewestProducts();
       return productModels.map((model) => model.toEntity()).toList();
     } catch (e) {
-      throw Exception('Failed to load newest products: $e'); 
+      throw Exception('Failed to load newest products: $e');
     }
   }
 }
-

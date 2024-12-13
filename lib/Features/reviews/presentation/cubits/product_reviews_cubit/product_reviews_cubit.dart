@@ -18,7 +18,7 @@ class ProductReviewsCubit extends Cubit<ProductReviewsState> {
       if (reviewsRepo.checkUserExistance(product, UserModel.getInstance().uid)) {
         emit(ProductReviewsFailed("You already write a review for this product."));
       }
-      
+
       await reviewsRepo.createReview(product, reviewModel, productId);
       emit(ProductReviewsSuccess());
     } catch (_) {

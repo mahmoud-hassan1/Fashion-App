@@ -8,18 +8,22 @@ import 'package:online_shopping/core/utiles/styles.dart';
 
 // ignore: must_be_immutable
 class SalesSection extends StatelessWidget {
-   SalesSection({
+  SalesSection({
     required this.tabController,
     super.key,
   });
-late TabController tabController;
+  late TabController tabController;
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: InkWell(
         onTap: () {
           BlocProvider.of<ShopCubit>(context).fetchSaleProductsByCategory([kTypes[tabController.index].toLowerCase()]);
-          Navigator.push(context, MaterialPageRoute(builder: (context) => ProductsScreen(title: "${kTypes[tabController.index]}'s Sales"),));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProductsScreen(title: "${kTypes[tabController.index]}'s Sales"),
+              ));
         },
         child: AspectRatio(
           aspectRatio: 3 / 1,
@@ -42,9 +46,7 @@ late TabController tabController;
                 ),
                 Text(
                   "Up to 50% off",
-                  style: Styles.kSmallTextStyle(context)
-                      .copyWith(color: Colors.white)
-                      .copyWith(fontWeight: FontWeight.w400),
+                  style: Styles.kSmallTextStyle(context).copyWith(color: Colors.white).copyWith(fontWeight: FontWeight.w400),
                 ),
               ],
             ),

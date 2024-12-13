@@ -40,9 +40,12 @@ class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProvid
     return BlocListener<UserCubit, UserState>(
       listener: (context, state) {
         if (state is UserSuccess) {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavigationBarView(),));
-        } 
-        else if(state is UserFail){
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const NavigationBarView(),
+              ));
+        } else if (state is UserFail) {
           BlocProvider.of<UserCubit>(context).getUserData();
         }
       },
@@ -50,42 +53,40 @@ class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProvid
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20.w
-              ),
-              child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Container(
               width: double.infinity,
               height: 100.h,
               alignment: Alignment.center,
-                child: SvgPicture.asset(
-                  kLogo,
-                  fit: BoxFit.cover,
-                ),
+              child: SvgPicture.asset(
+                kLogo,
+                fit: BoxFit.cover,
               ),
-              ),
-           SlidingAnimation(slidingAnimation: slidingAnimation)
+            ),
+          ),
+          SlidingAnimation(slidingAnimation: slidingAnimation)
         ],
       ),
     );
   }
 
-  void initAnimation(){
-    animationController=AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1)
-    );
-    slidingAnimation =Tween<Offset>(begin: const Offset(0,4), end: Offset.zero).animate(animationController);
+  void initAnimation() {
+    animationController = AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    slidingAnimation = Tween<Offset>(begin: const Offset(0, 4), end: Offset.zero).animate(animationController);
     animationController.forward();
   }
 
   void navigateToLogin() {
-    Future.delayed(const Duration(seconds: 2),
-    (){
+    Future.delayed(const Duration(seconds: 2), () {
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
         BlocProvider.of<UserCubit>(context).getUserData();
       } else {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginView(),));
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoginView(),
+            ));
       }
     });
   }

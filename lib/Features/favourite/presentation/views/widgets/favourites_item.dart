@@ -123,5 +123,3 @@ class FavouritesItem extends StatelessWidget {
     );
   }
 }
-
-

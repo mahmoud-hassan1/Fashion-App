@@ -3,4 +3,4 @@ class UserClass {
   final String email;
 
   UserClass({required this.uid, required this.email});
-} 
+}
