@@ -19,7 +19,6 @@ class ProfileRepoImpl extends ProfileRepo {
   final StorageServices storageServices;
   final FirestoreServices firestoreServices;
   final AuthServices authServices;
-  final UserModel user = UserModel.getInstance();
 
   @override
   Future<void> updateProfileImage() async {
@@ -27,26 +26,26 @@ class ProfileRepoImpl extends ProfileRepo {
     final XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
 
     if (imagePicked != null) {
-      String newImageURL = await storageServices.uploadFile(imagePicked.path, "/profile_images/${user.uid}/image");
-      user.profilePicturePath = newImageURL;
+      String newImageURL = await storageServices.uploadFile(imagePicked.path, "/profile_images/${UserModel.getInstance().uid}/image");
+      UserModel.getInstance().profilePicturePath = newImageURL;
 
-      await firestoreServices.updateField(usersCollectionKey, user.uid, {UserModel.profilePicturePathKey: newImageURL});
+      await firestoreServices.updateField(usersCollectionKey, UserModel.getInstance().uid, {UserModel.profilePicturePathKey: newImageURL});
     }
   }
 
   @override
   Future<void> deleteProfileImage() async {
-    if (user.profilePicturePath != defaultProfileImage) {
-      await storageServices.deleteFile(user.profilePicturePath);
+    if (UserModel.getInstance().profilePicturePath != defaultProfileImage) {
+      await storageServices.deleteFile(UserModel.getInstance().profilePicturePath);
 
-      user.profilePicturePath = defaultProfileImage;
-      await firestoreServices.updateField(usersCollectionKey, user.uid, {UserModel.profilePicturePathKey: defaultProfileImage});
+      UserModel.getInstance().profilePicturePath = defaultProfileImage;
+      await firestoreServices.updateField(usersCollectionKey, UserModel.getInstance().uid, {UserModel.profilePicturePathKey: defaultProfileImage});
     }
   }
 
   @override
   Future<List<OrderModel>> getMyTodayOrders(DateTime date) async {
-    DocumentSnapshot res = await firestoreServices.getDocumentData(usersCollectionKey, user.uid);
+    DocumentSnapshot res = await firestoreServices.getDocumentData(usersCollectionKey, UserModel.getInstance().uid);
 
     List<OrderModel> orders = [];
     for (Map order in res.get(OrderModel.ordersKey)) {
@@ -86,13 +85,13 @@ class ProfileRepoImpl extends ProfileRepo {
   Future<void> saveUserChanges(String name, DateTime dateOfBirth) async {
     UserModel userModel = UserModel(
       name: name,
-      uid: user.uid,
+      uid: UserModel.getInstance().uid,
       dateOfBirth: dateOfBirth.toIso8601String(),
-      email: user.email,
-      profilePicturePath: user.profilePicturePath,
-      favourites: user.favourites,
-      bag: user.bag,
-      role: user.role,
+      email: UserModel.getInstance().email,
+      profilePicturePath: UserModel.getInstance().profilePicturePath,
+      favourites: UserModel.getInstance().favourites,
+      bag: UserModel.getInstance().bag,
+      role: UserModel.getInstance().role,
     );
     UserModel.setInstance(userModel);
     await firestoreServices.updateField(usersCollectionKey, userModel.uid, userModel.toMap());

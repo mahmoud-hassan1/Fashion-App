@@ -19,9 +19,17 @@ class FavouritesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Product> products = [];
+
     return BlocProvider<AddToCartCubit>(
       create: (context) => AddToCartCubit(getIt<MyBagRepoImpl>()),
-      child: BlocBuilder<AddToCartCubit, AddToCartState>(
+      child: BlocConsumer<AddToCartCubit, AddToCartState>(
+        listener: (context, state) {
+          if (state is AddToCartSuccessed) {
+            snackBar(content: 'Product added to cart successfully', context: context);
+          } else if (state is AddToCartFailed) {
+            snackBar(content: 'Something went wrong!', context: context);
+          }
+        },
         builder: (context, state) {
           return BlocConsumer<FavouritesCubit, FavouritesState>(
             listener: (context, state) {
@@ -34,10 +42,10 @@ class FavouritesListView extends StatelessWidget {
             builder: (context, state) {
               if (state is FavouritesLoading) {
                 return const SliverToBoxAdapter(
-                    child: Center(
-                        child: CircularProgressIndicator(
-                  color: AppColors.kRed,
-                )));
+                  child: Center(
+                    child: CircularProgressIndicator(color: AppColors.kRed),
+                  ),
+                );
               } else if (state is FavouritesSuccess) {
                 return BlocConsumer<ManageFavouritesCubit, ManageFavouritesState>(
                   listener: (context, state) {

@@ -18,7 +18,6 @@ class AuthRepoImpl implements AuthRepo {
   final AuthServices authServices;
   final FirestoreServices firestoreServices;
   final StorageServices storageServices;
-  UserModel user = UserModel.getInstance();
 
   @override
   Future<UserClass?> login(String email, String password) async {
@@ -103,11 +102,11 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<void> deleteAccount() async {
-    if (user.profilePicturePath != defaultProfileImage) {
-      await storageServices.deleteFile(user.profilePicturePath);
+    if (UserModel.getInstance().profilePicturePath != defaultProfileImage) {
+      await storageServices.deleteFile(UserModel.getInstance().profilePicturePath);
     }
 
-    await authServices.signOutServices.deleteAccount(user.uid);
+    await authServices.signOutServices.deleteAccount(UserModel.getInstance().uid);
     UserModel.setInstance(null);
   }
 
