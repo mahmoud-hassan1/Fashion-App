@@ -10,6 +10,7 @@ snackBar({required content, required context, Color? color}) {
         style: Styles.kSmallTextStyle(context),
       ),
       backgroundColor: color ?? AppColors.kRed,
+      duration: const Duration(milliseconds: 1500),
     ),
   );
 }

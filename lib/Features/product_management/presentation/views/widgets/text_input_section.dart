@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:online_shopping/core/widgets/product_custom_text_field.dart';
+import 'package:online_shopping/Features/product_management/presentation/views/widgets/product_custom_text_field.dart';
 
 class TextInputSection extends StatelessWidget {
   const TextInputSection({
@@ -35,7 +35,6 @@ class TextInputSection extends StatelessWidget {
           controller: _nameController,
           prefixIcon: const Icon(Icons.edit),
           validate: true,
-          enabled: false,
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter product name';
@@ -141,7 +140,10 @@ class TextInputSection extends StatelessWidget {
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter stock quantity';
+                    return 'Please enter the discount percentage';
+                  }
+                  if (int.parse(value)>100){
+                    return 'Discount percentage should not be more than 100';
                   }
                   if (int.tryParse(value) == null) {
                     return 'Please enter a valid number';

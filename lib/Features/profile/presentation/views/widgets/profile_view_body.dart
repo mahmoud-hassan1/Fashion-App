@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/auth/data/repo_impl/auth_repo_imp.dart';
+import 'package:online_shopping/Features/auth/presentation/views/login_view/login_view.dart';
 import 'package:online_shopping/Features/profile/data/repo_impl/profile_repo_impl.dart';
 import 'package:online_shopping/Features/profile/presentation/cubits/my_orders_cubit/my_orders_cubit.dart';
 import 'package:online_shopping/Features/profile/presentation/cubits/my_profile_cubit/my_profile_cubit.dart';
@@ -34,7 +35,7 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
         listener: (context, state) {
           if (state is MyProfileGoToSplash) {
             Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => const SplashView()),
+              MaterialPageRoute(builder: (context) => const LoginView()),
               (Route<dynamic> route) => false,
             );
           } else if (state is MyProfileFailed) {

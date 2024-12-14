@@ -22,7 +22,7 @@ class SettingsView extends StatelessWidget {
     return BlocConsumer<SettingsCubit, SettingsState>(
       listener: (context, state) {
         if (state is SettingsFailed) {
-          snackBar(content: 'Something went wrong', context: context);
+          snackBar(content: state.errorMessage, context: context);
         } else if (state is SettingsSuccessed) {
           snackBar(content: 'Data saved successfully', context: context);
         } else if (state is SettingsInvalidData) {
@@ -30,17 +30,19 @@ class SettingsView extends StatelessWidget {
         } else if (state is SettingsLoading) {}
       },
       builder: (context, state) {
-        return ModalProgressHUD(
-          inAsyncCall: state is SettingsLoading,
-          child: Scaffold(
-            body: SafeArea(
+        return Scaffold(
+          appBar: AppBar(
+            title:  Text("My Settings", style: Styles.kMediumTextStyle(context).copyWith(fontSize: 34)),
+          ),
+          body: ModalProgressHUD(
+            inAsyncCall: state is SettingsLoading,
+            child: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(18),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("My Settings", style: Styles.kMediumTextStyle(context).copyWith(fontSize: 34)),
                       const SizedBox(height: 15),
                       Text("Personal Information", style: Styles.kMediumTextStyle(context).copyWith(fontWeight: FontWeight.w600)),
                       const SizedBox(height: 15),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/home/presentation/views/home_view/widgets/header_titles.dart';
 import 'package:online_shopping/Features/home/presentation/views/home_view/widgets/product_list_view_item.dart';
+import 'package:online_shopping/core/utiles/styles.dart';
 
 class ProductListView extends StatelessWidget {
   const ProductListView({super.key, required this.products, required this.title});
@@ -23,7 +24,7 @@ class ProductListView extends StatelessWidget {
         ),
         SizedBox(
           height: 200,
-          child: ListView.builder(
+          child: products.isNotEmpty? ListView.builder(
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               return Row(
@@ -35,7 +36,7 @@ class ProductListView extends StatelessWidget {
               );
             },
             itemCount: min(products.length, 5),
-          ),
+          ):  Text("No Products Yet", style: Styles.kMediumTextStyle(context)),
         ),
       ],
     );

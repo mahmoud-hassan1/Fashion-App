@@ -16,8 +16,8 @@ class SettingsCubit extends Cubit<SettingsState> {
       }
       await profileRepo.savePassword(password);
       emit(SettingsSuccessed());
-    } catch (_) {
-      emit(SettingsFailed());
+    } catch (e) {
+      emit(SettingsFailed(errorMessage: e.toString()));
     }
   }
 
@@ -29,8 +29,8 @@ class SettingsCubit extends Cubit<SettingsState> {
       }
       await profileRepo.saveUserChanges(name, dateOfBirth);
       emit(SettingsSuccessed());
-    } catch (_) {
-      emit(SettingsFailed());
+    } catch (e) {
+      emit(SettingsFailed(errorMessage: e.toString()));
     }
   }
 }
