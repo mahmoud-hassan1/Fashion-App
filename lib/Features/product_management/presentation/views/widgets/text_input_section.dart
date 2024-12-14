@@ -35,6 +35,7 @@ class TextInputSection extends StatelessWidget {
           controller: _nameController,
           prefixIcon: const Icon(Icons.edit),
           validate: true,
+          enabled: false,
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter product name';

@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:online_shopping/Features/add_product/domain/usecases/delete_product_usecase.dart';
-import 'package:online_shopping/Features/add_product/domain/usecases/edit_product_usecase.dart';
-import 'package:online_shopping/Features/add_product/domain/usecases/upload_product_usecase.dart';
+import 'package:online_shopping/Features/product_management/domain/usecases/delete_product_usecase.dart';
+import 'package:online_shopping/Features/product_management/domain/usecases/edit_product_usecase.dart';
+import 'package:online_shopping/Features/product_management/domain/usecases/upload_product_usecase.dart';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
 
 part 'manage_products_state.dart';

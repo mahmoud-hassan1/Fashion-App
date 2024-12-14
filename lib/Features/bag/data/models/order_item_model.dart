@@ -9,19 +9,23 @@ class OrderItemModel {
     required this.quantity,
   });
 
+  static String productIdKey = 'productId';
+  static String priceKey = 'price';
+  static String quantityKey = 'quantity';
+
   Map<String, dynamic> toMap() {
     return {
-      'productId': productId,
-      'price': price,
-      'quantity': quantity,
+      productIdKey: productId,
+      priceKey: price,
+      quantityKey: quantity,
     };
   }
 
   factory OrderItemModel.fromJson(dynamic json) {
     return OrderItemModel(
-      productId: json['productId'],
-      price: json['price'].toDouble(),
-      quantity: json['quantity'],
+      productId: json[productIdKey],
+      price: json[priceKey].toDouble(),
+      quantity: json[quantityKey],
     );
   }
 }

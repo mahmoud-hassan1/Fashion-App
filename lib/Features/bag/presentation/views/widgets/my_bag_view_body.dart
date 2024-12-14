@@ -79,7 +79,7 @@ class MyBagViewBody extends StatelessWidget {
                                 const SizedBox(width: 10),
                                 ScaleDown(
                                   child: Text(
-                                    "${BlocProvider.of<MyBagCubit>(context).calculateTotalPrice()}\$",
+                                    "${BlocProvider.of<MyBagCubit>(context).calculateTotalPrice().toStringAsFixed(2)}\$",
                                     style: Styles.kSmallTextStyle(context).copyWith(fontSize: 18, fontWeight: FontWeight.w500),
                                   ),
                                 ),

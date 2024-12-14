@@ -10,10 +10,7 @@ class ManageFavouritesCubit extends Cubit<ManageFavouritesState> {
   final AddToFavouritesUseCase addToFavouritesUseCase;
   final RemoveFromFavouritesUseCase removeFromFavouritesUseCase;
 
-  ManageFavouritesCubit({
-    required this.addToFavouritesUseCase,
-    required this.removeFromFavouritesUseCase,
-  }) : super(ManageFavouritesInitial());
+  ManageFavouritesCubit(this.addToFavouritesUseCase, this.removeFromFavouritesUseCase) : super(ManageFavouritesInitial());
 
   Future<void> addToFavourites(String productId) async {
     try {

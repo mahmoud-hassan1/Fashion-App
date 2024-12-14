@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:online_shopping/Features/add_product/presentation/manger/manage_products/manage_products_cubit.dart';
-import 'package:online_shopping/Features/add_product/presentation/views/widgets/categories_gridview.dart';
-import 'package:online_shopping/Features/add_product/presentation/views/widgets/submit_button.dart';
-import 'package:online_shopping/Features/add_product/presentation/views/widgets/text_input_section.dart';
+import 'package:online_shopping/Features/product_management/presentation/manger/manage_products/manage_products_cubit.dart';
+import 'package:online_shopping/Features/product_management/presentation/views/widgets/categories_gridview.dart';
+import 'package:online_shopping/Features/product_management/presentation/views/widgets/submit_button.dart';
+import 'package:online_shopping/Features/product_management/presentation/views/widgets/text_input_section.dart';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/home/presentation/views/navigation_bar_view.dart';

@@ -25,7 +25,7 @@ class FavouriteViewBody extends StatelessWidget {
               style: Styles.kLargeTextStyle(context),
             ),
           ),
-          const FavouritesListView()
+          const FavouritesListView(),
         ],
       ),
     );

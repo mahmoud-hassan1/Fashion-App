@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-
 import 'package:online_shopping/Features/splash/domain/use_cases/get_user_data.dart';
 import 'package:online_shopping/core/models/user_model.dart';
 
@@ -9,7 +8,7 @@ part 'user_state.dart';
 class UserCubit extends Cubit<UserState> {
   final GetUserDataUseCase getUserDataUseCase;
 
-  UserCubit({required this.getUserDataUseCase}) : super(UserInitial());
+  UserCubit(this.getUserDataUseCase) : super(UserInitial());
 
   Future<void> getUserData() async {
     emit(UserLoading());

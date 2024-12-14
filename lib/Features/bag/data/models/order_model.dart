@@ -19,17 +19,22 @@ class OrderModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'items': items.map((OrderItemModel item) => item.toMap()).toList(),
-      'date': date.toIso8601String(),
-      'review': orderReview != null ? orderReview?.toMap() : {},
+      itemsKey: items.map((OrderItemModel item) => item.toMap()).toList(),
+      dateKey: date.toIso8601String(),
+      reviewKey: orderReview != null ? orderReview?.toMap() : {},
     };
   }
 
+  static String itemsKey = 'items';
+  static String dateKey = 'date';
+  static String reviewKey = 'review';
+  static String ordersKey = 'orders';
+
   factory OrderModel.fromJson(dynamic json) {
     return OrderModel(
-      items: json['items'].map<OrderItemModel>((item) => OrderItemModel.fromJson(item)).toList(),
-      date: DateTime.parse(json['date']),
-      orderReview: json['review'].isEmpty ? null : OrderReviewModel.fromJson(json['review']),
+      items: json[itemsKey].map<OrderItemModel>((item) => OrderItemModel.fromJson(item)).toList(),
+      date: DateTime.parse(json[dateKey]),
+      orderReview: json[reviewKey].isEmpty ? null : OrderReviewModel.fromJson(json[reviewKey]),
     );
   }
 }

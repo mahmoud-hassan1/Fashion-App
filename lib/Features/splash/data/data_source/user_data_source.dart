@@ -1,15 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:online_shopping/constants.dart';
 import 'package:online_shopping/core/models/user_model.dart';
+import 'package:online_shopping/core/utiles/authentication_services.dart';
+import 'package:online_shopping/core/utiles/firebase_firestore_services.dart';
 
 class UserDataSource {
-  final FirebaseFirestore firestore;
+  final FirestoreServices firestoreServices;
+  final AuthServices authServices;
 
-  UserDataSource(this.firestore);
+  UserDataSource(this.firestoreServices, this.authServices);
 
   Future<UserModel> getUserById() async {
-    final String uid = FirebaseAuth.instance.currentUser!.uid;
-    final snapshot = await firestore.collection('users').doc(uid).get();
+    final String uid = authServices.authInstance.currentUser!.uid;
+    final snapshot = await firestoreServices.getDocumentData(usersCollectionKey, uid);
     return UserModel.fromJson(snapshot.data()!);
   }
 }

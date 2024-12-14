@@ -15,25 +15,32 @@ class ReviewModel {
     required this.userId,
   });
 
+  static String reviewKey = 'review';
+  static String dateTimeKey = 'dateTime';
+  static String rateKey = 'rate';
+  static String userNameKey = 'userName';
+  static String profilePictureKey = 'profilePicture';
+  static String userIdKey = 'userId';
+
   factory ReviewModel.fromJson(dynamic json) {
     return ReviewModel(
-      review: json['review'],
-      dateTime: DateTime.parse(json['dateTime']),
-      rate: json['rate'],
-      userName: json['userName'],
-      profilePicture: json['profilePicture'],
-      userId: json['userId'],
+      review: json[reviewKey],
+      dateTime: DateTime.parse(json[dateTimeKey]),
+      rate: json[rateKey],
+      userName: json[userNameKey],
+      profilePicture: json[profilePictureKey],
+      userId: json[userIdKey],
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      "review": review,
-      "dateTime": dateTime.toIso8601String(),
-      "rate": rate,
-      "userName": userName,
-      "profilePicture": profilePicture,
-      "userId": userId,
+      reviewKey: review,
+      dateTimeKey: dateTime.toIso8601String(),
+      rateKey: rate,
+      userNameKey: userName,
+      profilePictureKey: profilePicture,
+      userIdKey: userId,
     };
   }
 }

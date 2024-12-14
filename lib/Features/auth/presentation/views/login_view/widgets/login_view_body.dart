@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +5,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:online_shopping/Features/auth/data/repo_impl/auth_repo_imp.dart';
 import 'package:online_shopping/Features/auth/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:online_shopping/Features/auth/presentation/views/signup_view/widgets/complete_google_signup_process.dart';
+import 'package:online_shopping/core/utiles/di.dart';
 import 'package:online_shopping/core/widgets/custtom_button.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/email_password_section.dart';
 import 'package:online_shopping/Features/auth/presentation/views/login_view/widgets/forget_password_section.dart';
@@ -29,14 +28,11 @@ class LoginViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    final AuthRepositoryImpl authRepository = AuthRepositoryImpl(firebaseAuth: firebaseAuth, firebaseFirestore: firebaseFirestore);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
-    return BlocProvider(
-      create: (context) => AuthCubit(authRepository),
+    return BlocProvider<AuthCubit>(
+      create: (context) => AuthCubit(getIt<AuthRepoImpl>()),
       child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthLoading) {

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:online_shopping/Features/add_product/presentation/views/edit_product_view.dart';
+import 'package:online_shopping/Features/product_management/presentation/views/edit_product_view.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/product_details/presentation/cubits/product_details_cubit/product_details_cubit.dart';
 import 'package:online_shopping/Features/product_details/presentation/views/product_details_view/widgets/details_list_view_item.dart';
@@ -12,6 +12,7 @@ import 'package:online_shopping/Features/reviews/data/repo_impl/product_reviews_
 import 'package:online_shopping/Features/reviews/presentation/cubits/product_reviews_cubit/product_reviews_cubit.dart';
 import 'package:online_shopping/Features/reviews/presentation/views/product_reviews_view.dart';
 import 'package:online_shopping/core/models/user_model.dart';
+import 'package:online_shopping/core/utiles/di.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custtom_button.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
@@ -42,8 +43,8 @@ class _ProductDetailsState extends State<ProductDetails> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    return BlocProvider(
-      create: (BuildContext context) => ProductReviewsCubit(ProductReviewsRepoImpl()),
+    return BlocProvider<ProductReviewsCubit>(
+      create: (BuildContext context) => ProductReviewsCubit(getIt<ProductReviewsRepoImpl>()),
       child: BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
         listener: (context, state) {
           if (state is ProductDetailsLoading) {

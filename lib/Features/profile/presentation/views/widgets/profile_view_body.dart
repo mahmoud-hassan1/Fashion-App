@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_shopping/Features/auth/data/repo_impl/auth_repo_imp.dart';
 import 'package:online_shopping/Features/profile/data/repo_impl/profile_repo_impl.dart';
 import 'package:online_shopping/Features/profile/presentation/cubits/my_orders_cubit/my_orders_cubit.dart';
 import 'package:online_shopping/Features/profile/presentation/cubits/my_profile_cubit/my_profile_cubit.dart';
@@ -12,7 +13,7 @@ import 'package:online_shopping/Features/profile/presentation/views/widgets/prof
 import 'package:online_shopping/Features/profile/presentation/views/widgets/settings_view.dart';
 import 'package:online_shopping/Features/splash/presentation/views/splash_view.dart';
 import 'package:online_shopping/core/models/user_model.dart';
-import 'package:online_shopping/core/utiles/storage.dart';
+import 'package:online_shopping/core/utiles/di.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custtom_button.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
@@ -27,8 +28,8 @@ class ProfileViewBody extends StatefulWidget {
 class _ProfileViewBodyState extends State<ProfileViewBody> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MyProfileCubit(ProfileRepoImpl(Storage())),
+    return BlocProvider<MyProfileCubit>(
+      create: (context) => MyProfileCubit(getIt<AuthRepoImpl>()),
       child: BlocConsumer<MyProfileCubit, MyProfileState>(
         listener: (context, state) {
           if (state is MyProfileGoToSplash) {
@@ -75,7 +76,7 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                             await Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (BuildContext context) => BlocProvider(
-                                  create: (context) => MyOrdersCubit(ProfileRepoImpl(Storage())),
+                                  create: (context) => MyOrdersCubit(getIt<ProfileRepoImpl>()),
                                   child: MyOrdersView(),
                                 ),
                               ),
@@ -90,7 +91,7 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                                   await Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (BuildContext context) => BlocProvider(
-                                        create: (context) => ProductsStatisticsCubit(ProfileRepoImpl(Storage())),
+                                        create: (context) => ProductsStatisticsCubit(getIt<ProfileRepoImpl>()),
                                         child: const ProductsStatistics(),
                                       ),
                                     ),
@@ -105,7 +106,7 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                             await Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (BuildContext context) => BlocProvider(
-                                  create: (context) => SettingsCubit(ProfileRepoImpl(Storage())),
+                                  create: (context) => SettingsCubit(getIt<ProfileRepoImpl>()),
                                   child: SettingsView(),
                                 ),
                               ),
@@ -118,7 +119,7 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                           height: 550,
                           label: 'LOGOUT',
                           onTap: () async {
-                            BlocProvider.of<MyProfileCubit>(context).logout();
+                            await BlocProvider.of<MyProfileCubit>(context).logout();
                           },
                         ),
                         const SizedBox(height: 15),
@@ -126,7 +127,7 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                           height: 550,
                           label: 'DELETE ACCOUNT',
                           onTap: () async {
-                            BlocProvider.of<MyProfileCubit>(context).deleteAccount();
+                            await BlocProvider.of<MyProfileCubit>(context).deleteAccount();
                           },
                         ),
                       ],

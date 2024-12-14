@@ -6,7 +6,7 @@ part 'sale_state.dart';
 
 class SaleCubit extends Cubit<SaleState> {
   final GetSaleProducts getSaleProducts;
-  SaleCubit({required this.getSaleProducts}) : super(SaleInitial());
+  SaleCubit(this.getSaleProducts) : super(SaleInitial());
 
   Future<void> getProductsOnSale() async {
     emit(SaleLoading());

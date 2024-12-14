@@ -9,7 +9,5 @@ abstract class ProfileRepo {
   Future<List<SpecificOrderModel>> getMyOrdersOnSpecificDate(DateTime date);
   Future<void> saveUserChanges(String name, DateTime dateOfBirth);
   Future<void> savePassword(String newPassword);
-  Future<void> logout();
-  Future<void> deleteAccount();
   Future<List<ProductStatisticsModel>> getProductsBestSelling();
 }

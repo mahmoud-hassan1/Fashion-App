@@ -5,7 +5,7 @@ import 'package:online_shopping/Features/shop/domain/repo/shop_repo.dart';
 class ShopRepoImpl implements ShopRepo {
   final ShopRemoteDataSource dataSource;
 
-  ShopRepoImpl({required this.dataSource});
+  const ShopRepoImpl(this.dataSource);
 
   @override
   Future<List<ProductModel>> getProductsByCategory(List<String> category) async {

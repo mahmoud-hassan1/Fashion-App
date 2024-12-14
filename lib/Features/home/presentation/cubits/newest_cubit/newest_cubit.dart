@@ -7,7 +7,7 @@ part 'newest_state.dart';
 class NewestCubit extends Cubit<NewestState> {
   final GetNewestProducts getNewestProducts;
 
-  NewestCubit({required this.getNewestProducts}) : super(NewestInitial());
+  NewestCubit(this.getNewestProducts) : super(NewestInitial());
 
   Future<void> getNewestProductsOnSale() async {
     emit(NewestLoading());

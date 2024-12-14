@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +7,7 @@ import 'package:online_shopping/Features/auth/data/repo_impl/auth_repo_imp.dart'
 import 'package:online_shopping/Features/auth/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:online_shopping/Features/auth/presentation/views/signup_view/widgets/date_text_field.dart';
 import 'package:online_shopping/Features/home/presentation/views/navigation_bar_view.dart';
+import 'package:online_shopping/core/utiles/di.dart';
 import 'package:online_shopping/core/utiles/is_same_day.dart';
 import 'package:online_shopping/core/widgets/custtom_button.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
@@ -26,13 +26,10 @@ class CompleteGoogleSignupProcess extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final firebaseAuth = FirebaseAuth.instance;
-    final firebaseFirestore = FirebaseFirestore.instance;
-    final authRepository = AuthRepositoryImpl(firebaseAuth: firebaseAuth, firebaseFirestore: firebaseFirestore);
     double height = MediaQuery.of(context).size.height;
 
-    return BlocProvider(
-      create: (context) => AuthCubit(authRepository),
+    return BlocProvider<AuthCubit>(
+      create: (context) => AuthCubit(getIt<AuthRepoImpl>()),
       child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthLoading) {

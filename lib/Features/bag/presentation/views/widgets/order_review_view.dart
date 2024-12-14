@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -6,7 +5,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:online_shopping/Features/bag/data/models/order_review_model.dart';
 import 'package:online_shopping/Features/bag/data/repo_impl/my_bag_repo_impl.dart';
 import 'package:online_shopping/Features/bag/presentation/cubits/order_review_cubit/order_review_cubit.dart';
-import 'package:online_shopping/Features/favourite/data/repo_impl/favourite_repo_impl.dart';
+import 'package:online_shopping/core/utiles/di.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custtom_button.dart';
 import 'package:online_shopping/core/widgets/review_text_field.dart';
@@ -21,7 +20,7 @@ class OrderReviewView extends StatelessWidget {
   Widget build(BuildContext context) {
     int rating = 0;
     return BlocProvider<OrderReviewCubit>(
-      create: (context) => OrderReviewCubit(MyBagRepoImpl(FavouriteRepoImpl(firestore: FirebaseFirestore.instance))),
+      create: (context) => OrderReviewCubit(getIt<MyBagRepoImpl>()),
       child: BlocConsumer<OrderReviewCubit, OrderReviewState>(
         listener: (context, state) {
           if (state is OrderReviewFailed) {
