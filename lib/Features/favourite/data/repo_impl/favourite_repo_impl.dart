@@ -1,13 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:online_shopping/Features/favourite/data/data_source/favourites_data_source.dart';
 import 'package:online_shopping/Features/favourite/domain/repo_interface/favourite_repo.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 
 class FavouriteRepoImpl extends FavouriteRepo {
-  final FirebaseFirestore firestore;
+  FavouriteRepoImpl(this.dataSource);
+
   final FavouritesDataSource dataSource;
 
-  FavouriteRepoImpl({required this.firestore}) : dataSource = FavouritesDataSource(firestore);
   @override
   Future<List<Product>> getFavouritsProduct() async {
     final products = await dataSource.getProductsById();

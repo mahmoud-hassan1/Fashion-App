@@ -9,7 +9,7 @@ part 'favourites_state.dart';
 class FavouritesCubit extends Cubit<FavouritesState> {
   final GetFavouritesPoductsUseCase getFavouritesPoductsUseCase;
 
-  FavouritesCubit({required this.getFavouritesPoductsUseCase}) : super(FavouritesInitial());
+  FavouritesCubit(this.getFavouritesPoductsUseCase) : super(FavouritesInitial());
 
   Future<void> getFavouritesProducts() async {
     emit(FavouritesLoading());

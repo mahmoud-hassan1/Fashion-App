@@ -3,7 +3,7 @@ import 'package:online_shopping/Features/splash/domain/repo/user_data_repo.dart'
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class GetUserDataUseCase {
-  final UserDataRepository _userDataRepository;
+  final UserDataRepo _userDataRepository;
 
   GetUserDataUseCase(this._userDataRepository);
 

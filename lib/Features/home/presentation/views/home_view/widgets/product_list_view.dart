@@ -21,20 +21,20 @@ class ProductListView extends StatelessWidget {
         const SizedBox(
           height: 16,
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 16),
-          child: SizedBox(
-            height: 200,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => ProductListViewItem(
-                product: products[index],
-              ),
-              separatorBuilder: (context, index) => const SizedBox(
-                width: 16,
-              ),
-              itemCount: min(products.length, 5),
-            ),
+        SizedBox(
+          height: 200,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return Row(
+                children: [
+                  const SizedBox(width: 16),
+                  ProductListViewItem(product: products[index]),
+                  index == min(products.length, 5) - 1 ? const SizedBox(width: 16) : const SizedBox(),
+                ],
+              );
+            },
+            itemCount: min(products.length, 5),
           ),
         ),
       ],

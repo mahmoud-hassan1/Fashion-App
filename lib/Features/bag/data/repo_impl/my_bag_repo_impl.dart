@@ -5,20 +5,23 @@ import 'package:online_shopping/Features/bag/data/models/order_review_model.dart
 import 'package:online_shopping/Features/bag/domain/repo_interface/my_bag_repo.dart';
 import 'package:online_shopping/Features/favourite/domain/repo_interface/favourite_repo.dart';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
+import 'package:online_shopping/constants.dart';
 import 'package:online_shopping/core/models/user_model.dart';
+import 'package:online_shopping/core/utiles/firebase_firestore_services.dart';
 
 class MyBagRepoImpl extends MyBagRepo {
-  UserModel user = UserModel.getInstance();
-  final FavouriteRepo favouriteRepo;
+  MyBagRepoImpl(this.favouriteRepo, this.firestoreServices);
 
-  MyBagRepoImpl(this.favouriteRepo);
+  final FavouriteRepo favouriteRepo;
+  final FirestoreServices firestoreServices;
+  final UserModel user = UserModel.getInstance();
 
   @override
   Future<List<ProductModel>> getMyBagItems() async {
     List<ProductModel> products = [];
 
     if (user.bag.isNotEmpty) {
-      final QuerySnapshot result = await FirebaseFirestore.instance.collection('products').where(FieldPath.documentId, whereIn: user.bag).get();
+      final QuerySnapshot result = await firestoreServices.getCollectionRef(productsCollectionKey).where(FieldPath.documentId, whereIn: user.bag).get();
       for (int i = 0; i < result.docs.length; i++) {
         products.add(ProductModel.fromJson(result.docs[i], result.docs[i].id));
       }
@@ -33,11 +36,11 @@ class MyBagRepoImpl extends MyBagRepo {
       user.bag.clear();
 
       OrderModel orderModel = OrderModel(items: items, date: DateTime.now());
-      DocumentReference doc = FirebaseFirestore.instance.collection('users').doc(user.uid);
+      DocumentReference doc = firestoreServices.getDocumentRef(usersCollectionKey, user.uid);
 
-      await doc.update({'bag': []});
+      await doc.update({UserModel.bagKey: []});
       await doc.update({
-        'orders': FieldValue.arrayUnion([orderModel.toMap()])
+        OrderModel.ordersKey: FieldValue.arrayUnion([orderModel.toMap()])
       });
     }
   }
@@ -62,7 +65,7 @@ class MyBagRepoImpl extends MyBagRepo {
   Future<void> addToBag(String productUID) async {
     if (!user.bag.contains(productUID)) {
       user.bag.add(productUID);
-      await FirebaseFirestore.instance.collection('users').doc(user.uid).update({'bag': user.bag});
+      await firestoreServices.updateField(usersCollectionKey, user.uid, {UserModel.bagKey: user.bag});
     }
   }
 
@@ -70,15 +73,15 @@ class MyBagRepoImpl extends MyBagRepo {
   Future<void> deleteFromBag(String productUID) async {
     if (user.bag.contains(productUID)) {
       user.bag.remove(productUID);
-      await FirebaseFirestore.instance.collection('users').doc(user.uid).update({'bag': user.bag});
+      await firestoreServices.updateField(usersCollectionKey, user.uid, {UserModel.bagKey: user.bag});
     }
   }
 
   @override
   Future<void> addReview(OrderReviewModel review) async {
-    DocumentReference doc = FirebaseFirestore.instance.collection('users').doc(user.uid);
-    List<dynamic> orders = (await doc.get()).get('orders');
-    orders.last['review'] = review.toMap();
-    await doc.update({'orders': orders});
+    DocumentReference doc = firestoreServices.getDocumentRef(usersCollectionKey, user.uid);
+    List<dynamic> orders = (await doc.get()).get(OrderModel.ordersKey);
+    orders.last[OrderReviewModel.reviewKey] = review.toMap();
+    await doc.update({OrderModel.ordersKey: orders});
   }
 }

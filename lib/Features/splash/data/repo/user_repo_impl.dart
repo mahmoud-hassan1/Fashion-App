@@ -2,10 +2,10 @@ import 'package:online_shopping/Features/splash/data/data_source/user_data_sourc
 import 'package:online_shopping/Features/splash/domain/repo/user_data_repo.dart';
 import 'package:online_shopping/core/models/user_model.dart';
 
-class UserRepoImpl implements UserDataRepository {
+class UserDataRepoImpl implements UserDataRepo {
   final UserDataSource userDataSource;
 
-  UserRepoImpl(this.userDataSource);
+  UserDataRepoImpl(this.userDataSource);
 
   @override
   Future<UserModel> getUserById() async {

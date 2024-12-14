@@ -1,29 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:online_shopping/Features/auth/data/models/signup_model.dart';
 import 'package:online_shopping/Features/auth/domain/entities/user.dart';
 import 'package:online_shopping/Features/auth/domain/repo_interface/auth_repo.dart';
-import 'package:online_shopping/Features/splash/data/data_source/user_data_source.dart';
-import 'package:online_shopping/Features/splash/data/repo/user_repo_impl.dart';
+import 'package:online_shopping/Features/splash/domain/repo/user_data_repo.dart';
+import 'package:online_shopping/constants.dart';
 import 'package:online_shopping/core/models/user_model.dart';
+import 'package:online_shopping/core/utiles/authentication_services.dart';
+import 'package:online_shopping/core/utiles/firebase_firestore_services.dart';
+import 'package:online_shopping/core/utiles/storage_services.dart';
 
-class AuthRepositoryImpl implements AuthRepository {
-  final FirebaseAuth firebaseAuth;
-  final FirebaseFirestore firebaseFirestore;
+class AuthRepoImpl implements AuthRepo {
+  AuthRepoImpl(this.userDataRepository, this.authServices, this.firestoreServices, this.storageServices);
 
-  const AuthRepositoryImpl({required this.firebaseFirestore, required this.firebaseAuth});
+  final UserDataRepo userDataRepository;
+  final AuthServices authServices;
+  final FirestoreServices firestoreServices;
+  final StorageServices storageServices;
+  UserModel user = UserModel.getInstance();
 
   @override
   Future<UserClass?> login(String email, String password) async {
-    final userCredential = await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-    if (!firebaseAuth.currentUser!.emailVerified) {
+    final userCredential = await authServices.signInServices.signIn(email, password);
+    if (!authServices.authInstance.currentUser!.emailVerified) {
       throw Exception("Verify your email");
     } else {
       final user = userCredential.user;
       if (user != null) {
-        final user = await UserRepoImpl(UserDataSource(FirebaseFirestore.instance)).getUserById();
+        final user = await userDataRepository.getUserById();
         UserModel.setInstance(user);
         return UserClass(uid: user.uid, email: user.email);
       }
@@ -32,16 +37,14 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   Future<void> sendVerficationLink() async {
-    await firebaseAuth.currentUser?.sendEmailVerification();
+    return await authServices.verification.sendVerification();
   }
 
   @override
   Future<UserClass?> signup(SignupModel model, String password) async {
-    debugPrint("dsssssssssssss");
-    final userCredential = await firebaseAuth.createUserWithEmailAndPassword(email: model.email, password: password);
+    final UserCredential userCredential = await authServices.registerServices.register(model.toMap(), model.email, password);
     await sendVerficationLink();
-    model.uid = userCredential.user!.uid;
-    await firebaseFirestore.collection('users').doc(userCredential.user!.uid).set(model.toMap(), SetOptions(merge: true));
+
     final user = userCredential.user;
     if (user != null) {
       user.updateDisplayName(model.name);
@@ -52,14 +55,13 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<UserClass?> completeSignupWithGoogleProcess(DateTime dateOfBirth, String name, OAuthCredential credential) async {
-    final UserCredential userCredential = await firebaseAuth.signInWithCredential(credential);
-
+    final UserCredential userCredential = await authServices.signInServices.signInWithCredential(credential);
     final User? user = userCredential.user;
 
     if (user != null) {
       SignupModel signupModel = SignupModel(email: user.email!, name: name, dateOfBirth: dateOfBirth, uid: user.uid);
-      await FirebaseFirestore.instance.collection('users').doc(user.uid).set(signupModel.toMap(), SetOptions(merge: true));
-      final UserModel userData = await UserRepoImpl(UserDataSource(FirebaseFirestore.instance)).getUserById();
+      await firestoreServices.setDocument(usersCollectionKey, signupModel.toMap(), user.uid);
+      final UserModel userData = await userDataRepository.getUserById();
       UserModel.setInstance(userData);
       return UserClass(uid: user.uid, email: user.email!);
     }
@@ -69,14 +71,12 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<(OAuthCredential, UserClass?)> googleSignup() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
-    final OAuthCredential oAuthCredential = GoogleAuthProvider.credential(idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
-    UserClass? user = await checkUserExistance(googleUser.email);
+    final (OAuthCredential oAuthCredential, GoogleSignInAccount? googleUser) = await authServices.signInServices.signInWithGoogle();
+    UserClass? user = await checkUserExistance(googleUser!.email);
 
     if (user != null) {
-      await firebaseAuth.signInWithCredential(oAuthCredential);
-      final user = await UserRepoImpl(UserDataSource(FirebaseFirestore.instance)).getUserById();
+      await authServices.signInServices.signInWithCredential(oAuthCredential);
+      final user = await userDataRepository.getUserById();
       UserModel.setInstance(user);
     }
 
@@ -86,8 +86,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<UserClass?> checkUserExistance(String email) async {
     try {
-      QuerySnapshot query = await FirebaseFirestore.instance.collection('users').where('email', isEqualTo: email).get();
-
+      QuerySnapshot query = await firestoreServices.getCollectionRef(usersCollectionKey).where(UserModel.emailKey, isEqualTo: email).get();
       SignupModel model = SignupModel.fromJson(query.docs.first.data());
       UserClass user = UserClass(uid: model.uid!, email: model.email);
       return user;
@@ -97,16 +96,23 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  void logout() {
-    final user = firebaseAuth.currentUser;
-    if (user!.providerData.any((provider) => provider.providerId == 'google.com')) {
-      GoogleSignIn().signOut();
+  Future<void> logout() async {
+    await authServices.signOutServices.signOut();
+    UserModel.setInstance(null);
+  }
+
+  @override
+  Future<void> deleteAccount() async {
+    if (user.profilePicturePath != defaultProfileImage) {
+      await storageServices.deleteFile(user.profilePicturePath);
     }
-    firebaseAuth.signOut();
+
+    await authServices.signOutServices.deleteAccount(user.uid);
+    UserModel.setInstance(null);
   }
 
   @override
   Future<void> sendPasswordResetLink(String email) async {
-    await firebaseAuth.sendPasswordResetEmail(email: email);
+    await authServices.accountDataServices.sendPasswordReset(email);
   }
 }

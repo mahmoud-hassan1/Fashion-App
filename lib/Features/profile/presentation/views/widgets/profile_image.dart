@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/profile/data/repo_impl/profile_repo_impl.dart';
 import 'package:online_shopping/Features/profile/presentation/cubits/profile_image_cubit/profile_image_cubit.dart';
 import 'package:online_shopping/core/models/user_model.dart';
+import 'package:online_shopping/core/utiles/di.dart';
 import 'package:online_shopping/core/utiles/assets.dart';
-import 'package:online_shopping/core/utiles/storage.dart';
 
 class ProfileImage extends StatelessWidget {
   const ProfileImage({super.key, required this.imageSize, required this.iconSize});
@@ -14,8 +14,8 @@ class ProfileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProfileImageCubit(ProfileRepoImpl(Storage())),
+    return BlocProvider<ProfileImageCubit>(
+      create: (context) => ProfileImageCubit(getIt<ProfileRepoImpl>()),
       child: BlocBuilder<ProfileImageCubit, ProfileImageState>(
         builder: (context, state) {
           if (state is ProfileImageLoading) {

@@ -1,13 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/bag/data/repo_impl/my_bag_repo_impl.dart';
-import 'package:online_shopping/Features/favourite/data/repo_impl/favourite_repo_impl.dart';
 import 'package:online_shopping/Features/favourite/presentation/cubits/add_to_cart_cubit/add_to_cart_cubit.dart';
 import 'package:online_shopping/Features/favourite/presentation/cubits/manage_favourites/manage_favourites_cubit.dart';
 import 'package:online_shopping/Features/favourite/presentation/views/widgets/favourites_item.dart';
 import 'package:online_shopping/Features/favourite/presentation/cubits/favourites_cubit/favourites_cubit.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
+import 'package:online_shopping/core/utiles/di.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/core/utiles/assets.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
@@ -20,8 +19,8 @@ class FavouritesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Product> products = [];
-    return BlocProvider(
-      create: (context) => AddToCartCubit(MyBagRepoImpl(FavouriteRepoImpl(firestore: FirebaseFirestore.instance))),
+    return BlocProvider<AddToCartCubit>(
+      create: (context) => AddToCartCubit(getIt<MyBagRepoImpl>()),
       child: BlocBuilder<AddToCartCubit, AddToCartState>(
         builder: (context, state) {
           return BlocConsumer<FavouritesCubit, FavouritesState>(

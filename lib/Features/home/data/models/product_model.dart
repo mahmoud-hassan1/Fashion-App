@@ -18,6 +18,7 @@ class ProductModel {
   final List<ReviewModel> reviews;
   final double discount;
   List<String> images;
+
   ProductModel({
     required this.id,
     required this.name,
@@ -37,52 +38,65 @@ class ProductModel {
   });
 
   factory ProductModel.fromJson(dynamic json, String id) {
-    List<ReviewModel> reviewModels = json['reviews'] != null
+    List<ReviewModel> reviewModels = json[reviewsKey] != null
         ? List.generate(
-            json['reviews'].length,
-            (int index) => ReviewModel.fromJson(json['reviews'][index]),
+            json[reviewsKey].length,
+            (int index) => ReviewModel.fromJson(json[reviewsKey][index]),
           )
         : [];
 
     return ProductModel(
       id: id,
-      name: json['name'],
-      description: json['description'],
+      name: json[nameKey],
+      description: json[descriptionKey],
       rate: getRate(reviewModels),
-      sellerId: json['sellerId'],
-      stock: json['stock'],
-      price: (json['price'] as num).toDouble(),
-      image: json['image'],
-      categories: json['categories'].cast<String>(),
-      date: (json['date'] as Timestamp).toDate(),
-      subtitle: json['subtitle'],
+      sellerId: json[sellerIdKey],
+      stock: json[stockKey],
+      price: (json[priceKey] as num).toDouble(),
+      image: json[imageKey],
+      categories: json[categoriesKey].cast<String>(),
+      date: (json[dateKey] as Timestamp).toDate(),
+      subtitle: json[subtitleKey],
       reviews: reviewModels,
-      images: (json['images'] as List<dynamic>?)?.cast<String>() ?? [],
-      priceBeforeDiscount: (json['priceBeforeDiscount'] ?? 0 as num).toDouble(),
-      discount: (json['discount'] ?? 0 as num).toDouble(),
+      images: (json[imagesKey] as List<dynamic>?)?.cast<String>() ?? [],
+      priceBeforeDiscount: (json[priceBeforeDiscountKey] ?? 0 as num).toDouble(),
+      discount: (json[discountKey] ?? 0 as num).toDouble(),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
-      'description': description,
-      'rate': rate,
-      'sellerId': sellerId,
-      'stock': stock,
-      'price': price,
-      'image': image,
-      'categories': categories,
-      'date': date,
-      'subtitle': subtitle,
-      'reviews': List.generate(reviews.length, (int index) {
-        return reviews[index].toMap();
-      }),
-      'images': images,
-      'priceBeforeDiscount': priceBeforeDiscount,
-      'discount': discount
+      nameKey: name,
+      descriptionKey: description,
+      rateKey: rate,
+      sellerIdKey: sellerId,
+      stockKey: stock,
+      priceKey: price,
+      imageKey: image,
+      categoriesKey: categories,
+      dateKey: date,
+      subtitleKey: subtitle,
+      reviewsKey: List.generate(reviews.length, (int index) => reviews[index].toMap()),
+      imagesKey: images,
+      priceBeforeDiscountKey: priceBeforeDiscount,
+      discountKey: discount
     };
   }
+
+  static String nameKey = 'name';
+  static String descriptionKey = 'description';
+  static String rateKey = 'rate';
+  static String sellerIdKey = 'sellerId';
+  static String stockKey = 'stock';
+  static String priceKey = 'price';
+  static String imageKey = 'image';
+  static String categoriesKey = 'categories';
+  static String dateKey = 'date';
+  static String subtitleKey = 'subtitle';
+  static String reviewsKey = 'reviews';
+  static String imagesKey = 'images';
+  static String priceBeforeDiscountKey = 'priceBeforeDiscount';
+  static String discountKey = 'discount';
 
   Product toEntity() {
     return Product(

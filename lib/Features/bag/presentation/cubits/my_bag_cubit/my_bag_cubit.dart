@@ -10,7 +10,7 @@ import 'package:online_shopping/core/models/user_model.dart';
 part 'my_bag_state.dart';
 
 class MyBagCubit extends Cubit<MyBagState> {
-  MyBagCubit({required this.repo}) : super(MyBagInitial());
+  MyBagCubit(this.repo) : super(MyBagInitial());
 
   final MyBagRepo repo;
   late List<MyBagItemModel> bagItems;

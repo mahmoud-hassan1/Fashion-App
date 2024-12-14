@@ -29,29 +29,38 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      dateOfBirth: json['dateOfBirth'],
-      email: json['email'],
-      name: json['name'],
-      uid: json['uid'],
-      profilePicturePath: json['profilePicturePath'] ?? defaultProfileImage,
-      favourites: List<String>.from(json['favourites']),
-      bag: List<String>.from(json['bag']),
-      role: Role.getRole(json['role'] ?? Role.user.value),
+      uid: json[uidKey],
+      name: json[nameKey],
+      email: json[emailKey],
+      dateOfBirth: json[dateOfBirthKey],
+      profilePicturePath: json[profilePicturePathKey] ?? defaultProfileImage,
+      favourites: List<String>.from(json[favouritesKey]),
+      bag: List<String>.from(json[bagKey]),
+      role: Role.getRole(json[roleKey] ?? Role.user.value),
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'uid': uid,
-      'name': name,
-      'email': email,
-      'dateOfBirth': dateOfBirth,
-      'profilePicturePath': profilePicturePath,
-      'favourites': favourites.map((e) => e).toList(),
-      'bag': bag.map((e) => e).toList(),
-      'role': role.value,
+      uidKey: uid,
+      nameKey: name,
+      emailKey: email,
+      dateOfBirthKey: dateOfBirth,
+      profilePicturePathKey: profilePicturePath,
+      favouritesKey: favourites.map((e) => e).toList(),
+      bagKey: bag.map((e) => e).toList(),
+      roleKey: role.value,
     };
   }
+
+  static String uidKey = 'uid';
+  static String nameKey = 'name';
+  static String emailKey = 'email';
+  static String dateOfBirthKey = 'dateOfBirth';
+  static String profilePicturePathKey = 'profilePicturePath';
+  static String favouritesKey = 'favourites';
+  static String bagKey = 'bag';
+  static String roleKey = 'role';
 
   factory UserModel.init() {
     return UserModel(

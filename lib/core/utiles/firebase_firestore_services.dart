@@ -1,34 +1,46 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Firestore {
-  static Future<QuerySnapshot<Map<String, dynamic>>> getCollectionData({required String collectionPath}) async {
-    return await FirebaseFirestore.instance.collection(collectionPath).get();
+class FirestoreServices {
+  FirestoreServices();
+
+  final FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
+
+  Future<QuerySnapshot<Map<String, dynamic>>> getCollectionData(String collectionPath) async {
+    return await firestoreInstance.collection(collectionPath).get();
   }
 
-  static Future<DocumentSnapshot<Map<String, dynamic>>> getDocumentData({required String collectionPath, required String docName}) async {
-    return await FirebaseFirestore.instance.collection(collectionPath).doc(docName).get();
+  Future<DocumentSnapshot<Map<String, dynamic>>> getDocumentData(String collectionPath, String docName) async {
+    return await getDocumentRef(collectionPath, docName).get();
   }
 
-  static Future<dynamic> getField({required String collectionPath, required String docName, required String key}) async {
-    var data = await FirebaseFirestore.instance.collection(collectionPath).doc(docName).get();
+  DocumentReference<Map<String, dynamic>> getDocumentRef(String collectionPath, String docName) {
+    return firestoreInstance.collection(collectionPath).doc(docName);
+  }
+
+  CollectionReference<Map<String, dynamic>> getCollectionRef(String collectionPath) {
+    return firestoreInstance.collection(collectionPath);
+  }
+
+  Future<dynamic> getField(String collectionPath, String docName, String key) async {
+    var data = await firestoreInstance.collection(collectionPath).doc(docName).get();
     return data.data()![key];
   }
 
-  static Future<void> setField({required String collectionPath, required String docName, required Map<String, dynamic> data, bool merge = true}) async {
-    await FirebaseFirestore.instance.collection(collectionPath).doc(docName).set(data, SetOptions(merge: merge));
+  Future<void> setDocument(String collectionPath, Map<String, dynamic> data, [String? docName, bool merge = true]) async {
+    await firestoreInstance.collection(collectionPath).doc(docName).set(data, SetOptions(merge: merge));
   }
 
-  static Future<void> updateField({required String collectionPath, required String docName, required Map<String, dynamic> data}) async {
-    await FirebaseFirestore.instance.collection(collectionPath).doc(docName).update(data);
+  Future<void> updateField(String collectionPath, String docName, Map<String, dynamic> data) async {
+    await firestoreInstance.collection(collectionPath).doc(docName).update(data);
   }
 
-  static Future<void> deleteField({required String collectionPath, required String docName, required String key}) async {
-    await FirebaseFirestore.instance.collection(collectionPath).doc(docName).update(<String, dynamic>{
+  Future<void> deleteField(String collectionPath, String docName, String key) async {
+    await firestoreInstance.collection(collectionPath).doc(docName).update(<String, dynamic>{
       key: FieldValue.delete(),
     });
   }
 
-  static Future<void> deleteDoc({required String collectionPath, required String docName, required Map<String, dynamic> data}) async {
-    await FirebaseFirestore.instance.collection(collectionPath).doc(docName).delete();
+  Future<void> deleteDoc(String collectionPath, String docName) async {
+    await firestoreInstance.collection(collectionPath).doc(docName).delete();
   }
 }

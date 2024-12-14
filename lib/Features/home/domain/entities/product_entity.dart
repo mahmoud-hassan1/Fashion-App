@@ -16,6 +16,7 @@ class Product {
   final double priceBeforeDiscount;
   final double discount;
   final DateTime date;
+
   Product({
     required this.date,
     required this.discount,
