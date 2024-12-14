@@ -17,6 +17,8 @@ import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custtom_button.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 
+import '../../../../../core/widgets/qr_widget.dart';
+
 // ignore: must_be_immutable
 class ProductDetails extends StatefulWidget {
   ProductDetails({super.key, required this.product});
@@ -44,7 +46,8 @@ class _ProductDetailsState extends State<ProductDetails> {
     double height = MediaQuery.of(context).size.height;
 
     return BlocProvider<ProductReviewsCubit>(
-      create: (BuildContext context) => ProductReviewsCubit(getIt<ProductReviewsRepoImpl>()),
+      create: (BuildContext context) =>
+          ProductReviewsCubit(getIt<ProductReviewsRepoImpl>()),
       child: BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
         listener: (context, state) {
           if (state is ProductDetailsLoading) {
@@ -55,7 +58,10 @@ class _ProductDetailsState extends State<ProductDetails> {
           } else if (state is ProductDetailsRefresh) {
             widget.product = state.product;
           } else if (state is ProductDetailsAddedToCart) {
-            snackBar(content: "Product added to cart successfully", context: context, color: Colors.green);
+            snackBar(
+                content: "Product added to cart successfully",
+                context: context,
+                color: Colors.green);
             Navigator.of(context).pop();
           }
           isLoading = false;
@@ -76,7 +82,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => EditProductView(product: widget.product),
+                                builder: (context) =>
+                                    EditProductView(product: widget.product),
                               ),
                             );
                           },
@@ -110,14 +117,28 @@ class _ProductDetailsState extends State<ProductDetails> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              IconButton(
+                                  onPressed: () {
+                                    QrWidget()
+                                        .qrDialog(context, widget.product.name);
+                                  },
+                                  icon: const Icon(
+                                    Icons.qr_code,
+                                    size: 28,
+                                  )),
                               IconButton(
                                 onPressed: () async {
                                   if (_fav) {
-                                    await BlocProvider.of<ProductDetailsCubit>(context).removeFromFavourites(widget.product.id);
+                                    await BlocProvider.of<ProductDetailsCubit>(
+                                            context)
+                                        .removeFromFavourites(
+                                            widget.product.id);
                                   } else {
-                                    await BlocProvider.of<ProductDetailsCubit>(context).addToFavourites(widget.product.id);
+                                    await BlocProvider.of<ProductDetailsCubit>(
+                                            context)
+                                        .addToFavourites(widget.product.id);
                                   }
 
                                   _fav = !_fav;
@@ -127,14 +148,16 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   Icons.favorite,
                                   color: _fav ? Colors.red : Colors.grey,
                                 ),
-                              )
+                              ),
                             ],
                           ),
                           Row(
                             children: [
-                              Text(widget.product.name, style: Styles.kFontSize30(context)),
+                              Text(widget.product.name,
+                                  style: Styles.kFontSize30(context)),
                               const Spacer(),
-                              Text("\$${widget.product.price}", style: Styles.kFontSize30(context)),
+                              Text("\$${widget.product.price}",
+                                  style: Styles.kFontSize30(context)),
                             ],
                           ),
                           Text(
@@ -145,7 +168,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                             children: [
                               GestureDetector(
                                 onTap: () async {
-                                  await Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => ProductReviewsView(product: widget.product)));
+                                  await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              ProductReviewsView(
+                                                  product: widget.product)));
                                 },
                                 child: RatingBarIndicator(
                                   rating: widget.product.rate,
@@ -158,7 +186,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                               ),
                               Text(
                                 "(${widget.product.reviews.length.toString()})",
-                                style: Styles.kFontSize14(context).copyWith(color: Colors.grey),
+                                style: Styles.kFontSize14(context)
+                                    .copyWith(color: Colors.grey),
                               ),
                             ],
                           ),
@@ -172,7 +201,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                           SizedBox(height: 20.h),
                           CustomButton(
                             onTap: () async {
-                              await BlocProvider.of<ProductDetailsCubit>(context).addToCart(widget.product.id);
+                              await BlocProvider.of<ProductDetailsCubit>(
+                                      context)
+                                  .addToCart(widget.product.id);
                             },
                             height: height * .9,
                             label: "Add to cart",
