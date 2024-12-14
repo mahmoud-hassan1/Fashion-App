@@ -54,7 +54,7 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("My Profile", style: Styles.kMediumTextStyle(context).copyWith(fontSize: 34)),
+                        Text("My Profile", style: Styles.kLargeTextStyle(context)),
                         const SizedBox(height: 15),
                         Row(
                           children: [

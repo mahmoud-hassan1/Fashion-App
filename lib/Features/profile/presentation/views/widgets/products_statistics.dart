@@ -41,13 +41,15 @@ class _ProductsStatisticsState extends State<ProductsStatistics> {
         return ModalProgressHUD(
           inAsyncCall: state is ProductsStatisticsLoading,
           child: Scaffold(
+            appBar: AppBar(
+              title:Text("Product Statistics", style: Styles.kFontSize30(context)),
+            ),
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(18),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Product Statistics", style: Styles.kMediumTextStyle(context).copyWith(fontSize: 34)),
                     const SizedBox(height: 15),
                     if (state is ProductsStatisticsSuccess)
                       Expanded(

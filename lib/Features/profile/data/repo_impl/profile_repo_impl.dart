@@ -54,7 +54,6 @@ class ProfileRepoImpl extends ProfileRepo {
         orders.add(orderModel);
       }
     }
-
     return orders;
   }
 
