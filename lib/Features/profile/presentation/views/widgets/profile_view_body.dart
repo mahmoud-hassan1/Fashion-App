@@ -12,7 +12,6 @@ import 'package:online_shopping/Features/profile/presentation/views/widgets/my_p
 import 'package:online_shopping/Features/profile/presentation/views/widgets/products_statistics.dart';
 import 'package:online_shopping/Features/profile/presentation/views/widgets/profile_image.dart';
 import 'package:online_shopping/Features/profile/presentation/views/widgets/settings_view.dart';
-import 'package:online_shopping/Features/splash/presentation/views/splash_view.dart';
 import 'package:online_shopping/core/models/user_model.dart';
 import 'package:online_shopping/core/utiles/di.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
