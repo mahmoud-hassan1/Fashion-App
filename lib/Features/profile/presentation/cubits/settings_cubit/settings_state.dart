@@ -11,4 +11,9 @@ final class SettingsSuccessed extends SettingsState {}
 
 final class SettingsInvalidData extends SettingsState {}
 
-final class SettingsFailed extends SettingsState {}
+final class SettingsFailed extends SettingsState {
+  final String errorMessage;
+
+  SettingsFailed({required this.errorMessage});
+
+}

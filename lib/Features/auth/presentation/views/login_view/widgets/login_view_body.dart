@@ -41,8 +41,6 @@ class LoginViewBody extends StatelessWidget {
           } else if (state is AuthError) {
             snackBar(content: state.message, context: context);
           } else if (state is AuthAuthenticated) {
-            snackBar(content: "Login Success", context: context, color: Colors.green);
-
             Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => const NavigationBarView()),
               (Route<dynamic> route) => false,

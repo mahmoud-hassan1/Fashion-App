@@ -25,7 +25,7 @@ class FavouritesListView extends StatelessWidget {
       child: BlocConsumer<AddToCartCubit, AddToCartState>(
         listener: (context, state) {
           if (state is AddToCartSuccessed) {
-            snackBar(content: 'Product added to cart successfully', context: context);
+            snackBar(content: 'Product added to cart successfully', context: context,color: Colors.green);
           } else if (state is AddToCartFailed) {
             snackBar(content: 'Something went wrong!', context: context);
           }

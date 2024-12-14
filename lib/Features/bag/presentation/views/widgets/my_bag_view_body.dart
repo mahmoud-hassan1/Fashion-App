@@ -23,7 +23,7 @@ class MyBagViewBody extends StatelessWidget {
     return BlocConsumer<MyBagCubit, MyBagState>(
       listener: (context, state) async {
         if (state is MyBagSuccessed) {
-          state.message != null ? snackBar(content: state.message, context: context) : null;
+          state.message != null ? snackBar(content: state.message, context: context,color: Colors.green) : null;
         } else if (state is MyBagFailed) {
           snackBar(content: "Something went wrong", context: context);
         } else if (state is MyBagGoToOrderReview) {

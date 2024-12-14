@@ -4,6 +4,7 @@ import 'package:online_shopping/Features/favourite/presentation/cubits/manage_fa
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/product_details/presentation/views/product_details_view/product_details.dart';
 import 'package:online_shopping/Features/shop/presentation/views/widgets/product_item.dart';
+import 'package:online_shopping/core/utiles/styles.dart';
 
 class ProductsScreenListView extends StatelessWidget {
   const ProductsScreenListView({
@@ -30,6 +31,6 @@ class ProductsScreenListView extends StatelessWidget {
               height: 16,
             ),
           )
-        : const Center(child: Text("No Products Yet"));
+        :  Center(child:Text("No Products Yet", style: Styles.kMediumTextStyle(context).copyWith(fontSize: 34)),);
   }
 }
