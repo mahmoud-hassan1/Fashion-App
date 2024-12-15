@@ -131,7 +131,9 @@ class ProductDetails extends StatelessWidget {
                               Text(product.name,
                                   style: Styles.kFontSize30(context)),
                               const Spacer(),
-                              Text("\$${product.price}",)
+                              Text("\$${product.price}",
+                               style: Styles.kFontSize30(context)
+                              )
 
                             ],
                           ),
@@ -164,6 +166,7 @@ class ProductDetails extends StatelessWidget {
                               Text(
 
                                 "(${product.reviews.length.toString()})",
+                                style: Styles.kFontSize14(context),
 
                               ),
                             ],
