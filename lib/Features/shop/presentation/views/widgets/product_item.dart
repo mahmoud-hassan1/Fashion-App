@@ -57,7 +57,7 @@ class ProductItem extends StatelessWidget {
                       children: [
                         CustomRatingBar(product: product),
                         Text(
-                          "(${product.rate})",
+                          "(${product.reviews.length.toString()})",
                           style: Styles.kFontSize17(context).copyWith(
                             color: AppColors.kSeconderyTextColor,
                             fontWeight: FontWeight.w400,
