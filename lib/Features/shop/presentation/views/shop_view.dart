@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:online_shopping/Features/shop/presentation/views/widgets/shop_view_body.dart';
@@ -47,8 +48,9 @@ class _ShopViewState extends State<ShopView>
                       childCurrent: ShopView()));
             },
             icon: const Icon(
-              Icons.search,
-              size: 30,
+              FontAwesomeIcons.magnifyingGlass,
+
+              size: 27,
             ),
           )
         ],
