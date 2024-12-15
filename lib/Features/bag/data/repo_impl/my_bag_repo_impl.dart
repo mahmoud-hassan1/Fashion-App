@@ -22,7 +22,9 @@ class MyBagRepoImpl extends MyBagRepo {
     if (UserModel.getInstance().bag.isNotEmpty) {
       final QuerySnapshot result = await firestoreServices.getCollectionRef(productsCollectionKey).where(FieldPath.documentId, whereIn: UserModel.getInstance().bag).get();
       for (int i = 0; i < result.docs.length; i++) {
-        products.add(ProductModel.fromJson(result.docs[i], result.docs[i].id));
+        if(result.docs[i]['stock']>0) {
+          products.add(ProductModel.fromJson(result.docs[i], result.docs[i].id));
+        }
       }
     }
 
@@ -41,6 +43,12 @@ class MyBagRepoImpl extends MyBagRepo {
       await doc.update({
         OrderModel.ordersKey: FieldValue.arrayUnion([orderModel.toMap()])
       });
+      for (var item in items) {
+      DocumentReference productDoc = firestoreServices.getDocumentRef('products', item.productId);
+      await productDoc.update({
+        'stock': FieldValue.increment(-item.quantity) 
+      });
+    }
     }
   }
 
