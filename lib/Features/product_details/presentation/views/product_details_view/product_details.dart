@@ -16,6 +16,8 @@ import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custtom_button.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 
+import '../../../../../core/widgets/qr_widget.dart';
+
 // ignore: must_be_immutable
 class ProductDetails extends StatelessWidget {
   ProductDetails({super.key, required this.product});
@@ -68,7 +70,11 @@ class ProductDetails extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
+
                                     EditProductView(product: product),
+
+                            
+
                               ),
                             );
                           },
@@ -86,11 +92,20 @@ class ProductDetails extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               IconButton(
+                                  onPressed: () {
+                                    QrWidget()
+                                        .qrDialog(context, product.name);
+                                  },
+                                  icon: const Icon(
+                                    Icons.qr_code,
+                                    size: 28,
+                                  )),
+                              IconButton(
                                 onPressed: () async {
-                                  if (_fav) {
+                                   if (_fav) {
                                     await BlocProvider.of<ProductDetailsCubit>(
                                             context)
                                         .removeFromFavourites(
@@ -100,7 +115,6 @@ class ProductDetails extends StatelessWidget {
                                             context)
                                         .addToFavourites(product.id);
                                   }
-
                                   _fav = !_fav;
                           
                                 },
@@ -108,16 +122,17 @@ class ProductDetails extends StatelessWidget {
                                   Icons.favorite,
                                   color: _fav ? Colors.red : Colors.grey,
                                 ),
-                              )
+                              ),
                             ],
                           ),
                           Row(
                             children: [
+
                               Text(product.name,
                                   style: Styles.kFontSize30(context)),
                               const Spacer(),
-                              Text("\$${product.price}",
-                                  style: Styles.kFontSize30(context)),
+                              Text("\$${product.price}",)
+
                             ],
                           ),
                           Text(
@@ -133,7 +148,9 @@ class ProductDetails extends StatelessWidget {
                                       MaterialPageRoute(
                                           builder: (BuildContext context) =>
                                               ProductReviewsView(
+
                                                   product: product)));
+
                                 },
                                 child: RatingBarIndicator(
                                   rating: product.rate,
@@ -145,9 +162,9 @@ class ProductDetails extends StatelessWidget {
                                 ),
                               ),
                               Text(
+
                                 "(${product.reviews.length.toString()})",
-                                style: Styles.kFontSize14(context)
-                                    .copyWith(color: Colors.grey),
+
                               ),
                             ],
                           ),
@@ -163,7 +180,9 @@ class ProductDetails extends StatelessWidget {
                             onTap: () async {
                               await BlocProvider.of<ProductDetailsCubit>(
                                       context)
+
                                   .addToCart(product.id);
+
                             },
                             height: height * .9,
                             label: "Add to cart",
