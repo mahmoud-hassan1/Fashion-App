@@ -60,6 +60,8 @@ dependencies:
   get: ^4.6.6
   page_transition: ^2.1.0
   barcode_widget: ^2.0.4
+  speech_to_text: ^7.0.0
+  font_awesome_flutter: ^10.8.0
 
 
 flutter_assets:

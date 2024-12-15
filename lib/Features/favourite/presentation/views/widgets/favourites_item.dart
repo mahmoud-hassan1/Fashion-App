@@ -9,8 +9,11 @@ import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custom_rating_bar.dart';
 
+import '../../../../product_details/presentation/views/product_details_view/product_details.dart';
+
 class FavouritesItem extends StatelessWidget {
   final Product product;
+
   const FavouritesItem({
     super.key,
     required this.product,
@@ -23,70 +26,84 @@ class FavouritesItem extends StatelessWidget {
         SizedBox(
           height: 113.h,
         ),
-        Container(
-          height: 100.h,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: SizedBox(
-                  height: 100.h,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
-                    child: CachedNetworkImage(
-                     imageUrl:  product.image,
-                      errorWidget: (context, url, error) => const Icon(Icons.error),
-                      fit: BoxFit.cover,
+        InkWell(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductDetails(
+                product: product,
+              ),
+            ),
+          ),
+          child: Container(
+            height: 100.h,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10), color: Colors.white),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: SizedBox(
+                    height: 100.h,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10)),
+                      child: CachedNetworkImage(
+                        imageUrl: product.image,
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                flex: 2,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 24),
-                    Text(
-                      product.name,
-                      style: Styles.kMediumTextStyle(context),
-                    ),
-                    const Spacer(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              "\$${product.price}",
-                              style: Styles.kMediumTextStyle(context),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 4),
-                        Row(
-                          children: [
-                            CustomRatingBar(product: product),
-                            Text(
-                              "${product.rate}",
-                              style: Styles.kFontSize17(context).copyWith(
-                                color: AppColors.kSeconderyTextColor,
-                                fontWeight: FontWeight.w400,
+                const SizedBox(width: 16),
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 24),
+                      Text(
+                        product.name,
+                        style: Styles.kMediumTextStyle(context),
+                      ),
+                      const Spacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                "\$${product.price}",
+                                style: Styles.kMediumTextStyle(context),
                               ),
                             ),
-                            SizedBox(width: 47.r)
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8)
-                  ],
-                ),
-              )
-            ],
+                          ),
+                          const SizedBox(width: 4),
+                          Row(
+                            children: [
+                              CustomRatingBar(product: product),
+                              Text(
+                                "${product.rate}",
+                                style: Styles.kFontSize17(context).copyWith(
+                                  color: AppColors.kSeconderyTextColor,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              SizedBox(width: 47.r)
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8)
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
         Positioned(
@@ -94,7 +111,8 @@ class FavouritesItem extends StatelessWidget {
           right: 4,
           child: IconButton(
             onPressed: () async {
-              await BlocProvider.of<ManageFavouritesCubit>(context).removeFromFavourites(product.id);
+              await BlocProvider.of<ManageFavouritesCubit>(context)
+                  .removeFromFavourites(product.id);
             },
             icon: Icon(
               Icons.close,
@@ -112,7 +130,8 @@ class FavouritesItem extends StatelessWidget {
               color: Colors.white,
             ),
             onPressed: () async {
-              await BlocProvider.of<AddToCartCubit>(context).addToCart(product.id);
+              await BlocProvider.of<AddToCartCubit>(context)
+                  .addToCart(product.id);
             },
             style: IconButton.styleFrom(
               backgroundColor: AppColors.kRed,
