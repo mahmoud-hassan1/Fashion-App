@@ -126,19 +126,30 @@ class ProductDetails extends StatelessWidget {
                               const Spacer(),
                               Row(
                                 children: [
-                                  Text("\$${product.price}",
+                                  Text(
+                                      product.price == product.price.toInt()
+                                          ? "\$${product.price.toInt()}"
+                                          : "\$${product.price}",
                                       style: Styles.kFontSize30(context)),
                                   const SizedBox(
                                     width: 4,
                                   ),
-                               product.discount>0?   Text(
-                                    "\$${product.priceBeforeDiscount}",
-                                    style: Styles.kFontSize17(context).copyWith(
-                                      color: AppColors.kSeconderyTextColor,
-                                      decoration: TextDecoration
-                                          .lineThrough, // This will strike through the text
-                                    ),
-                                  ):const SizedBox(),
+                                  product.discount > 0
+                                      ? Text(
+                                          product.priceBeforeDiscount ==
+                                                  product.priceBeforeDiscount
+                                                      .toInt()
+                                              ? "\$${product.priceBeforeDiscount.toInt()}"
+                                              : "\$${product.priceBeforeDiscount}",
+                                          style: Styles.kFontSize17(context)
+                                              .copyWith(
+                                            color:
+                                                AppColors.kSeconderyTextColor,
+                                            decoration: TextDecoration
+                                                .lineThrough, // This will strike through the text
+                                          ),
+                                        )
+                                      : const SizedBox(),
                                 ],
                               )
                             ],
