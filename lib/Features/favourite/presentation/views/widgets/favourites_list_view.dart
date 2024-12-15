@@ -27,7 +27,7 @@ class FavouritesListView extends StatelessWidget {
           if (state is AddToCartSuccessed) {
             snackBar(content: 'Product added to cart successfully', context: context,color: Colors.green);
           } else if (state is AddToCartFailed) {
-            snackBar(content: 'Something went wrong!', context: context);
+            snackBar(content: state.message, context: context);
           }
         },
         builder: (context, state) {
