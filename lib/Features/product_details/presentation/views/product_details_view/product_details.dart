@@ -166,7 +166,7 @@ class ProductDetails extends StatelessWidget {
                               Text(
 
                                 "(${product.reviews.length.toString()})",
-                                style: Styles.kFontSize14(context),
+                                style: Styles.kFontSize14(context).copyWith(color: Colors.grey),
 
                               ),
                             ],
