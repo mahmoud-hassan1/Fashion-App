@@ -97,7 +97,7 @@ class ProductDetails extends StatelessWidget {
                               IconButton(
                                   onPressed: () {
                                     QrWidget()
-                                        .qrDialog(context, widget.product.name);
+                                        .qrDialog(context, product.name);
                                   },
                                   icon: const Icon(
                                     Icons.qr_code,
@@ -107,9 +107,9 @@ class ProductDetails extends StatelessWidget {
                                 onPressed: () async {
                                   if (_fav) {
                                     await BlocProvider.of<ProductDetailsCubit>(
-                                            context)
+                                            context);
 
-                                            product.id);
+                                            product.id;
                                   } else {
                                     await BlocProvider.of<ProductDetailsCubit>(
                                             context)
@@ -133,7 +133,7 @@ class ProductDetails extends StatelessWidget {
                               Text(product.name,
                                   style: Styles.kFontSize30(context)),
                               const Spacer(),
-                              Text("\$${product.price}",
+                              Text("\$${product.price}",)
 
                             ],
                           ),
