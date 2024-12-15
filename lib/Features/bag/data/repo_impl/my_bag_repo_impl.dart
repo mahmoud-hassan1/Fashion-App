@@ -70,11 +70,28 @@ class MyBagRepoImpl extends MyBagRepo {
 
   @override
   Future<void> addToBag(String productUID) async {
-    if (!UserModel.getInstance().bag.contains(productUID)) {
-      UserModel.getInstance().bag.add(productUID);
-      await firestoreServices.updateField(usersCollectionKey, UserModel.getInstance().uid, {UserModel.bagKey: UserModel.getInstance().bag});
+  // Step 1: Check stock for the product
+  DocumentSnapshot productSnapshot = await firestoreServices.getDocumentRef('products', productUID).get();
+
+  if (productSnapshot.exists) {
+    int stock = productSnapshot['stock'] ?? 0;
+
+    if (stock > 0) {
+      if (!UserModel.getInstance().bag.contains(productUID)) {
+        UserModel.getInstance().bag.add(productUID);
+        await firestoreServices.updateField(
+          usersCollectionKey,
+          UserModel.getInstance().uid,
+          {UserModel.bagKey: UserModel.getInstance().bag},
+        );
+      } 
+    } else {
+      throw Exception('Product is out of stock.');
     }
+  } else {
+    throw Exception('Product does not exist.');
   }
+}
 
   @override
   Future<void> deleteFromBag(String productUID) async {
