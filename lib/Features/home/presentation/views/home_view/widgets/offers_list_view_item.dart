@@ -5,7 +5,7 @@ class OffersListViewItem extends StatelessWidget {
   OffersListViewItem({super.key, required this.index});
   final int index;
   final List<dynamic> collection = [
-    ['assets/images/Sale.png', "Fation Sale"],
+    ['assets/images/Sale.png', "Fashion Sale"],
     ['assets/images/New.png', "New Collection"],
   ];
   @override
