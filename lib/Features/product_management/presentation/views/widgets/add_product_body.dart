@@ -83,11 +83,12 @@ class _AddProductBodyState extends State<AddProductBody> {
           );
         } else if (state is AddProductsSucsses) {
           snackBar(content: 'Product added successfully', context: context, color: Colors.green);
-          Navigator.pushReplacement(
+          Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
               builder: (context) => const NavigationBarView(),
             ),
+             (Route<dynamic> route) => false,
           );
         }
       },
