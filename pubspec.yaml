@@ -57,7 +57,7 @@ dependencies:
   get: ^4.6.6
   page_transition: ^2.1.0
   barcode_widget: ^2.0.4
-  flutter_barcode_scanner: ^2.0.0
+
 
 flutter_assets:
   assets_path:

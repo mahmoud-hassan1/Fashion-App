@@ -35,7 +35,7 @@ class SearchField extends StatelessWidget {
             decoration: InputDecoration(
               suffixIcon: IconButton(
                 onPressed: () {
-                  QrWidget().scan();
+                  // QrWidget().scan();
                 },
                 icon: const Icon(
                   Icons.camera_alt,

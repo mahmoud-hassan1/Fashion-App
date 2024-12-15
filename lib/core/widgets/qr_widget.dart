@@ -1,6 +1,6 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+// import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class QrWidget {
   _showQr(String data) {
@@ -14,16 +14,16 @@ class QrWidget {
     );
   }
 
-  Future<String?> scan() async {
-    try {
-      String code = await FlutterBarcodeScanner.scanBarcode(
-          "#2A99CF", "Cancel", true, ScanMode.QR);
-      return code;
-    } catch (e) {
-      print("Error scanning barcode: $e");
-      return null;
-    }
-  }
+  // Future<String?> scan() async {
+  //   try {
+  //     String code = await FlutterBarcodeScanner.scanBarcode(
+  //         "#2A99CF", "Cancel", true, ScanMode.QR);
+  //     return code;
+  //   } catch (e) {
+  //     print("Error scanning barcode: $e");
+  //     return null;
+  //   }
+  // }
 
   qrDialog(BuildContext context, String data) {
     return showDialog(
