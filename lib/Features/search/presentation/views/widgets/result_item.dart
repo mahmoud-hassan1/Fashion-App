@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,7 @@ import '../../../../product_details/presentation/views/product_details_view/prod
 
 class ResultItem extends StatelessWidget {
   const ResultItem({super.key, required this.product});
+
   final Product product;
 
   @override
@@ -31,7 +33,8 @@ class ResultItem extends StatelessWidget {
           ),
           child: Container(
             height: 100.h,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10), color: Colors.white),
             child: Row(
               children: [
                 Expanded(
@@ -39,9 +42,12 @@ class ResultItem extends StatelessWidget {
                   child: SizedBox(
                     height: 100.h,
                     child: ClipRRect(
-                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
-                      child: Image.network(
-                        product.image,
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10)),
+                      child: CachedNetworkImage(
+                        imageUrl:  product.image,
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
                         fit: BoxFit.cover,
                       ),
                     ),

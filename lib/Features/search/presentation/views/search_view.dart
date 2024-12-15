@@ -61,8 +61,8 @@ class _SearchViewState extends State<SearchView> {
     try {
       final ScanResult result = await BarcodeScanner.scan();
       if (result.rawContent.isNotEmpty) {
-        searchText.text = result.rawContent;  // Display QR code content in search field
-        context.read<SearchCubit>().getResults(result.rawContent); // Search with the scanned content
+        searchText.text = result.rawContent;
+        context.read<SearchCubit>().getResults(result.rawContent);
       }
     } catch (e) {
 
