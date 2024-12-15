@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/bag/data/models/my_bag_item_model.dart';
@@ -27,11 +28,9 @@ class MyBagItem extends StatelessWidget {
         children: [
           Expanded(
             flex: 3,
-            child: Image.network(
-              myBagItemModel.product.image,
-              errorBuilder: (context, error, stackTrace) {
-                return const Icon(Icons.error);
-              },
+            child: CachedNetworkImage(
+              imageUrl: myBagItemModel.product.image,
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
           Expanded(

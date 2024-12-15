@@ -1,13 +1,12 @@
-import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:online_shopping/Features/product_details/presentation/views/product_details_view/widgets/product_list_view_images.dart';
 import 'package:online_shopping/Features/product_management/presentation/views/edit_product_view.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/product_details/presentation/cubits/product_details_cubit/product_details_cubit.dart';
-import 'package:online_shopping/Features/product_details/presentation/views/product_details_view/widgets/details_list_view_item.dart';
 import 'package:online_shopping/Features/reviews/data/repo_impl/product_reviews_repo_impl.dart';
 import 'package:online_shopping/Features/reviews/presentation/cubits/product_reviews_cubit/product_reviews_cubit.dart';
 import 'package:online_shopping/Features/reviews/presentation/views/product_reviews_view.dart';
@@ -20,31 +19,19 @@ import 'package:online_shopping/core/widgets/snackbar.dart';
 import '../../../../../core/widgets/qr_widget.dart';
 
 // ignore: must_be_immutable
-class ProductDetails extends StatefulWidget {
+class ProductDetails extends StatelessWidget {
   ProductDetails({super.key, required this.product});
 
   Product product;
 
-  @override
-  State<ProductDetails> createState() => _ProductDetailsState();
-}
-
-class _ProductDetailsState extends State<ProductDetails> {
   late bool _fav;
-  late bool isLoading;
 
-  @override
-  void initState() {
-    _fav = UserModel.getInstance().favourites.contains(widget.product.id);
-    isLoading = false;
-    super.initState();
-  }
+   bool isLoading=false;
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+     _fav = UserModel.getInstance().favourites.contains(product.id);
     double height = MediaQuery.of(context).size.height;
-
     return BlocProvider<ProductReviewsCubit>(
       create: (BuildContext context) =>
           ProductReviewsCubit(getIt<ProductReviewsRepoImpl>()),
@@ -56,7 +43,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           } else if (state is ProductDetailsFailed) {
             snackBar(content: state.message, context: context);
           } else if (state is ProductDetailsRefresh) {
-            widget.product = state.product;
+            product = state.product;
           } else if (state is ProductDetailsAddedToCart) {
             snackBar(
                 content: "Product added to cart successfully",
@@ -72,7 +59,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             child: Scaffold(
               appBar: AppBar(
                 title: Text(
-                  widget.product.subtitle,
+                  product.subtitle,
                   style: Styles.kFontSize30(context),
                 ),
                 actions: [
@@ -83,7 +70,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    EditProductView(product: widget.product),
+
+                                    EditProductView(product: product),
+
+                            
+
                               ),
                             );
                           },
@@ -94,23 +85,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               body: SingleChildScrollView(
                 child: Column(
                   children: [
-                    CarouselSlider.builder(
-                      itemCount: 1, // Number of items in the slider
-                      itemBuilder: (context, index, realIndex) {
-                        return DetailsListViewItem(
-                          index: index,
-                          photos: [widget.product.image],
-                        );
-                      },
-                      options: CarouselOptions(
-                        height: (width * 1.3).clamp(0, 470),
-                        autoPlay: true,
-                        enlargeCenterPage: true,
-                        viewportFraction: 1,
-                        aspectRatio: 2.0,
-                        onPageChanged: (index, reason) {},
-                      ),
-                    ),
+                    ProductListViewImages(images: product.images),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Column(
@@ -133,16 +108,17 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   if (_fav) {
                                     await BlocProvider.of<ProductDetailsCubit>(
                                             context)
-                                        .removeFromFavourites(
-                                            widget.product.id);
+
+                                            product.id);
                                   } else {
                                     await BlocProvider.of<ProductDetailsCubit>(
                                             context)
-                                        .addToFavourites(widget.product.id);
+                                        .addToFavourites(product.id);
+
                                   }
 
                                   _fav = !_fav;
-                                  setState(() {});
+                          
                                 },
                                 icon: Icon(
                                   Icons.favorite,
@@ -153,15 +129,16 @@ class _ProductDetailsState extends State<ProductDetails> {
                           ),
                           Row(
                             children: [
-                              Text(widget.product.name,
+
+                              Text(product.name,
                                   style: Styles.kFontSize30(context)),
                               const Spacer(),
-                              Text("\$${widget.product.price}",
-                                  style: Styles.kFontSize30(context)),
+                              Text("\$${product.price}",
+
                             ],
                           ),
                           Text(
-                            widget.product.subtitle,
+                            product.subtitle,
                             style: Styles.kFontSize14(context),
                           ),
                           Row(
@@ -173,10 +150,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       MaterialPageRoute(
                                           builder: (BuildContext context) =>
                                               ProductReviewsView(
-                                                  product: widget.product)));
+
+                                                  product: product)));
+
                                 },
                                 child: RatingBarIndicator(
-                                  rating: widget.product.rate,
+                                  rating: product.rate,
                                   itemSize: 15.r,
                                   itemBuilder: (context, _) => const Icon(
                                     Icons.star,
@@ -185,15 +164,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 ),
                               ),
                               Text(
-                                "(${widget.product.reviews.length.toString()})",
-                                style: Styles.kFontSize14(context)
-                                    .copyWith(color: Colors.grey),
+
+                                "(${product.reviews.length.toString()})",
+
                               ),
                             ],
                           ),
                           SizedBox(height: 16.h),
                           Text(
-                            widget.product.description,
+                            product.description,
                             style: Styles.kFontSize17(context).copyWith(
                               fontWeight: FontWeight.w500,
                             ),
@@ -203,7 +182,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                             onTap: () async {
                               await BlocProvider.of<ProductDetailsCubit>(
                                       context)
-                                  .addToCart(widget.product.id);
+
+                                  .addToCart(product.id);
+
                             },
                             height: height * .9,
                             label: "Add to cart",

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/profile/data/repo_impl/profile_repo_impl.dart';
@@ -7,7 +8,8 @@ import 'package:online_shopping/core/utiles/di.dart';
 import 'package:online_shopping/core/utiles/assets.dart';
 
 class ProfileImage extends StatelessWidget {
-  const ProfileImage({super.key, required this.imageSize, required this.iconSize});
+  const ProfileImage(
+      {super.key, required this.imageSize, required this.iconSize});
 
   final double imageSize;
   final double iconSize;
@@ -20,7 +22,8 @@ class ProfileImage extends StatelessWidget {
         builder: (context, state) {
           if (state is ProfileImageLoading) {
             return getLoadingWidget();
-          } else if (state is ProfileImageFinished || state is ProfileImageInitial) {
+          } else if (state is ProfileImageFinished ||
+              state is ProfileImageInitial) {
             return getImageWidget(context);
           } else {
             return const SizedBox();
@@ -54,21 +57,14 @@ class ProfileImage extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
           ),
-          child: Image.network(
-            UserModel.getInstance().profilePicturePath,
-            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-              if (loadingProgress == null) {
-                return child;
-              } else {
-                return Center(
-                  child: CircularProgressIndicator(
-                    color: const Color(0xffdb3022),
-                    value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1) : null,
-                  ),
-                );
-              }
-            },
-            errorBuilder: (context, error, stackTrace) {
+          child: CachedNetworkImage(
+            imageUrl: UserModel.getInstance().profilePicturePath,
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                CircularProgressIndicator(
+              value: downloadProgress.progress,
+              color: const Color(0xffdb3022),
+            ),
+            errorWidget: (context, error, stackTrace) {
               return Center(
                 child: Image.asset(Assets.imagesDefaultProfileImage),
               );
@@ -83,7 +79,8 @@ class ProfileImage extends StatelessWidget {
             backgroundColor: Colors.black26,
             child: IconButton(
               onPressed: () async {
-                await BlocProvider.of<ProfileImageCubit>(context).updateProfileImage();
+                await BlocProvider.of<ProfileImageCubit>(context)
+                    .updateProfileImage();
               },
               padding: EdgeInsets.zero,
               icon: const Icon(Icons.edit),
