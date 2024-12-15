@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/product_management/presentation/views/edit_product_view.dart';
@@ -42,8 +43,9 @@ class ProductListViewItem extends StatelessWidget {
                   SizedBox(
                     height: 123,
                     width: 121,
-                    child: Image.network(
-                      product.image,
+                    child: CachedNetworkImage(
+                     imageUrl:  product.image,
+                     errorWidget: (context, url, error) => const Icon(Icons.error),
                       fit: BoxFit.fill,
                     ),
                   ),
