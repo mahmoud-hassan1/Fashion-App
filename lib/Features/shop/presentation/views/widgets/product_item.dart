@@ -57,7 +57,7 @@ class ProductItem extends StatelessWidget {
                       children: [
                         CustomRatingBar(product: product),
                         Text(
-                          "(${product.rate})",
+                          "(${product.reviews.length.toString()})",
                           style: Styles.kFontSize17(context).copyWith(
                             color: AppColors.kSeconderyTextColor,
                             fontWeight: FontWeight.w400,
@@ -65,21 +65,49 @@ class ProductItem extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              "\$${product.price}",
-                              style: Styles.kMediumTextStyle(context),
-                            ),
+                     Row(
+              children: [
+                Flexible(
+                  flex: 2,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                       product.price ==
+                                    product.price.toInt()
+                                ? "\$${product.price.toInt()}" 
+                                : "\$${product.price}",
+                      style: Styles.kMediumTextStyle(context)
+                          .copyWith(fontWeight: FontWeight.w700),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 3,
+                ),
+                product.discount > 0
+                    ? Flexible(
+                        flex: 1,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            product.priceBeforeDiscount ==
+                                    product.priceBeforeDiscount.toInt()
+                                ? "\$${product.priceBeforeDiscount.toInt()}" 
+                                : "\$${product.priceBeforeDiscount}",
+                            style: Styles.kFontSize17(context).copyWith(
+                                decoration: TextDecoration.lineThrough,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.kSeconderyTextColor),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                           ),
                         ),
-                        const SizedBox(width: 4),
-                      ],
-                    ),
+                      )
+                    : const SizedBox(),
+              ],
+            ),
                     const SizedBox(height: 8)
                   ],
                 ),

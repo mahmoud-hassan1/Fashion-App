@@ -6,6 +6,7 @@ import 'package:online_shopping/Features/favourite/presentation/cubits/manage_fa
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/home/presentation/views/home_view/widgets/favourites_button.dart';
 import 'package:online_shopping/core/models/user_model.dart';
+import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 import '../../../../../product_details/presentation/views/product_details_view/product_details.dart';
@@ -44,8 +45,9 @@ class ProductListViewItem extends StatelessWidget {
                     height: 123,
                     width: 121,
                     child: CachedNetworkImage(
-                     imageUrl:  product.image,
-                     errorWidget: (context, url, error) => const Icon(Icons.error),
+                      imageUrl: product.image,
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -56,11 +58,13 @@ class ProductListViewItem extends StatelessWidget {
                       }
                     },
                     builder: (context, state) {
-                      final blocInstance = BlocProvider.of<ManageFavouritesCubit>(context);
+                      final blocInstance =
+                          BlocProvider.of<ManageFavouritesCubit>(context);
                       return Positioned(
                         top: 5,
                         right: 5,
-                        child: FavouritesButton(blocInstance: blocInstance, product: product),
+                        child: FavouritesButton(
+                            blocInstance: blocInstance, product: product),
                       );
                     },
                   ),
@@ -70,7 +74,8 @@ class ProductListViewItem extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => EditProductView(product: product),
+                                builder: (context) =>
+                                    EditProductView(product: product),
                               ),
                             );
                           },
@@ -91,13 +96,44 @@ class ProductListViewItem extends StatelessWidget {
             Row(
               children: [
                 Flexible(
-                  child: Text(
-                    "${product.price}\$",
-                    style: Styles.kMediumTextStyle(context).copyWith(fontSize: 16),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
+                  flex: 2,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                       product.price ==
+                                    product.price.toInt()
+                                ? "\$${product.price.toInt()}" 
+                                : "\$${product.price}",
+                      style: Styles.kMediumTextStyle(context)
+                          .copyWith(fontWeight: FontWeight.w700),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
                   ),
                 ),
+                const SizedBox(
+                  width: 3,
+                ),
+                product.discount > 0
+                    ? Flexible(
+                        flex: 1,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            product.priceBeforeDiscount ==
+                                    product.priceBeforeDiscount.toInt()
+                                ? "\$${product.priceBeforeDiscount.toInt()}" 
+                                : "\$${product.priceBeforeDiscount}",
+                            style: Styles.kFontSize17(context).copyWith(
+                              fontWeight: FontWeight.w500,
+                                decoration: TextDecoration.lineThrough,
+                                color: AppColors.kSeconderyTextColor),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                      )
+                    : const SizedBox(),
               ],
             ),
           ],

@@ -71,33 +71,33 @@ class FavouritesItem extends StatelessWidget {
                       ),
                       const Spacer(),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Flexible(
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                "\$${product.price}",
-                                style: Styles.kMediumTextStyle(context),
-                              ),
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              "\$${product.price}",
+                              style: Styles.kMediumTextStyle(context),
                             ),
                           ),
-                          const SizedBox(width: 4),
-                          Row(
-                            children: [
-                              CustomRatingBar(product: product),
-                              Text(
-                                "${product.rate}",
-                                style: Styles.kFontSize17(context).copyWith(
-                                  color: AppColors.kSeconderyTextColor,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                        ),
+                        const SizedBox(width: 4),
+                        Row(
+                          children: [
+                            CustomRatingBar(product: product),
+                            Text(
+                              "(${product.reviews.length.toString()})",
+                              style: Styles.kFontSize17(context).copyWith(
+                                color: AppColors.kSeconderyTextColor,
+                                fontWeight: FontWeight.w400,
                               ),
-                              SizedBox(width: 47.r)
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                            SizedBox(width: 47.r)
+                          ],
+                        ),
+                      ],
+                    ),
                       const SizedBox(height: 8)
                     ],
                   ),

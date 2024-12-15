@@ -11,7 +11,7 @@ abstract class Styles {
         fontFamily: "metro",
         color: Colors.black,
         fontWeight: FontWeight.w600,
-        fontSize: getResponsiveFontSize(context, fontSize: 24),
+        fontSize: getResponsiveFontSize(context, fontSize: 23),
       );
   static TextStyle kSmallTextStyle(BuildContext context) => TextStyle(
         fontFamily: "metro",
