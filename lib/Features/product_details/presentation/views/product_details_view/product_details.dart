@@ -15,9 +15,8 @@ import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/core/utiles/di.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custtom_button.dart';
+import 'package:online_shopping/core/widgets/qr_widget.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
-
-import '../../../../../core/widgets/qr_widget.dart';
 
 // ignore: must_be_immutable
 class ProductDetails extends StatelessWidget {

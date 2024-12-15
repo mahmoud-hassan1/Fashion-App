@@ -17,6 +17,8 @@ import 'package:online_shopping/Features/product_management/domain/usecases/edit
 import 'package:online_shopping/Features/product_management/domain/usecases/upload_product_usecase.dart';
 import 'package:online_shopping/Features/profile/data/repo_impl/profile_repo_impl.dart';
 import 'package:online_shopping/Features/reviews/data/repo_impl/product_reviews_repo_impl.dart';
+import 'package:online_shopping/Features/search/data/repo_impl/search_repo_impl.dart';
+import 'package:online_shopping/Features/search/data/repo_impl/speech_to_text_repo_impl.dart';
 import 'package:online_shopping/Features/shop/data/data_source/shop_data_source.dart';
 import 'package:online_shopping/Features/shop/data/repo/shop_repo_impl.dart';
 import 'package:online_shopping/Features/shop/domain/use_cases/get_newest_products_by_cat.dart';
@@ -108,8 +110,6 @@ void setup() {
     ),
   );
 
-
-
   getIt.registerSingleton<GetSaleProductsByCategory>(
     GetSaleProductsByCategory(
       getIt<ShopRepoImpl>(),
@@ -180,5 +180,15 @@ void setup() {
     GetUserDataUseCase(
       getIt<UserDataRepoImpl>(),
     ),
+  );
+
+  getIt.registerSingleton<SearchRepoImpl>(
+    SearchRepoImpl(
+      getIt<FirestoreServices>(),
+    ),
+  );
+
+  getIt.registerSingleton<SpeechToTextRepoImpl>(
+    SpeechToTextRepoImpl(),
   );
 }

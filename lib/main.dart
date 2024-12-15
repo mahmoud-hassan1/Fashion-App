@@ -19,6 +19,7 @@ import 'package:online_shopping/Features/splash/presentation/views/splash_view.d
 import 'package:online_shopping/core/utiles/di.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/firebase_options.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

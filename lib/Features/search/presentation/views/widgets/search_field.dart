@@ -1,17 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../../../../../core/utiles/app_colors.dart';
-import '../../../../../core/utiles/styles.dart';
+import 'package:online_shopping/core/utiles/app_colors.dart';
+import 'package:online_shopping/core/utiles/styles.dart';
 
 class SearchField extends StatelessWidget {
-  const SearchField({
-    super.key,
-    required this.searchText,
-    required this.onChanged,
-
-  });
+  const SearchField({super.key, required this.searchText, required this.onChanged});
 
   final TextEditingController searchText;
 
@@ -35,23 +28,19 @@ class SearchField extends StatelessWidget {
         Expanded(
           child: TextField(
             onChanged: onChanged,
-
             controller: searchText,
             decoration: InputDecoration(
               suffixIcon: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-
-
-
-                  // IconButton(
-                  //   onPressed: () => onChanged(searchText.text),
-                  //   icon:  const Icon(
-                  //       FontAwesomeIcons.magnifyingGlass,
-                  //     size: 25,
-                  //     color: Colors.black,
-                  //   ),
-                  // ),
+                  IconButton(
+                    onPressed: () => onChanged(searchText.text),
+                    icon: const Icon(
+                      FontAwesomeIcons.magnifyingGlass,
+                      size: 25,
+                      color: Colors.black,
+                    ),
+                  ),
                 ],
               ),
               border: OutlineInputBorder(
