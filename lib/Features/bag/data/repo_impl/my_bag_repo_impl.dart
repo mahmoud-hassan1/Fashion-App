@@ -70,9 +70,7 @@ class MyBagRepoImpl extends MyBagRepo {
 
   @override
   Future<void> addToBag(String productUID) async {
-  // Step 1: Check stock for the product
   DocumentSnapshot productSnapshot = await firestoreServices.getDocumentRef('products', productUID).get();
-
   if (productSnapshot.exists) {
     int stock = productSnapshot['stock'] ?? 0;
 
