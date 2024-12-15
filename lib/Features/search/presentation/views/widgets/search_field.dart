@@ -34,6 +34,8 @@ class SearchField extends StatelessWidget {
         ),
         Expanded(
           child: TextField(
+            onChanged: onChanged,
+
             controller: searchText,
             decoration: InputDecoration(
               suffixIcon: Row(
@@ -42,14 +44,14 @@ class SearchField extends StatelessWidget {
 
 
 
-                  IconButton(
-                    onPressed: () => onChanged(searchText.text),
-                    icon:  const Icon(
-                        FontAwesomeIcons.magnifyingGlass,
-                      size: 25,
-                      color: Colors.black,
-                    ),
-                  ),
+                  // IconButton(
+                  //   onPressed: () => onChanged(searchText.text),
+                  //   icon:  const Icon(
+                  //       FontAwesomeIcons.magnifyingGlass,
+                  //     size: 25,
+                  //     color: Colors.black,
+                  //   ),
+                  // ),
                 ],
               ),
               border: OutlineInputBorder(

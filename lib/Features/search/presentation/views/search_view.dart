@@ -9,6 +9,7 @@ import '../../../../core/utiles/app_colors.dart';
 import '../../../../core/utiles/firebase_firestore_services.dart';
 import '../../data/repo_impl/search_repo_impl.dart';
 import '../manger/search_cubit/search_cubit.dart';
+import 'package:barcode_scan2/barcode_scan2.dart'; // Import barcode scan package
 
 class SearchView extends StatefulWidget {
   const SearchView({super.key});
@@ -50,6 +51,23 @@ class _SearchViewState extends State<SearchView> {
       _lastWords = result.recognizedWords;
       searchText.text = _lastWords;
     });
+
+    if (_lastWords.isNotEmpty) {
+      context.read<SearchCubit>().getResults(_lastWords);
+    }
+  }
+
+  Future<void> _scanQRCode() async {
+    try {
+      final ScanResult result = await BarcodeScanner.scan();
+      if (result.rawContent.isNotEmpty) {
+        searchText.text = result.rawContent;
+        context.read<SearchCubit>().getResults(result.rawContent);
+      }
+    } catch (e) {
+
+      print("Error scanning QR code: $e");
+    }
   }
 
   @override
@@ -83,14 +101,13 @@ class _SearchViewState extends State<SearchView> {
                           child: SearchField(
                             onChanged: (value) => cubit.getResults(value),
                             searchText: searchText,
-
                           ),
                         ),
                         IconButton(
                           onPressed: _speechToText.isNotListening
-                          ? _startListening
+                              ? _startListening
                               : _stopListening,
-                          icon:  Icon(
+                          icon: Icon(
                             _speechToText.isNotListening
                                 ? Icons.mic_off
                                 : Icons.mic,
@@ -98,6 +115,15 @@ class _SearchViewState extends State<SearchView> {
                             color: _speechToText.isNotListening
                                 ? Colors.black
                                 : AppColors.kRed,
+                          ),
+                        ),
+                        // QR Code Scan Button
+                        IconButton(
+                          onPressed: _scanQRCode,
+                          icon: Icon(
+                            Icons.qr_code_scanner,
+                            size: 27,
+                            color: AppColors.kRed,
                           ),
                         ),
                       ],
