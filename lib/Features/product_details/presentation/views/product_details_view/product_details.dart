@@ -105,18 +105,16 @@ class ProductDetails extends StatelessWidget {
                                   )),
                               IconButton(
                                 onPressed: () async {
-                                  if (_fav) {
+                                   if (_fav) {
                                     await BlocProvider.of<ProductDetailsCubit>(
-                                            context);
-
-                                            product.id;
+                                            context)
+                                        .removeFromFavourites(
+                                            product.id);
                                   } else {
                                     await BlocProvider.of<ProductDetailsCubit>(
                                             context)
                                         .addToFavourites(product.id);
-
                                   }
-
                                   _fav = !_fav;
                           
                                 },
