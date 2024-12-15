@@ -12,15 +12,7 @@ class FavouriteViewBody extends StatelessWidget {
       child: CustomScrollView(
         slivers: [
           SliverAppBar(
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.search),
-              )
-            ],
-          ),
-          SliverToBoxAdapter(
-            child: Text(
+            title: Text(
               "Favourites",
               style: Styles.kLargeTextStyle(context),
             ),

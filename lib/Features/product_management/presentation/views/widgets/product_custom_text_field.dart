@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductCustomTextField extends StatelessWidget {
   final String label;
@@ -40,7 +39,7 @@ class ProductCustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
       ),
-      keyboardType: isNumber ? (isDecimal ? const TextInputType.numberWithOptions(decimal: true) : TextInputType.number) : TextInputType.text,
+      keyboardType: isNumber ? (isDecimal ? const TextInputType.numberWithOptions(decimal: true) : TextInputType.number) : expand? TextInputType.multiline: TextInputType.text,
       inputFormatters: isNumber
           ? [
               if (isDecimal) FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')) else FilteringTextInputFormatter.digitsOnly,
