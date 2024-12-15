@@ -10,7 +10,7 @@ import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custom_rating_bar.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 class ProductItem extends StatelessWidget {
   const ProductItem({super.key, required this.product});
   final Product product;
@@ -33,8 +33,9 @@ class ProductItem extends StatelessWidget {
                   height: 100.h,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
-                    child: Image.network(
-                      product.image,
+                    child: CachedNetworkImage(
+                     imageUrl:  product.image,
+                     errorWidget: (context, url, error) => const Icon(Icons.error),
                       fit: BoxFit.cover,
                     ),
                   ),
