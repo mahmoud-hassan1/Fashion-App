@@ -50,6 +50,10 @@ class _SearchViewState extends State<SearchView> {
       _lastWords = result.recognizedWords;
       searchText.text = _lastWords;
     });
+
+    if (_lastWords.isNotEmpty) {
+      context.read<SearchCubit>().getResults(_lastWords);
+    }
   }
 
   @override
@@ -83,14 +87,13 @@ class _SearchViewState extends State<SearchView> {
                           child: SearchField(
                             onChanged: (value) => cubit.getResults(value),
                             searchText: searchText,
-
                           ),
                         ),
                         IconButton(
                           onPressed: _speechToText.isNotListening
-                          ? _startListening
+                              ? _startListening
                               : _stopListening,
-                          icon:  Icon(
+                          icon: Icon(
                             _speechToText.isNotListening
                                 ? Icons.mic_off
                                 : Icons.mic,
