@@ -19,10 +19,14 @@ class SearchRepoImpl implements SearchRepo {
     }
 
     try {
-      search = search.trim();
+      search = search.trim().toLowerCase();
 
-      final QuerySnapshot snapshot =
-          await fireStoreServices.getCollectionRef(productsCollectionKey).where('name', isGreaterThanOrEqualTo: search).where('name', isLessThanOrEqualTo: '$search\uf8ff').get();
+      final QuerySnapshot snapshot = await fireStoreServices
+          .getCollectionRef(productsCollectionKey)
+          .where(ProductModel.nameKey, isGreaterThanOrEqualTo: search)
+          .where(ProductModel.nameKey, isLessThanOrEqualTo: '$search\uf8ff')
+          .get();
+          
       final List<ProductModel> products = snapshot.docs.map((doc) => ProductModel.fromJson(doc.data(), doc.id)).toList();
 
       return products.map((model) => model.toEntity()).toList();

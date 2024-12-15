@@ -72,7 +72,7 @@ class _EditProductBodyState extends State<EditProductBody> {
 
   ProductModel getProductModel() {
     return ProductModel(
-      name: _nameController.text,
+      name: _nameController.text.toLowerCase(),
       subtitle: _subtitleController.text,
       description: _descriptionController.text,
       priceBeforeDiscount: double.parse(_priceController.text),
