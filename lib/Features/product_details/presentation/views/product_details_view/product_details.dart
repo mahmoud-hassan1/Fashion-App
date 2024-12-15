@@ -88,15 +88,16 @@ class _ProductDetailsState extends State<ProductDetails> {
                 child: Column(
                   children: [
                     CarouselSlider.builder(
-                      itemCount: 1, // Number of items in the slider
+                      itemCount: widget.product.images.length, 
                       itemBuilder: (context, index, realIndex) {
                         return DetailsListViewItem(
                           index: index,
-                          photos: [widget.product.image],
+                          photos: widget.product.images,
                         );
                       },
                       options: CarouselOptions(
                         height: (width * 1.3).clamp(0, 470),
+                        autoPlayInterval: const Duration(seconds: 2),
                         autoPlay: true,
                         enlargeCenterPage: true,
                         viewportFraction: 1,
