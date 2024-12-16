@@ -2,21 +2,26 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class MyProfileTextField extends StatefulWidget {
-   MyProfileTextField({super.key, this.onTap, this.onChanged, this.controller, required this.label, required this.enabled, this.password=false,this.validator}):obscure=password;
+   const MyProfileTextField({super.key, this.onTap, this.onChanged, this.controller, required this.label, required this.enabled, this.password=false,this.validator});
   final bool password;
   final void Function()? onTap;
   final void Function(String value)? onChanged;
   final TextEditingController? controller;
   final String label;
   final bool enabled;
-  bool obscure;
+  
   final String? Function(String?)? validator;
   @override
   State<MyProfileTextField> createState() => _MyProfileTextFieldState();
 }
 
 class _MyProfileTextFieldState extends State<MyProfileTextField> {
-  
+ late bool obscure;
+  @override
+  void initState() {
+    obscure=widget.password;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,7 +41,7 @@ class _MyProfileTextFieldState extends State<MyProfileTextField> {
           validator: widget.validator,
           
           onTapOutside: (e) => FocusManager.instance.primaryFocus!.unfocus(), 
-          obscureText: widget.obscure,
+          obscureText: obscure,
           maxLines: 1,
           enabled: widget.enabled,
           onChanged: widget.onChanged,
@@ -48,10 +53,10 @@ class _MyProfileTextFieldState extends State<MyProfileTextField> {
             suffixIcon: widget.password
             ? IconButton(
                 onPressed: () {
-                  widget.obscure = !widget.obscure;
+                  obscure = !obscure;
                   setState(() {});
                 },
-                icon: Icon(!widget.obscure ? Icons.visibility_outlined : Icons.visibility_off_outlined),
+                icon: Icon(!obscure ? Icons.visibility_outlined : Icons.visibility_off_outlined),
               )
             : null,
             labelText: widget.label,
