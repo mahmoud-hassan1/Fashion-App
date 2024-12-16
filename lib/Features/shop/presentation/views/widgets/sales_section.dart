@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/shop/presentation/manger/cubit/shop_cubit.dart';
-import 'package:online_shopping/Features/shop/presentation/views/products_screen.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/core/utiles/constants.dart';
+import 'package:online_shopping/core/utiles/routes.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 
 // ignore: must_be_immutable
@@ -22,7 +22,7 @@ class SalesSection extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ProductsScreen(title: "${kTypes[tabController.index]}'s Sales"),
+                builder: (context) => AppRouter.productsScreen("${kTypes[tabController.index]}'s Sales", null),
               ));
         },
         child: AspectRatio(

@@ -9,6 +9,7 @@ part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this.authRepo) : super(AuthInitial());
+
   final AuthRepo authRepo;
 
   void resetPassword(String email) async {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
-import 'package:online_shopping/Features/shop/presentation/views/products_screen.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
+import 'package:online_shopping/core/utiles/routes.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 
 class Header extends StatelessWidget {
@@ -23,13 +23,11 @@ class Header extends StatelessWidget {
           InkWell(
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProductsScreen(
-                      title: title,
-                      products: products,
-                    ),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AppRouter.productsScreen(title, products),
+                ),
+              );
             },
             child: Row(
               children: [

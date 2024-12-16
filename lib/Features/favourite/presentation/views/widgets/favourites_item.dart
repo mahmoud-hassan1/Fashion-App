@@ -6,10 +6,10 @@ import 'package:online_shopping/Features/favourite/presentation/cubits/add_to_ca
 import 'package:online_shopping/Features/favourite/presentation/cubits/manage_favourites/manage_favourites_cubit.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
+import 'package:online_shopping/core/utiles/routes.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custom_rating_bar.dart';
 
-import '../../../../product_details/presentation/views/product_details_view/product_details.dart';
 
 class FavouritesItem extends StatelessWidget {
   final Product product;
@@ -30,15 +30,12 @@ class FavouritesItem extends StatelessWidget {
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ProductDetails(
-                product: product,
-              ),
+              builder: (context) => AppRouter.productDetailsView(product),
             ),
           ),
           child: Container(
             height: 100.h,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: Colors.white),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
             child: Row(
               children: [
                 Expanded(
@@ -46,13 +43,10 @@ class FavouritesItem extends StatelessWidget {
                   child: SizedBox(
                     height: 100.h,
                     child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          bottomLeft: Radius.circular(10)),
+                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
                       child: CachedNetworkImage(
                         imageUrl: product.image,
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -71,33 +65,33 @@ class FavouritesItem extends StatelessWidget {
                       ),
                       const Spacer(),
                       Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              "\$${product.price}",
-                              style: Styles.kMediumTextStyle(context),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 4),
-                        Row(
-                          children: [
-                            CustomRatingBar(product: product),
-                            Text(
-                              "(${product.reviews.length.toString()})",
-                              style: Styles.kFontSize17(context).copyWith(
-                                color: AppColors.kSeconderyTextColor,
-                                fontWeight: FontWeight.w400,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                "\$${product.price}",
+                                style: Styles.kMediumTextStyle(context),
                               ),
                             ),
-                            SizedBox(width: 47.r)
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                          const SizedBox(width: 4),
+                          Row(
+                            children: [
+                              CustomRatingBar(product: product),
+                              Text(
+                                "(${product.reviews.length.toString()})",
+                                style: Styles.kFontSize17(context).copyWith(
+                                  color: AppColors.kSeconderyTextColor,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              SizedBox(width: 47.r)
+                            ],
+                          ),
+                        ],
+                      ),
                       const SizedBox(height: 8)
                     ],
                   ),
@@ -111,8 +105,7 @@ class FavouritesItem extends StatelessWidget {
           right: 4,
           child: IconButton(
             onPressed: () async {
-              await BlocProvider.of<ManageFavouritesCubit>(context)
-                  .removeFromFavourites(product.id);
+              await BlocProvider.of<ManageFavouritesCubit>(context).removeFromFavourites(product.id);
             },
             icon: Icon(
               Icons.close,
@@ -130,8 +123,7 @@ class FavouritesItem extends StatelessWidget {
               color: Colors.white,
             ),
             onPressed: () async {
-              await BlocProvider.of<AddToCartCubit>(context)
-                  .addToCart(product.id);
+              await BlocProvider.of<AddToCartCubit>(context).addToCart(product.id);
             },
             style: IconButton.styleFrom(
               backgroundColor: AppColors.kRed,

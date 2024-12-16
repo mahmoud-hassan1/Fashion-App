@@ -1,15 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_shopping/Features/product_management/presentation/views/edit_product_view.dart';
 import 'package:online_shopping/Features/favourite/presentation/cubits/manage_favourites/manage_favourites_cubit.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/Features/home/presentation/views/home_view/widgets/favourites_button.dart';
 import 'package:online_shopping/core/models/user_model.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
+import 'package:online_shopping/core/utiles/routes.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
-import '../../../../../product_details/presentation/views/product_details_view/product_details.dart';
 
 class ProductListViewItem extends StatelessWidget {
   const ProductListViewItem({super.key, required this.product});
@@ -23,7 +22,7 @@ class ProductListViewItem extends StatelessWidget {
         await Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductDetails(product: product),
+            builder: (context) => AppRouter.productDetailsView(product),
           ),
         );
 
@@ -46,8 +45,7 @@ class ProductListViewItem extends StatelessWidget {
                     width: 121,
                     child: CachedNetworkImage(
                       imageUrl: product.image,
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -58,13 +56,11 @@ class ProductListViewItem extends StatelessWidget {
                       }
                     },
                     builder: (context, state) {
-                      final blocInstance =
-                          BlocProvider.of<ManageFavouritesCubit>(context);
+                      final blocInstance = BlocProvider.of<ManageFavouritesCubit>(context);
                       return Positioned(
                         top: 5,
                         right: 5,
-                        child: FavouritesButton(
-                            blocInstance: blocInstance, product: product),
+                        child: FavouritesButton(blocInstance: blocInstance, product: product),
                       );
                     },
                   ),
@@ -74,8 +70,7 @@ class ProductListViewItem extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    EditProductView(product: product),
+                                builder: (context) => AppRouter.editProductView(product),
                               ),
                             );
                           },
@@ -100,12 +95,8 @@ class ProductListViewItem extends StatelessWidget {
                   child: FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
-                       product.price ==
-                                    product.price.toInt()
-                                ? "\$${product.price.toInt()}" 
-                                : "\$${product.price}",
-                      style: Styles.kMediumTextStyle(context)
-                          .copyWith(fontWeight: FontWeight.w700),
+                      product.price == product.price.toInt() ? "\$${product.price.toInt()}" : "\$${product.price}",
+                      style: Styles.kMediumTextStyle(context).copyWith(fontWeight: FontWeight.w700),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
@@ -120,14 +111,8 @@ class ProductListViewItem extends StatelessWidget {
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Text(
-                            product.priceBeforeDiscount ==
-                                    product.priceBeforeDiscount.toInt()
-                                ? "\$${product.priceBeforeDiscount.toInt()}" 
-                                : "\$${product.priceBeforeDiscount}",
-                            style: Styles.kFontSize17(context).copyWith(
-                              fontWeight: FontWeight.w500,
-                                decoration: TextDecoration.lineThrough,
-                                color: AppColors.kSeconderyTextColor),
+                            product.priceBeforeDiscount == product.priceBeforeDiscount.toInt() ? "\$${product.priceBeforeDiscount.toInt()}" : "\$${product.priceBeforeDiscount}",
+                            style: Styles.kFontSize17(context).copyWith(fontWeight: FontWeight.w500, decoration: TextDecoration.lineThrough, color: AppColors.kSeconderyTextColor),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),

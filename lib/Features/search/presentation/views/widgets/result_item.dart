@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
-import 'package:online_shopping/Features/product_details/presentation/views/product_details_view/product_details.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
+import 'package:online_shopping/core/utiles/routes.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custom_rating_bar.dart';
 
@@ -23,9 +23,7 @@ class ResultItem extends StatelessWidget {
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ProductDetails(
-                product: product,
-              ),
+              builder: (context) => AppRouter.productDetailsView(product),
             ),
           ),
           child: Container(

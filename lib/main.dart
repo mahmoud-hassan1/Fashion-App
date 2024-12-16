@@ -15,9 +15,9 @@ import 'package:online_shopping/Features/shop/domain/use_cases/get_newest_produc
 import 'package:online_shopping/Features/shop/domain/use_cases/get_products_by_cat.dart';
 import 'package:online_shopping/Features/shop/domain/use_cases/get_sale_products_by_cat.dart';
 import 'package:online_shopping/Features/shop/presentation/manger/cubit/shop_cubit.dart';
-import 'package:online_shopping/Features/splash/presentation/views/splash_view.dart';
 import 'package:online_shopping/core/utiles/di.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
+import 'package:online_shopping/core/utiles/routes.dart';
 import 'package:online_shopping/firebase_options.dart';
 
 void main() async {
@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          home: const SplashView(),
+          home: AppRouter.splashView,
         ),
       ),
     );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/shop/presentation/manger/cubit/shop_cubit.dart';
-import 'package:online_shopping/Features/shop/presentation/views/products_screen.dart';
 import 'package:online_shopping/core/utiles/constants.dart';
+import 'package:online_shopping/core/utiles/routes.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 
 // ignore: must_be_immutable
@@ -40,7 +40,7 @@ class _CatigoriesListViewState extends State<CatigoriesListView> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ProductsScreen(title: "${kTypes[widget.tabController.index]}'s ${kCategoryList[index].first}"),
+                    builder: (context) => AppRouter.productsScreen("${kTypes[widget.tabController.index]}'s ${kCategoryList[index].first}", null),
                   ));
             },
             child: AspectRatio(

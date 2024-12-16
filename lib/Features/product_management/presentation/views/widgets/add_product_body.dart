@@ -8,6 +8,7 @@ import 'package:online_shopping/Features/product_management/presentation/views/w
 import 'package:online_shopping/Features/product_management/presentation/views/widgets/text_input_section.dart';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
 import 'package:online_shopping/Features/home/presentation/views/navigation_bar_view.dart';
+import 'package:online_shopping/core/utiles/routes.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 import 'dart:io';
 
@@ -89,7 +90,7 @@ class _AddProductBodyState extends State<AddProductBody> {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => const NavigationBarView(),
+              builder: (context) =>AppRouter.navigationBarView,
             ),
             (Route<dynamic> route) => false,
           );

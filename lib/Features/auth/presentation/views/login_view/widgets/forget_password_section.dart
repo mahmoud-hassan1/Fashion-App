@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:online_shopping/Features/auth/presentation/views/reset_password_view/reset_password_view.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
+import 'package:online_shopping/core/utiles/routes.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 
 class ForgetPasswordSection extends StatelessWidget {
@@ -18,17 +18,19 @@ class ForgetPasswordSection extends StatelessWidget {
           style: Styles.kSmallTextStyle(context),
         ),
         IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ResetPasswordView(),
-                  ));
-            },
-            icon: const Icon(
-              Icons.arrow_right_alt_sharp,
-              color: AppColors.kRed,
-            ))
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AppRouter.resetPasswordView,
+              ),
+            );
+          },
+          icon: const Icon(
+            Icons.arrow_right_alt_sharp,
+            color: AppColors.kRed,
+          ),
+        )
       ],
     );
   }

@@ -1,13 +1,11 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:online_shopping/Features/auth/presentation/views/login_view/login_view.dart';
 import 'package:online_shopping/Features/home/presentation/views/navigation_bar_view.dart';
 import 'package:online_shopping/Features/splash/presentation/cubits/cubit/user_cubit.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
+import 'package:online_shopping/core/utiles/routes.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 
 class SplashViewBody extends StatefulWidget {
@@ -44,7 +42,7 @@ class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProvid
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const NavigationBarView(),
+                builder: (context) => AppRouter.navigationBarView,
               ));
         } else if (state is UserFail) {
           BlocProvider.of<UserCubit>(context).getUserData();
@@ -59,23 +57,23 @@ class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProvid
               builder: (context, child) {
                 return SlideTransition(
                   position: positionAnimationFashionApp,
-                  child: Text(
-                    "Fashion App",
-                    style: Styles.kFontSize60(context).copyWith(color: colorAnimationFashionApp.value,)
-                  ),
+                  child: Text("Fashion App",
+                      style: Styles.kFontSize60(context).copyWith(
+                        color: colorAnimationFashionApp.value,
+                      )),
                 );
               },
             ),
-            SizedBox(height: 20.h), 
+            SizedBox(height: 20.h),
             AnimatedBuilder(
               animation: animationController,
               builder: (context, child) {
                 return SlideTransition(
                   position: positionAnimationEasyShopping,
-                  child: Text(
-                    "Easy Shopping",
-                    style: Styles.kFontSize30(context).copyWith(color: colorAnimationFashionApp.value,)
-                  ),
+                  child: Text("Easy Shopping",
+                      style: Styles.kFontSize30(context).copyWith(
+                        color: colorAnimationFashionApp.value,
+                      )),
                 );
               },
             ),
@@ -91,26 +89,28 @@ class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProvid
       duration: const Duration(seconds: 2),
     );
 
-   
     positionAnimationFashionApp = Tween<Offset>(
-      begin: const Offset(-2, 0), 
-      end: Offset.zero, 
-    ).animate(CurvedAnimation(
-      parent: animationController,
-      curve: Curves.easeOut,
-    ));
+      begin: const Offset(-2, 0),
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(
+        parent: animationController,
+        curve: Curves.easeOut,
+      ),
+    );
 
     positionAnimationEasyShopping = Tween<Offset>(
-      begin: const Offset(0, 2), 
-      end: Offset.zero, 
-    ).animate(CurvedAnimation(
-      parent: animationController,
-      curve: Curves.easeOut,
-    ));
-
+      begin: const Offset(0, 2),
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(
+        parent: animationController,
+        curve: Curves.easeOut,
+      ),
+    );
 
     colorAnimationFashionApp = ColorTween(
-        begin: AppColors.kSeconderyTextColor,
+      begin: AppColors.kSeconderyTextColor,
       end: AppColors.kRed,
     ).animate(animationController);
 
@@ -118,17 +118,25 @@ class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProvid
   }
 
   void navigateToLogin() {
-    Future.delayed(const Duration(seconds: 3), () {
-      final user = FirebaseAuth.instance.currentUser;
-      if (user != null) {
-        BlocProvider.of<UserCubit>(context).getUserData();
-      } else {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const LoginView(),
-            ));
-      }
-    });
+    Future.delayed(
+      const Duration(seconds: 3),
+      () {
+        final user = FirebaseAuth.instance.currentUser;
+        if (user != null) {
+          if (mounted) {
+            BlocProvider.of<UserCubit>(context).getUserData();
+          }
+        } else {
+          if (mounted) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AppRouter.loginView,
+              ),
+            );
+          }
+        }
+      },
+    );
   }
 }

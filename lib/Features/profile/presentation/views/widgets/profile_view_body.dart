@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/auth/data/repo_impl/auth_repo_imp.dart';
-import 'package:online_shopping/Features/auth/presentation/views/login_view/login_view.dart';
 import 'package:online_shopping/Features/profile/data/repo_impl/profile_repo_impl.dart';
 import 'package:online_shopping/Features/profile/presentation/cubits/my_orders_cubit/my_orders_cubit.dart';
 import 'package:online_shopping/Features/profile/presentation/cubits/my_profile_cubit/my_profile_cubit.dart';
@@ -14,6 +13,7 @@ import 'package:online_shopping/Features/profile/presentation/views/widgets/prof
 import 'package:online_shopping/Features/profile/presentation/views/widgets/settings_view.dart';
 import 'package:online_shopping/core/models/user_model.dart';
 import 'package:online_shopping/core/utiles/di.dart';
+import 'package:online_shopping/core/utiles/routes.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custtom_button.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
@@ -34,7 +34,7 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
         listener: (context, state) {
           if (state is MyProfileGoToSplash) {
             Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => const LoginView()),
+              MaterialPageRoute(builder: (context) => AppRouter.loginView),
               (Route<dynamic> route) => false,
             );
           } else if (state is MyProfileFailed) {
