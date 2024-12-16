@@ -87,7 +87,8 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Online Shopping',
+          title: 'Fashion',
+
           theme: ThemeData.light().copyWith(
             scaffoldBackgroundColor: AppColors.kBackgroundColor,
             appBarTheme: const AppBarTheme(
