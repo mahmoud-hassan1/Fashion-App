@@ -24,7 +24,7 @@ class NavigationBarView extends StatelessWidget {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const HomeView(),
-    ShopView(),
+    const ShopView(),
     const MyBagView(),
     const FavouriteView(),
     const ProfileView(),

@@ -1,14 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../../core/utiles/app_colors.dart';
-import '../../../../../core/utiles/styles.dart';
-import '../../../../../core/widgets/custom_rating_bar.dart';
-import '../../../../home/domain/entities/product_entity.dart';
-import '../../../../product_details/presentation/views/product_details_view/product_details.dart';
+import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
+import 'package:online_shopping/Features/product_details/presentation/views/product_details_view/product_details.dart';
+import 'package:online_shopping/core/utiles/app_colors.dart';
+import 'package:online_shopping/core/utiles/styles.dart';
+import 'package:online_shopping/core/widgets/custom_rating_bar.dart';
 
 class ResultItem extends StatelessWidget {
   const ResultItem({super.key, required this.product});
@@ -33,8 +30,7 @@ class ResultItem extends StatelessWidget {
           ),
           child: Container(
             height: 100.h,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: Colors.white),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
             child: Row(
               children: [
                 Expanded(
@@ -42,11 +38,9 @@ class ResultItem extends StatelessWidget {
                   child: SizedBox(
                     height: 100.h,
                     child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          bottomLeft: Radius.circular(10)),
+                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
                       child: CachedNetworkImage(
-                        imageUrl:  product.image,
+                        imageUrl: product.image,
                         errorWidget: (context, url, error) => const Icon(Icons.error),
                         fit: BoxFit.cover,
                       ),

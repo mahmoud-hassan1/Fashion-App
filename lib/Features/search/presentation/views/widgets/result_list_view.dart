@@ -4,18 +4,18 @@ import 'package:online_shopping/Features/search/presentation/views/widgets/resul
 
 class ResultListView extends StatelessWidget {
   const ResultListView({super.key, required this.products});
- final List<Product> products;
-
+  final List<Product> products;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        return ResultItem(product: products[index],);
+        return ResultItem(
+          product: products[index],
+        );
       },
-      itemCount:products.length,
-
-      physics: NeverScrollableScrollPhysics(),
+      itemCount: products.length,
+      physics: const NeverScrollableScrollPhysics(),
     );
   }
 }

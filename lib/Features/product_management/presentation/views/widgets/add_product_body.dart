@@ -52,22 +52,25 @@ class _AddProductBodyState extends State<AddProductBody> {
         snackBar(content: "Please add at least one Category.", context: context);
         return;
       }
+
       ProductModel product = ProductModel(
-          name: _nameController.text,
-          subtitle: _subtitleController.text,
-          description: _descriptionController.text,
-          priceBeforeDiscount: double.parse(_priceController.text),
-          price: double.parse(_priceAfterDiscountController.text),
-          stock: int.parse(_stockController.text),
-          images: [],
-          id: '',
-          rate: 0,
-          sellerId: '',
-          image: '',
-          categories: _selectedCategories.map((category) => category.toLowerCase()).toList(),
-          date: DateTime.now(),
-          reviews: [],
-          discount: double.parse(_discountController.text) / 100);
+        name: _nameController.text.toLowerCase(),
+        subtitle: _subtitleController.text,
+        description: _descriptionController.text,
+        priceBeforeDiscount: double.parse(_priceController.text),
+        price: double.parse(_priceAfterDiscountController.text),
+        stock: int.parse(_stockController.text),
+        images: [],
+        id: '',
+        rate: 0,
+        sellerId: '',
+        image: '',
+        categories: _selectedCategories.map((category) => category.toLowerCase()).toList(),
+        date: DateTime.now(),
+        reviews: [],
+        discount: double.parse(_discountController.text) / 100,
+      );
+
       await BlocProvider.of<ManageProductsCubit>(context).addProduct(product: product, selectedImages: _selectedImages.value);
     }
   }
@@ -88,7 +91,7 @@ class _AddProductBodyState extends State<AddProductBody> {
             MaterialPageRoute(
               builder: (context) => const NavigationBarView(),
             ),
-             (Route<dynamic> route) => false,
+            (Route<dynamic> route) => false,
           );
         }
       },

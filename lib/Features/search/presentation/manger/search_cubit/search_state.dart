@@ -10,11 +10,11 @@ final class SearchLoading extends SearchState {}
 final class SearchFailed extends SearchState {
   final String errorMessage;
 
-  SearchFailed({required this.errorMessage});
+  SearchFailed(this.errorMessage);
 }
 
 final class SearchSuccess extends SearchState {
   final List<Product> products;
 
-  SearchSuccess({required this.products});
+  SearchSuccess(this.products);
 }
