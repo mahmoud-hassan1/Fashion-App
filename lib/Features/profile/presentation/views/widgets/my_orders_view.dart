@@ -34,7 +34,7 @@ class MyOrdersView extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-           title: Text("My Orders", style: Styles.kMediumTextStyle(context).copyWith(fontSize: 34)),
+            title: Text("My Orders", style: Styles.kMediumTextStyle(context).copyWith(fontSize: 34)),
           ),
           body: ModalProgressHUD(
             inAsyncCall: state is MyOrdersLoading,
@@ -43,7 +43,7 @@ class MyOrdersView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [              
+                  children: [
                     const SizedBox(height: 10),
                     DateTextField(
                       label: "Date",

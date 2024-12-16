@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 
 class SearchField extends StatelessWidget {
-  const SearchField({super.key, required this.searchText, required this.onChanged});
+  const SearchField({super.key, required this.searchText, required this.onSubmitted});
 
   final TextEditingController searchText;
-
-  final Future<void> Function(String) onChanged;
+  final Future<void> Function(String) onSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +26,22 @@ class SearchField extends StatelessWidget {
         ),
         Expanded(
           child: TextField(
-            onChanged: onChanged,
+            onSubmitted: onSubmitted,
             controller: searchText,
             decoration: InputDecoration(
+              suffixIcon: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    onPressed: () => onSubmitted(searchText.text),
+                    icon: const Icon(
+                      FontAwesomeIcons.magnifyingGlass,
+                      size: 25,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25),
                 borderSide: const BorderSide(

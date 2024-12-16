@@ -1,35 +1,28 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_shopping/Features/profile/data/repo_impl/profile_repo_impl.dart';
 import 'package:online_shopping/Features/profile/presentation/cubits/profile_image_cubit/profile_image_cubit.dart';
 import 'package:online_shopping/core/models/user_model.dart';
-import 'package:online_shopping/core/utiles/di.dart';
 import 'package:online_shopping/core/utiles/assets.dart';
 
 class ProfileImage extends StatelessWidget {
-  const ProfileImage(
-      {super.key, required this.imageSize, required this.iconSize});
+  const ProfileImage({super.key, required this.imageSize, required this.iconSize});
 
   final double imageSize;
   final double iconSize;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ProfileImageCubit>(
-      create: (context) => ProfileImageCubit(getIt<ProfileRepoImpl>()),
-      child: BlocBuilder<ProfileImageCubit, ProfileImageState>(
-        builder: (context, state) {
-          if (state is ProfileImageLoading) {
-            return getLoadingWidget();
-          } else if (state is ProfileImageFinished ||
-              state is ProfileImageInitial) {
-            return getImageWidget(context);
-          } else {
-            return const SizedBox();
-          }
-        },
-      ),
+    return BlocBuilder<ProfileImageCubit, ProfileImageState>(
+      builder: (context, state) {
+        if (state is ProfileImageLoading) {
+          return getLoadingWidget();
+        } else if (state is ProfileImageFinished || state is ProfileImageInitial) {
+          return getImageWidget(context);
+        } else {
+          return const SizedBox();
+        }
+      },
     );
   }
 
@@ -59,8 +52,7 @@ class ProfileImage extends StatelessWidget {
           ),
           child: CachedNetworkImage(
             imageUrl: UserModel.getInstance().profilePicturePath,
-            progressIndicatorBuilder: (context, url, downloadProgress) =>
-                CircularProgressIndicator(
+            progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(
               value: downloadProgress.progress,
               color: const Color(0xffdb3022),
             ),
@@ -79,8 +71,7 @@ class ProfileImage extends StatelessWidget {
             backgroundColor: Colors.black26,
             child: IconButton(
               onPressed: () async {
-                await BlocProvider.of<ProfileImageCubit>(context)
-                    .updateProfileImage();
+                await BlocProvider.of<ProfileImageCubit>(context).updateProfileImage();
               },
               padding: EdgeInsets.zero,
               icon: const Icon(Icons.edit),

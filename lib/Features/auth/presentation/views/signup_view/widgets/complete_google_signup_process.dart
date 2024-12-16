@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:online_shopping/Features/auth/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:online_shopping/Features/auth/presentation/views/signup_view/widgets/date_text_field.dart';
-import 'package:online_shopping/Features/home/presentation/views/navigation_bar_view.dart';
 import 'package:online_shopping/core/utiles/is_same_day.dart';
 import 'package:online_shopping/core/utiles/routes.dart';
 import 'package:online_shopping/core/widgets/custtom_button.dart';

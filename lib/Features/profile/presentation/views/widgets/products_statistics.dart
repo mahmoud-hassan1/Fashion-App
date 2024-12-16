@@ -42,7 +42,7 @@ class _ProductsStatisticsState extends State<ProductsStatistics> {
           inAsyncCall: state is ProductsStatisticsLoading,
           child: Scaffold(
             appBar: AppBar(
-              title:Text("Product Statistics", style: Styles.kFontSize30(context)),
+              title: Text("Product Statistics", style: Styles.kFontSize30(context)),
             ),
             body: SafeArea(
               child: Padding(

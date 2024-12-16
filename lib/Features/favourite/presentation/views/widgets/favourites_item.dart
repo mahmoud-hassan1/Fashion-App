@@ -10,7 +10,6 @@ import 'package:online_shopping/core/utiles/routes.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/custom_rating_bar.dart';
 
-
 class FavouritesItem extends StatelessWidget {
   final Product product;
 

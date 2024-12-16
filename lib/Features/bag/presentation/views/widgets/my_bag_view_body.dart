@@ -5,8 +5,8 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:online_shopping/Features/auth/presentation/views/widgets/custtom_button.dart';
 import 'package:online_shopping/Features/bag/presentation/cubits/my_bag_cubit/my_bag_cubit.dart';
 import 'package:online_shopping/Features/bag/presentation/views/widgets/my_bag_item.dart';
-import 'package:online_shopping/Features/bag/presentation/views/widgets/order_review_view.dart';
 import 'package:online_shopping/core/utiles/assets.dart';
+import 'package:online_shopping/core/utiles/routes.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/scale_down.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
@@ -23,12 +23,12 @@ class MyBagViewBody extends StatelessWidget {
     return BlocConsumer<MyBagCubit, MyBagState>(
       listener: (context, state) async {
         if (state is MyBagSuccessed) {
-          state.message != null ? snackBar(content: state.message, context: context,color: Colors.green) : null;
+          state.message != null ? snackBar(content: state.message, context: context, color: Colors.green) : null;
         } else if (state is MyBagFailed) {
           snackBar(content: "Something went wrong", context: context);
         } else if (state is MyBagGoToOrderReview) {
           await Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => OrderReviewView()),
+            MaterialPageRoute(builder: (context) => AppRouter.orderReviewView),
           );
         }
       },

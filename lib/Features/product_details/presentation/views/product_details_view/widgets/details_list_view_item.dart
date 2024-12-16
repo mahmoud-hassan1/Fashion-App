@@ -17,8 +17,8 @@ class DetailsListViewItem extends StatelessWidget {
           child: AspectRatio(
             aspectRatio: 5 / 4,
             child: CachedNetworkImage(
-             imageUrl: photos[index],
-            errorWidget: (context, url, error) => const Icon(Icons.error),
+              imageUrl: photos[index],
+              errorWidget: (context, url, error) => const Icon(Icons.error),
               fit: BoxFit.contain,
               width: width,
             ),

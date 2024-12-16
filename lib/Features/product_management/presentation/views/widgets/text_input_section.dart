@@ -142,7 +142,7 @@ class TextInputSection extends StatelessWidget {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the discount percentage';
                   }
-                  if (int.parse(value)>100){
+                  if (int.parse(value) > 100) {
                     return 'Discount percentage should not be more than 100';
                   }
                   if (int.tryParse(value) == null) {

@@ -7,7 +7,6 @@ import 'package:online_shopping/Features/product_management/presentation/views/w
 import 'package:online_shopping/Features/product_management/presentation/views/widgets/text_input_section.dart';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
-import 'package:online_shopping/Features/home/presentation/views/navigation_bar_view.dart';
 import 'package:online_shopping/core/utiles/routes.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 
@@ -104,7 +103,7 @@ class _EditProductBodyState extends State<EditProductBody> {
           snackBar(content: 'Changes saved successfully', context: context, color: Colors.green);
           await Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
-              builder: (context) =>AppRouter.navigationBarView,
+              builder: (context) => AppRouter.navigationBarView,
             ),
             (Route<dynamic> route) => false,
           );

@@ -15,5 +15,4 @@ final class SettingsFailed extends SettingsState {
   final String errorMessage;
 
   SettingsFailed({required this.errorMessage});
-
 }

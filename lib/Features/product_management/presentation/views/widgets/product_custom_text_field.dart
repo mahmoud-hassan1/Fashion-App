@@ -39,7 +39,11 @@ class ProductCustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
       ),
-      keyboardType: isNumber ? (isDecimal ? const TextInputType.numberWithOptions(decimal: true) : TextInputType.number) : expand? TextInputType.multiline: TextInputType.text,
+      keyboardType: isNumber
+          ? (isDecimal ? const TextInputType.numberWithOptions(decimal: true) : TextInputType.number)
+          : expand
+              ? TextInputType.multiline
+              : TextInputType.text,
       inputFormatters: isNumber
           ? [
               if (isDecimal) FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')) else FilteringTextInputFormatter.digitsOnly,

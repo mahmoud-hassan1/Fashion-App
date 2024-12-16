@@ -22,7 +22,7 @@ class MyBagRepoImpl extends MyBagRepo {
     if (UserModel.getInstance().bag.isNotEmpty) {
       final QuerySnapshot result = await firestoreServices.getCollectionRef(productsCollectionKey).where(FieldPath.documentId, whereIn: UserModel.getInstance().bag).get();
       for (int i = 0; i < result.docs.length; i++) {
-        if(result.docs[i]['stock']>0) {
+        if (result.docs[i]['stock'] > 0) {
           products.add(ProductModel.fromJson(result.docs[i], result.docs[i].id));
         }
       }
@@ -44,11 +44,9 @@ class MyBagRepoImpl extends MyBagRepo {
         OrderModel.ordersKey: FieldValue.arrayUnion([orderModel.toMap()])
       });
       for (var item in items) {
-      DocumentReference productDoc = firestoreServices.getDocumentRef('products', item.productId);
-      await productDoc.update({
-        'stock': FieldValue.increment(-item.quantity) 
-      });
-    }
+        DocumentReference productDoc = firestoreServices.getDocumentRef('products', item.productId);
+        await productDoc.update({'stock': FieldValue.increment(-item.quantity)});
+      }
     }
   }
 
@@ -70,26 +68,26 @@ class MyBagRepoImpl extends MyBagRepo {
 
   @override
   Future<void> addToBag(String productUID) async {
-  DocumentSnapshot productSnapshot = await firestoreServices.getDocumentRef('products', productUID).get();
-  if (productSnapshot.exists) {
-    int stock = productSnapshot['stock'] ?? 0;
+    DocumentSnapshot productSnapshot = await firestoreServices.getDocumentRef('products', productUID).get();
+    if (productSnapshot.exists) {
+      int stock = productSnapshot['stock'] ?? 0;
 
-    if (stock > 0) {
-      if (!UserModel.getInstance().bag.contains(productUID)) {
-        UserModel.getInstance().bag.add(productUID);
-        await firestoreServices.updateField(
-          usersCollectionKey,
-          UserModel.getInstance().uid,
-          {UserModel.bagKey: UserModel.getInstance().bag},
-        );
-      } 
+      if (stock > 0) {
+        if (!UserModel.getInstance().bag.contains(productUID)) {
+          UserModel.getInstance().bag.add(productUID);
+          await firestoreServices.updateField(
+            usersCollectionKey,
+            UserModel.getInstance().uid,
+            {UserModel.bagKey: UserModel.getInstance().bag},
+          );
+        }
+      } else {
+        throw Exception('Product is out of stock.');
+      }
     } else {
-      throw Exception('Product is out of stock.');
+      throw Exception('Product does not exist.');
     }
-  } else {
-    throw Exception('Product does not exist.');
   }
-}
 
   @override
   Future<void> deleteFromBag(String productUID) async {

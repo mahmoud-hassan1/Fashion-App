@@ -24,19 +24,21 @@ class ProductListView extends StatelessWidget {
         ),
         SizedBox(
           height: 200,
-          child: products.isNotEmpty? ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return Row(
-                children: [
-                  const SizedBox(width: 16),
-                  ProductListViewItem(product: products[index]),
-                  index == min(products.length, 5) - 1 ? const SizedBox(width: 16) : const SizedBox(),
-                ],
-              );
-            },
-            itemCount: min(products.length, 5),
-          ):  Text("No Products Yet", style: Styles.kMediumTextStyle(context)),
+          child: products.isNotEmpty
+              ? ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Row(
+                      children: [
+                        const SizedBox(width: 16),
+                        ProductListViewItem(product: products[index]),
+                        index == min(products.length, 5) - 1 ? const SizedBox(width: 16) : const SizedBox(),
+                      ],
+                    );
+                  },
+                  itemCount: min(products.length, 5),
+                )
+              : Text("No Products Yet", style: Styles.kMediumTextStyle(context)),
         ),
       ],
     );

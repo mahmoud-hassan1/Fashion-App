@@ -51,7 +51,7 @@ class _SearchViewState extends State<SearchView> {
                             children: [
                               Expanded(
                                 child: SearchField(
-                                  onChanged: (value) async => await searchCubit.getResults(value),
+                                  onSubmitted: (value) async => await searchCubit.getResults(value),
                                   searchText: searchText,
                                 ),
                               ),
