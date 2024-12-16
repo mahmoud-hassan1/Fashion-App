@@ -21,7 +21,7 @@ class ManageProductsCubit extends Cubit<ManageProductsState> {
       await uploadProductUsecase.call(product: product, selectedImages: selectedImages);
       emit(AddProductsSucsses());
     } catch (e) {
-      emit(AddProductsFailed(error: e.toString()));
+      emit(AddProductsFailed(error: e.toString().replaceFirst('Exception:', '').trim()));
     }
   }
 
@@ -31,7 +31,7 @@ class ManageProductsCubit extends Cubit<ManageProductsState> {
       await editProductUsecase.call(product: product);
       emit(AddProductsSucsses());
     } catch (e) {
-      emit(AddProductsFailed(error: e.toString()));
+      emit(AddProductsFailed(error: e.toString().replaceFirst('Exception:', '').trim()));
     }
   }
 
@@ -41,7 +41,8 @@ class ManageProductsCubit extends Cubit<ManageProductsState> {
       await deleteProductUsecase.call(product: product);
       emit(AddProductsSucsses());
     } catch (e) {
-      emit(AddProductsFailed(error: e.toString()));
+      
+      emit(AddProductsFailed(error:e.toString().replaceFirst('Exception:', '').trim()));
     }
   }
 }

@@ -19,7 +19,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       await bagRepo.addToBag(productUID);
       emit(ProductDetailsAddedToCart());
     } catch (e) {
-      emit(ProductDetailsFailed(e.toString()));
+      emit(ProductDetailsFailed(e.toString().replaceFirst('Exception:', '').trim()));
     }
   }
 

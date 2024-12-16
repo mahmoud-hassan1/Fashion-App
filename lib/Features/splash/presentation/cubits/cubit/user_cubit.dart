@@ -17,7 +17,7 @@ class UserCubit extends Cubit<UserState> {
       UserModel.setInstance(userData);
       emit(UserSuccess());
     } catch (e) {
-      emit(UserFail(e.toString()));
+      emit(UserFail(e.toString().replaceFirst('Exception:', '').trim()));
     }
   }
 }

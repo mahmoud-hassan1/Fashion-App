@@ -14,7 +14,7 @@ class AddToCartCubit extends Cubit<AddToCartState> {
       await bagRepo.addToBag(uid);
       emit(AddToCartSuccessed());
     } catch (e) {
-      emit(AddToCartFailed(message: e.toString()));
+      emit(AddToCartFailed(message: e.toString().replaceFirst('Exception:', '').trim()));
     }
   }
 }
