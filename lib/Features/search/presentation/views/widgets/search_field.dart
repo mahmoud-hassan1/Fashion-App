@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 
@@ -30,19 +29,6 @@ class SearchField extends StatelessWidget {
             onChanged: onChanged,
             controller: searchText,
             decoration: InputDecoration(
-              suffixIcon: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    onPressed: () => onChanged(searchText.text),
-                    icon: const Icon(
-                      FontAwesomeIcons.magnifyingGlass,
-                      size: 25,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25),
                 borderSide: const BorderSide(

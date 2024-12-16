@@ -9,10 +9,4 @@ final class SpeechToTextLoading extends SpeechToTextState {}
 
 final class SpeechToTextSuccess extends SpeechToTextState {}
 
-final class SpeechToTextRecognized extends SpeechToTextState {
-  final String text;
-
-  SpeechToTextRecognized(this.text);
-}
-
 final class SpeechToTextFailed extends SpeechToTextState {}
