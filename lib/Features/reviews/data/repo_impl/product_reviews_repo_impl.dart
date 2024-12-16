@@ -13,7 +13,7 @@ class ProductReviewsRepoImpl extends ProductReviewsRepo {
   final FirestoreServices firestoreServices;
 
   @override
-  Future<bool> createReview(Product product, ReviewModel newReview, String productId) async {
+  Future<void> createReview(Product product, ReviewModel newReview, String productId) async {
     bool isExist = checkUserExistance(product, UserModel.getInstance().uid);
 
     if (!isExist) {
@@ -21,8 +21,6 @@ class ProductReviewsRepoImpl extends ProductReviewsRepo {
         ProductModel.reviewsKey: FieldValue.arrayUnion([newReview.toMap()])
       });
     }
-
-    return isExist;
   }
 
   @override
