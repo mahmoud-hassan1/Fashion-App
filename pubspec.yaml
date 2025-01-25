@@ -54,7 +54,6 @@ dependencies:
   permission_handler: ^11.3.1
   fl_chart: ^0.69.2
   get_it: ^8.0.3
-
   cached_network_image: ^3.4.1
   barcode_scan2: ^4.0.0
   get: ^4.6.6
@@ -63,7 +62,6 @@ dependencies:
   speech_to_text: ^7.0.0
   font_awesome_flutter: ^10.8.0
   flutter_launcher_icons: ^0.14.2
-
 
 flutter_assets:
   assets_path:
