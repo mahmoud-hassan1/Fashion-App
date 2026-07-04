@@ -12,11 +12,14 @@ class ProductReviewsCubit extends Cubit<ProductReviewsState> {
 
   final ProductReviewsRepo reviewsRepo;
 
-  Future<void> createReview(Product product, ReviewModel reviewModel, String productId) async {
+  Future<void> createReview(
+      Product product, ReviewModel reviewModel, String productId) async {
     emit(ProductReviewsLoading());
     try {
-      if (reviewsRepo.checkUserExistance(product, UserModel.getInstance().uid)) {
-        emit(ProductReviewsFailed("You already write a review for this product."));
+      if (reviewsRepo.checkUserExistance(
+          product, UserModel.getInstance().uid)) {
+        emit(ProductReviewsFailed(
+            "You already write a review for this product."));
       }
 
       await reviewsRepo.createReview(product, reviewModel, productId);

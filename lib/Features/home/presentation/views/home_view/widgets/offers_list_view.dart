@@ -40,7 +40,8 @@ class OffersListViewState extends State<OffersListView> {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(2, (index) => buildIndicator(index)), // Generate indicators
+          children: List.generate(
+              2, (index) => buildIndicator(index)), // Generate indicators
         ),
       ],
     );

@@ -60,9 +60,12 @@ abstract class AppRouter {
   static const Widget homeView = HomeView();
   static const Widget addProductView = AddProductView();
   static const Widget shopView = ShopView();
-  static Widget productDetailsView(Product product) => ProductDetails(product: product);
-  static Widget productReviewsView(Product product) => ProductReviewsView(product: product);
-  static Widget productsScreen(String title, List<Product>? products) => ProductsScreen(title: title, products: products);
+  static Widget productDetailsView(Product product) =>
+      ProductDetails(product: product);
+  static Widget productReviewsView(Product product) =>
+      ProductReviewsView(product: product);
+  static Widget productsScreen(String title, List<Product>? products) =>
+      ProductsScreen(title: title, products: products);
 
   static final Widget loginView = BlocProvider<AuthCubit>(
     create: (context) => AuthCubit(getIt<AuthRepoImpl>()),
@@ -79,7 +82,9 @@ abstract class AppRouter {
     child: const SignupView(),
   );
 
-  static Widget completeGoogleSignupProcessView(OAuthCredential oAuthCredential) => BlocProvider<AuthCubit>(
+  static Widget completeGoogleSignupProcessView(
+          OAuthCredential oAuthCredential) =>
+      BlocProvider<AuthCubit>(
         create: (context) => AuthCubit(getIt<AuthRepoImpl>()),
         child: CompleteGoogleSignupProcess(oAuthCredential: oAuthCredential),
       );
@@ -97,7 +102,8 @@ abstract class AppRouter {
   static final Widget searchView = MultiBlocProvider(
     providers: [
       BlocProvider<SearchCubit>(
-        create: (context) => SearchCubit(getIt<SearchRepoImpl>(), getIt<SpeechToTextRepoImpl>()),
+        create: (context) =>
+            SearchCubit(getIt<SearchRepoImpl>(), getIt<SpeechToTextRepoImpl>()),
       ),
       BlocProvider<QrCodeScanningCubit>(
         create: (context) => QrCodeScanningCubit(getIt<SearchRepoImpl>()),
@@ -119,7 +125,8 @@ abstract class AppRouter {
     child: SettingsView(),
   );
 
-  static final Widget productsStatistics = BlocProvider<ProductsStatisticsCubit>(
+  static final Widget productsStatistics =
+      BlocProvider<ProductsStatisticsCubit>(
     create: (context) => ProductsStatisticsCubit(getIt<ProfileRepoImpl>()),
     child: const ProductsStatistics(),
   );
@@ -136,7 +143,8 @@ abstract class AppRouter {
     child: const ProfileView(),
   );
 
-  static Widget editProductView(Product product) => BlocProvider<ManageProductsCubit>(
+  static Widget editProductView(Product product) =>
+      BlocProvider<ManageProductsCubit>(
         create: (context) => ManageProductsCubit(
           uploadProductUsecase: getIt<UploadProductUsecase>(),
           editProductUsecase: getIt<EditProductUsecase>(),
@@ -156,13 +164,16 @@ abstract class AppRouter {
         create: (_) => NavigationCubit(),
       ),
       BlocProvider<SaleCubit>(
-        create: (BuildContext context) => SaleCubit(getIt<GetSaleProducts>())..getProductsOnSale(),
+        create: (BuildContext context) =>
+            SaleCubit(getIt<GetSaleProducts>())..getProductsOnSale(),
       ),
       BlocProvider<NewestCubit>(
-        create: (BuildContext context) => NewestCubit(getIt<GetNewestProducts>())..getNewestProductsOnSale(),
+        create: (BuildContext context) =>
+            NewestCubit(getIt<GetNewestProducts>())..getNewestProductsOnSale(),
       ),
       BlocProvider<FavouritesCubit>(
-        create: (context) => FavouritesCubit(getIt<GetFavouritesPoductsUseCase>()),
+        create: (context) =>
+            FavouritesCubit(getIt<GetFavouritesPoductsUseCase>()),
       ),
       BlocProvider<MyBagCubit>(
         create: (context) => MyBagCubit(getIt<MyBagRepoImpl>()),

@@ -6,7 +6,8 @@ abstract class AuthRepo {
   Future<UserClass?> login(String email, String password);
   Future<UserClass?> signup(SignupModel model, String password);
   Future<void> sendPasswordResetLink(String email);
-  Future<UserClass?> completeSignupWithGoogleProcess(DateTime dateOfBirth, String name, OAuthCredential credential);
+  Future<UserClass?> completeSignupWithGoogleProcess(
+      DateTime dateOfBirth, String name, OAuthCredential credential);
   Future<(OAuthCredential, UserClass?)> googleSignup();
   Future<UserClass?> checkUserExistance(String uid);
   Future<void> logout();

@@ -32,11 +32,14 @@ class _EditProductBodyState extends State<EditProductBody> {
   final Set<String> _selectedCategories = {};
   @override
   void initState() {
-    _priceAfterDiscountController = TextEditingController(text: '${widget.product.priceBeforeDiscount}');
-    _discountController = TextEditingController(text: '${(widget.product.discount * 100).toInt()}');
+    _priceAfterDiscountController =
+        TextEditingController(text: '${widget.product.priceBeforeDiscount}');
+    _discountController = TextEditingController(
+        text: '${(widget.product.discount * 100).toInt()}');
     _stockController = TextEditingController(text: '${widget.product.stock}');
     _priceController = TextEditingController(text: '${widget.product.price}');
-    _descriptionController = TextEditingController(text: widget.product.description);
+    _descriptionController =
+        TextEditingController(text: widget.product.description);
     _subtitleController = TextEditingController(text: widget.product.subtitle);
     _nameController = TextEditingController(text: widget.product.name);
     _selectedCategories.addAll(widget.product.categories);
@@ -56,18 +59,21 @@ class _EditProductBodyState extends State<EditProductBody> {
   void _editProduct() async {
     if (_formKey.currentState!.validate()) {
       if (_selectedCategories.isEmpty) {
-        snackBar(content: "Please add at least one Category.", context: context);
+        snackBar(
+            content: "Please add at least one Category.", context: context);
         return;
       }
 
       ProductModel product = getProductModel();
-      await BlocProvider.of<ManageProductsCubit>(context).editProduct(product: product);
+      await BlocProvider.of<ManageProductsCubit>(context)
+          .editProduct(product: product);
     }
   }
 
   void _deleteProduct() async {
     ProductModel product = getProductModel();
-    await BlocProvider.of<ManageProductsCubit>(context).deleteProduct(product: product);
+    await BlocProvider.of<ManageProductsCubit>(context)
+        .deleteProduct(product: product);
   }
 
   ProductModel getProductModel() {
@@ -83,7 +89,9 @@ class _EditProductBodyState extends State<EditProductBody> {
       rate: widget.product.rate,
       sellerId: widget.product.sellerId,
       image: widget.product.image,
-      categories: _selectedCategories.map((category) => category.toLowerCase()).toList(),
+      categories: _selectedCategories
+          .map((category) => category.toLowerCase())
+          .toList(),
       date: widget.product.date,
       reviews: widget.product.reviews,
       discount: double.parse(_discountController.text) / 100,
@@ -100,7 +108,10 @@ class _EditProductBodyState extends State<EditProductBody> {
             context: context,
           );
         } else if (state is AddProductsSucsses) {
-          snackBar(content: 'Changes saved successfully', context: context, color: Colors.green);
+          snackBar(
+              content: 'Changes saved successfully',
+              context: context,
+              color: Colors.green);
           await Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
               builder: (context) => AppRouter.navigationBarView,
@@ -133,9 +144,11 @@ class _EditProductBodyState extends State<EditProductBody> {
                             priceController: _priceController,
                             stockController: _stockController,
                             discountController: _discountController,
-                            priceAfterDiscountController: _priceAfterDiscountController,
+                            priceAfterDiscountController:
+                                _priceAfterDiscountController,
                           ),
-                          CategoriesGridview(selectedCategories: _selectedCategories),
+                          CategoriesGridview(
+                              selectedCategories: _selectedCategories),
                           const SizedBox(
                             height: 16,
                           ),

@@ -25,7 +25,8 @@ class ProductItem extends StatelessWidget {
         ),
         Container(
           height: 110.h,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10), color: Colors.white),
           child: Row(
             children: [
               Expanded(
@@ -33,10 +34,13 @@ class ProductItem extends StatelessWidget {
                 child: SizedBox(
                   height: 100.h,
                   child: ClipRRect(
-                    borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10)),
                     child: CachedNetworkImage(
                       imageUrl: product.image,
-                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -73,8 +77,11 @@ class ProductItem extends StatelessWidget {
                           child: FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
-                              product.price == product.price.toInt() ? "\$${product.price.toInt()}" : "\$${product.price}",
-                              style: Styles.kMediumTextStyle(context).copyWith(fontWeight: FontWeight.w700),
+                              product.price == product.price.toInt()
+                                  ? "\$${product.price.toInt()}"
+                                  : "\$${product.price}",
+                              style: Styles.kMediumTextStyle(context)
+                                  .copyWith(fontWeight: FontWeight.w700),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),
@@ -89,8 +96,14 @@ class ProductItem extends StatelessWidget {
                                 child: FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: Text(
-                                    product.priceBeforeDiscount == product.priceBeforeDiscount.toInt() ? "\$${product.priceBeforeDiscount.toInt()}" : "\$${product.priceBeforeDiscount}",
-                                    style: Styles.kFontSize17(context).copyWith(decoration: TextDecoration.lineThrough, fontWeight: FontWeight.w500, color: AppColors.kSeconderyTextColor),
+                                    product.priceBeforeDiscount ==
+                                            product.priceBeforeDiscount.toInt()
+                                        ? "\$${product.priceBeforeDiscount.toInt()}"
+                                        : "\$${product.priceBeforeDiscount}",
+                                    style: Styles.kFontSize17(context).copyWith(
+                                        decoration: TextDecoration.lineThrough,
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColors.kSeconderyTextColor),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                   ),
@@ -113,11 +126,13 @@ class ProductItem extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            final blocInstance = BlocProvider.of<ManageFavouritesCubit>(context);
+            final blocInstance =
+                BlocProvider.of<ManageFavouritesCubit>(context);
             return Positioned(
               bottom: 5,
               right: 5,
-              child: FavouritesButton(blocInstance: blocInstance, product: product),
+              child: FavouritesButton(
+                  blocInstance: blocInstance, product: product),
             );
           },
         ),
@@ -137,7 +152,8 @@ class ProductItem extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AppRouter.editProductView(product),
+                            builder: (context) =>
+                                AppRouter.editProductView(product),
                           ),
                         );
                       },

@@ -10,8 +10,14 @@ class FavouritesDataSource {
   final FirestoreServices firestoreServices;
 
   Future<List<ProductModel>> getProductsById() async {
-    final snapshot = await firestoreServices.getCollectionRef(productsCollectionKey).where(FieldPath.documentId, whereIn: UserModel.getInstance().favourites).get();
-    return snapshot.docs.map((doc) => ProductModel.fromJson(doc.data(), doc.id)).toList();
+    final snapshot = await firestoreServices
+        .getCollectionRef(productsCollectionKey)
+        .where(FieldPath.documentId,
+            whereIn: UserModel.getInstance().favourites)
+        .get();
+    return snapshot.docs
+        .map((doc) => ProductModel.fromJson(doc.data(), doc.id))
+        .toList();
   }
 
   Future<void> addToFavourites(String userId, String productId) async {

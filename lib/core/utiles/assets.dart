@@ -4,11 +4,13 @@ class Assets {
 
   /// Assets for animationsEmptyAnimation
   /// assets/animations/Empty_Animation.json
-  static const String animationsEmptyAnimation = "assets/animations/Empty_Animation.json";
+  static const String animationsEmptyAnimation =
+      "assets/animations/Empty_Animation.json";
 
   /// Assets for icons7123025LogoGoogleGIcon
   /// assets/icons/7123025_logo_google_g_icon.svg
-  static const String icons7123025LogoGoogleGIcon = "assets/icons/7123025_logo_google_g_icon.svg";
+  static const String icons7123025LogoGoogleGIcon =
+      "assets/icons/7123025_logo_google_g_icon.svg";
 
   /// Assets for iconsBag
   /// assets/icons/Bag.svg
@@ -28,7 +30,8 @@ class Assets {
 
   /// Assets for imagesDefaultProfileImage
   /// assets/images/DefaultProfileImage.jpeg
-  static const String imagesDefaultProfileImage = "assets/images/DefaultProfileImage.jpeg";
+  static const String imagesDefaultProfileImage =
+      "assets/images/DefaultProfileImage.jpeg";
 
   /// Assets for imagesItem
   /// assets/images/item.png

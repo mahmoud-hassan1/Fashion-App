@@ -33,14 +33,21 @@ class _CatigoriesListViewState extends State<CatigoriesListView> {
           return InkWell(
             onTap: () {
               if (index == 0) {
-                BlocProvider.of<ShopCubit>(context).fetchNewestProductsByCategory([kTypes[widget.tabController.index].toLowerCase()]);
+                BlocProvider.of<ShopCubit>(context)
+                    .fetchNewestProductsByCategory(
+                        [kTypes[widget.tabController.index].toLowerCase()]);
               } else {
-                BlocProvider.of<ShopCubit>(context).fetchProductsByCategory([kCategoryList[index].first.toLowerCase(), kTypes[widget.tabController.index].toLowerCase()]);
+                BlocProvider.of<ShopCubit>(context).fetchProductsByCategory([
+                  kCategoryList[index].first.toLowerCase(),
+                  kTypes[widget.tabController.index].toLowerCase()
+                ]);
               }
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AppRouter.productsScreen("${kTypes[widget.tabController.index]}'s ${kCategoryList[index].first}", null),
+                    builder: (context) => AppRouter.productsScreen(
+                        "${kTypes[widget.tabController.index]}'s ${kCategoryList[index].first}",
+                        null),
                   ));
             },
             child: AspectRatio(

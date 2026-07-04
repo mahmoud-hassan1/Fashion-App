@@ -26,7 +26,9 @@ class CustomButton extends StatelessWidget {
             backgroundColor: AppColors.kRed,
             disabledBackgroundColor: AppColors.kRed,
           ),
-          child: Text(label, style: Styles.kSmallTextStyle(context).copyWith(fontWeight: FontWeight.w500, color: Colors.white)),
+          child: Text(label,
+              style: Styles.kSmallTextStyle(context)
+                  .copyWith(fontWeight: FontWeight.w500, color: Colors.white)),
         ),
       ),
     );

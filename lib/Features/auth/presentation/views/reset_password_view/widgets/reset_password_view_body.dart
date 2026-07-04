@@ -19,7 +19,9 @@ class ResetPasswordViewBody extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthSuccess) {
-          snackBar(content: "Reset password link sent to your email", context: context);
+          snackBar(
+              content: "Reset password link sent to your email",
+              context: context);
           Navigator.pop(context);
           isLoading = false;
         } else if (state is AuthLoading) {
@@ -65,7 +67,8 @@ class ResetPasswordViewBody extends StatelessWidget {
                               expand: false,
                               keyForm: keyForm,
                               validator: (value) {
-                                RegExp regex = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+                                RegExp regex = RegExp(
+                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
                                 if (value!.isEmpty) {
                                   return 'Please enter mail';
                                 } else {
@@ -85,10 +88,14 @@ class ResetPasswordViewBody extends StatelessWidget {
                             ),
                             CustomButton(
                               onTap: () {
-                                if (emailController.text.isNotEmpty && keyForm.currentState!.validate()) {
-                                  BlocProvider.of<AuthCubit>(context).resetPassword(emailController.text);
+                                if (emailController.text.isNotEmpty &&
+                                    keyForm.currentState!.validate()) {
+                                  BlocProvider.of<AuthCubit>(context)
+                                      .resetPassword(emailController.text);
                                 } else {
-                                  snackBar(content: "Please enter Your email", context: context);
+                                  snackBar(
+                                      content: "Please enter Your email",
+                                      context: context);
                                 }
                               },
                               height: height,

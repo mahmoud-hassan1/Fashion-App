@@ -4,7 +4,8 @@ import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 
 class SearchField extends StatelessWidget {
-  const SearchField({super.key, required this.searchText, required this.onSubmitted});
+  const SearchField(
+      {super.key, required this.searchText, required this.onSubmitted});
 
   final TextEditingController searchText;
   final Future<void> Function(String) onSubmitted;
@@ -34,7 +35,7 @@ class SearchField extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () => onSubmitted(searchText.text),
-                    icon: const Icon(
+                    icon: const FaIcon(
                       FontAwesomeIcons.magnifyingGlass,
                       size: 25,
                       color: Colors.black,

@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class MyProfileTextField extends StatefulWidget {
-  const MyProfileTextField({super.key, this.onTap, this.onChanged, this.controller, required this.label, required this.enabled, this.password = false, this.validator});
+  const MyProfileTextField(
+      {super.key,
+      this.onTap,
+      this.onChanged,
+      this.controller,
+      required this.label,
+      required this.enabled,
+      this.password = false,
+      this.validator});
   final bool password;
   final void Function()? onTap;
   final void Function(String value)? onChanged;
@@ -56,16 +64,21 @@ class _MyProfileTextFieldState extends State<MyProfileTextField> {
                       obscure = !obscure;
                       setState(() {});
                     },
-                    icon: Icon(!obscure ? Icons.visibility_outlined : Icons.visibility_off_outlined),
+                    icon: Icon(!obscure
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined),
                   )
                 : null,
             labelText: widget.label,
             labelStyle: const TextStyle(color: Colors.grey),
             filled: true,
             fillColor: Colors.white,
-            disabledBorder: const OutlineInputBorder(borderSide: BorderSide(width: 0, color: Colors.white)),
-            enabledBorder: const OutlineInputBorder(borderSide: BorderSide(width: 0, color: Colors.white)),
-            focusedBorder: const OutlineInputBorder(borderSide: BorderSide(width: 0, color: Colors.white)),
+            disabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(width: 0, color: Colors.white)),
+            enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(width: 0, color: Colors.white)),
+            focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(width: 0, color: Colors.white)),
           ),
         ),
       ),

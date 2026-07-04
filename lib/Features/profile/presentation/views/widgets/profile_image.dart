@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shopping/Features/profile/presentation/cubits/profile_image_cubit/profile_image_cubit.dart';
 import 'package:online_shopping/core/models/user_model.dart';
-import 'package:online_shopping/core/utiles/assets.dart';
 
 class ProfileImage extends StatelessWidget {
-  const ProfileImage({super.key, required this.imageSize, required this.iconSize});
+  const ProfileImage(
+      {super.key, required this.imageSize, required this.iconSize});
 
   final double imageSize;
   final double iconSize;
@@ -17,7 +17,8 @@ class ProfileImage extends StatelessWidget {
       builder: (context, state) {
         if (state is ProfileImageLoading) {
           return getLoadingWidget();
-        } else if (state is ProfileImageFinished || state is ProfileImageInitial) {
+        } else if (state is ProfileImageFinished ||
+            state is ProfileImageInitial) {
           return getImageWidget(context);
         } else {
           return const SizedBox();
@@ -52,13 +53,21 @@ class ProfileImage extends StatelessWidget {
           ),
           child: CachedNetworkImage(
             imageUrl: UserModel.getInstance().profilePicturePath,
-            progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                CircularProgressIndicator(
               value: downloadProgress.progress,
               color: const Color(0xffdb3022),
             ),
+            errorListener: (value) {},
             errorWidget: (context, error, stackTrace) {
-              return Center(
-                child: Image.asset(Assets.imagesDefaultProfileImage),
+              return Container(
+                color: Colors.black12,
+                child: const Center(
+                  child: Icon(
+                    Icons.person,
+                    size: 32,
+                  ),
+                ),
               );
             },
           ),
@@ -71,7 +80,8 @@ class ProfileImage extends StatelessWidget {
             backgroundColor: Colors.black26,
             child: IconButton(
               onPressed: () async {
-                await BlocProvider.of<ProfileImageCubit>(context).updateProfileImage();
+                await BlocProvider.of<ProfileImageCubit>(context)
+                    .updateProfileImage();
               },
               padding: EdgeInsets.zero,
               icon: const Icon(Icons.edit),

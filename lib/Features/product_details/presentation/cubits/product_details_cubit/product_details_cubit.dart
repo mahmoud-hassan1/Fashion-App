@@ -7,7 +7,8 @@ import 'package:online_shopping/Features/reviews/domain/repo_interface/product_r
 part 'product_details_state.dart';
 
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
-  ProductDetailsCubit(this.bagRepo, this.productReviewsRepo) : super(ProductDetailsInitial());
+  ProductDetailsCubit(this.bagRepo, this.productReviewsRepo)
+      : super(ProductDetailsInitial());
 
   final MyBagRepo bagRepo;
   final ProductReviewsRepo productReviewsRepo;
@@ -19,7 +20,8 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       await bagRepo.addToBag(productUID);
       emit(ProductDetailsAddedToCart());
     } catch (e) {
-      emit(ProductDetailsFailed(e.toString().replaceFirst('Exception:', '').trim()));
+      emit(ProductDetailsFailed(
+          e.toString().replaceFirst('Exception:', '').trim()));
     }
   }
 
@@ -49,7 +51,8 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     emit(ProductDetailsLoading());
 
     try {
-      final Product product = await productReviewsRepo.refreshProduct(productUID);
+      final Product product =
+          await productReviewsRepo.refreshProduct(productUID);
       emit(ProductDetailsRefresh(product));
     } catch (_) {
       emit(ProductDetailsFailed("Something went wrong!"));

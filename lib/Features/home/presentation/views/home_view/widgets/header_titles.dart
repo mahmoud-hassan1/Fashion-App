@@ -25,7 +25,8 @@ class Header extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AppRouter.productsScreen(title, products),
+                  builder: (context) =>
+                      AppRouter.productsScreen(title, products),
                 ),
               );
             },
@@ -39,7 +40,9 @@ class Header extends StatelessWidget {
                   width: 8,
                 ),
                 Container(
-                  decoration: BoxDecoration(color: AppColors.kItemBackgroundColor, borderRadius: BorderRadius.circular(5)),
+                  decoration: BoxDecoration(
+                      color: AppColors.kItemBackgroundColor,
+                      borderRadius: BorderRadius.circular(5)),
                   child: const Icon(Icons.keyboard_arrow_right_outlined),
                 )
               ],

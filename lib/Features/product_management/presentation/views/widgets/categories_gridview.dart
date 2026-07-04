@@ -33,19 +33,24 @@ class _CategoriesGridviewState extends State<CategoriesGridview> {
       itemCount: kAllCategories.length,
       itemBuilder: (context, index) {
         final category = kAllCategories[index];
-        final isSelected = widget.selectedCategories.contains(category.toLowerCase());
+        final isSelected =
+            widget.selectedCategories.contains(category.toLowerCase());
         return GestureDetector(
           onTap: () => _toggleCategorySelection(category),
           child: Container(
             decoration: BoxDecoration(
                 border: Border.all(
-                  color: isSelected ? Theme.of(context).primaryColor : Colors.white,
+                  color: isSelected
+                      ? Theme.of(context).primaryColor
+                      : Colors.white,
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(8),
                 color: Colors.white),
             alignment: Alignment.center,
-            child: Text(category, style: Styles.kSmallTextStyle(context).copyWith(fontWeight: FontWeight.bold)),
+            child: Text(category,
+                style: Styles.kSmallTextStyle(context)
+                    .copyWith(fontWeight: FontWeight.bold)),
           ),
         );
       },

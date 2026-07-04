@@ -21,7 +21,13 @@ class MyBagItem extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
-          BoxShadow(color: Colors.grey.withOpacity(.3), blurStyle: BlurStyle.normal, blurRadius: 5, offset: const Offset(0, 3), spreadRadius: 0),
+          BoxShadow(
+            color: Colors.grey.withValues(alpha: .3),
+            blurStyle: BlurStyle.normal,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
+            spreadRadius: 0,
+          ),
         ],
       ),
       child: Row(
@@ -44,7 +50,8 @@ class MyBagItem extends StatelessWidget {
                 children: [
                   FittedBox(
                     fit: BoxFit.scaleDown,
-                    child: Text(myBagItemModel.product.name, style: Styles.kSmallTextStyle(context)),
+                    child: Text(myBagItemModel.product.name,
+                        style: Styles.kSmallTextStyle(context)),
                   ),
                   QuantityPicker(
                     quan: myBagItemModel.quan,
@@ -77,12 +84,16 @@ class MyBagItem extends StatelessWidget {
                           PopupMenuItem(
                             value: '1',
                             child: const Text('Add to favorites'),
-                            onTap: () async => BlocProvider.of<MyBagCubit>(context).addToFavourites(myBagItemModel.product.id),
+                            onTap: () async =>
+                                BlocProvider.of<MyBagCubit>(context)
+                                    .addToFavourites(myBagItemModel.product.id),
                           ),
                           PopupMenuItem(
                             value: '2',
                             child: const Text('Delete from the list'),
-                            onTap: () async => BlocProvider.of<MyBagCubit>(context).deleteItemFromBag(myBagItemModel.product.id),
+                            onTap: () async => BlocProvider.of<MyBagCubit>(
+                                    context)
+                                .deleteItemFromBag(myBagItemModel.product.id),
                           ),
                         ];
                       },

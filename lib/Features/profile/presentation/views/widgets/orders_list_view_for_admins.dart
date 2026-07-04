@@ -30,7 +30,10 @@ class OrdersListViewForAdmins extends StatelessWidget {
 
           return Column(
             children: [
-              MyOrdersItem(order: orders[index].orderModel, index: index, review: review),
+              MyOrdersItem(
+                  order: orders[index].orderModel,
+                  index: index,
+                  review: review),
               const SizedBox(height: 10),
             ],
           );

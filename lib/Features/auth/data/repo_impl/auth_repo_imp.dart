@@ -12,7 +12,8 @@ import 'package:online_shopping/core/utiles/firebase_firestore_services.dart';
 import 'package:online_shopping/core/utiles/storage_services.dart';
 
 class AuthRepoImpl implements AuthRepo {
-  AuthRepoImpl(this.userDataRepository, this.authServices, this.firestoreServices, this.storageServices);
+  AuthRepoImpl(this.userDataRepository, this.authServices,
+      this.firestoreServices, this.storageServices);
 
   final UserDataRepo userDataRepository;
   final AuthServices authServices;
@@ -21,7 +22,8 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<UserClass?> login(String email, String password) async {
-    final userCredential = await authServices.signInServices.signIn(email, password);
+    final userCredential =
+        await authServices.signInServices.signIn(email, password);
     if (!authServices.authInstance.currentUser!.emailVerified) {
       throw Exception("Verify your email");
     } else {
@@ -41,7 +43,8 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<UserClass?> signup(SignupModel model, String password) async {
-    final UserCredential userCredential = await authServices.registerServices.register(model.toMap(), model.email, password);
+    final UserCredential userCredential = await authServices.registerServices
+        .register(model.toMap(), model.email, password);
     await sendVerficationLink();
 
     final user = userCredential.user;
@@ -53,13 +56,20 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<UserClass?> completeSignupWithGoogleProcess(DateTime dateOfBirth, String name, OAuthCredential credential) async {
-    final UserCredential userCredential = await authServices.signInServices.signInWithCredential(credential);
+  Future<UserClass?> completeSignupWithGoogleProcess(
+      DateTime dateOfBirth, String name, OAuthCredential credential) async {
+    final UserCredential userCredential =
+        await authServices.signInServices.signInWithCredential(credential);
     final User? user = userCredential.user;
 
     if (user != null) {
-      SignupModel signupModel = SignupModel(email: user.email!, name: name, dateOfBirth: dateOfBirth, uid: user.uid);
-      await firestoreServices.setDocument(usersCollectionKey, signupModel.toMap(), user.uid);
+      SignupModel signupModel = SignupModel(
+          email: user.email!,
+          name: name,
+          dateOfBirth: dateOfBirth,
+          uid: user.uid);
+      await firestoreServices.setDocument(
+          usersCollectionKey, signupModel.toMap(), user.uid);
       final UserModel userData = await userDataRepository.getUserById();
       UserModel.setInstance(userData);
       return UserClass(uid: user.uid, email: user.email!);
@@ -70,7 +80,8 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<(OAuthCredential, UserClass?)> googleSignup() async {
-    final (OAuthCredential oAuthCredential, GoogleSignInAccount? googleUser) = await authServices.signInServices.signInWithGoogle();
+    final (OAuthCredential oAuthCredential, GoogleSignInAccount? googleUser) =
+        await authServices.signInServices.signInWithGoogle();
     UserClass? user = await checkUserExistance(googleUser!.email);
 
     if (user != null) {
@@ -85,7 +96,10 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<UserClass?> checkUserExistance(String email) async {
     try {
-      QuerySnapshot query = await firestoreServices.getCollectionRef(usersCollectionKey).where(UserModel.emailKey, isEqualTo: email).get();
+      QuerySnapshot query = await firestoreServices
+          .getCollectionRef(usersCollectionKey)
+          .where(UserModel.emailKey, isEqualTo: email)
+          .get();
       SignupModel model = SignupModel.fromJson(query.docs.first.data());
       UserClass user = UserClass(uid: model.uid!, email: model.email);
       return user;
@@ -103,10 +117,12 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<void> deleteAccount() async {
     if (UserModel.getInstance().profilePicturePath != defaultProfileImage) {
-      await storageServices.deleteFile(UserModel.getInstance().profilePicturePath);
+      await storageServices
+          .deleteFile(UserModel.getInstance().profilePicturePath);
     }
 
-    await authServices.signOutServices.deleteAccount(UserModel.getInstance().uid);
+    await authServices.signOutServices
+        .deleteAccount(UserModel.getInstance().uid);
     UserModel.setInstance(null);
   }
 

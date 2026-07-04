@@ -8,9 +8,12 @@ class UploadProductUsecase {
 
   UploadProductUsecase(this.repository);
 
-  Future<void> call({required ProductModel product, required List<File> selectedImages}) async {
+  Future<void> call(
+      {required ProductModel product,
+      required List<File> selectedImages}) async {
     try {
-      await repository.addProduct(product: product, selectedImages: selectedImages);
+      await repository.addProduct(
+          product: product, selectedImages: selectedImages);
     } catch (e) {
       throw Exception('Failed to add product: $e');
     }

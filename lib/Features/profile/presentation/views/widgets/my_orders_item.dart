@@ -8,7 +8,11 @@ import 'package:online_shopping/core/utiles/get_date.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 
 class MyOrdersItem extends StatelessWidget {
-  const MyOrdersItem({super.key, required this.index, required this.order, required this.review});
+  const MyOrdersItem(
+      {super.key,
+      required this.index,
+      required this.order,
+      required this.review});
 
   final int index;
   final OrderModel order;
@@ -36,11 +40,13 @@ class MyOrdersItem extends StatelessWidget {
             children: [
               Text(
                 "Order No: ${UserModel.getInstance().uid.substring(UserModel.getInstance().uid.length - 5)}$index ",
-                style: Styles.kFontSize14(context).copyWith(fontSize: 16, color: Colors.black),
+                style: Styles.kFontSize14(context)
+                    .copyWith(fontSize: 16, color: Colors.black),
               ),
               Text(
                 getDate(order.date),
-                style: Styles.kFontSize14(context).copyWith(fontSize: 12, color: Colors.grey),
+                style: Styles.kFontSize14(context)
+                    .copyWith(fontSize: 12, color: Colors.grey),
               ),
             ],
           ),

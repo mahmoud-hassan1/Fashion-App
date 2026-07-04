@@ -23,7 +23,9 @@ class CustomButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onTap,
           style: ElevatedButton.styleFrom(backgroundColor: AppColors.kRed),
-          child: Text(label, style: Styles.kSmallTextStyle(context).copyWith(fontWeight: FontWeight.w500, color: Colors.white)),
+          child: Text(label,
+              style: Styles.kSmallTextStyle(context)
+                  .copyWith(fontWeight: FontWeight.w500, color: Colors.white)),
         ),
       ),
     );

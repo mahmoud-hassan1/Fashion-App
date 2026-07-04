@@ -21,7 +21,8 @@ class ProductReviewsView extends StatelessWidget {
           await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) => AddProductReview(product: product),
+              builder: (BuildContext context) =>
+                  AddProductReview(product: product),
             ),
           );
         },

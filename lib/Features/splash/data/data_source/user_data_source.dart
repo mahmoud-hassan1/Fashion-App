@@ -11,7 +11,8 @@ class UserDataSource {
 
   Future<UserModel> getUserById() async {
     final String uid = authServices.authInstance.currentUser!.uid;
-    final snapshot = await firestoreServices.getDocumentData(usersCollectionKey, uid);
+    final snapshot =
+        await firestoreServices.getDocumentData(usersCollectionKey, uid);
     return UserModel.fromJson(snapshot.data()!);
   }
 }

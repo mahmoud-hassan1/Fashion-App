@@ -5,7 +5,11 @@ import 'package:online_shopping/core/widgets/snackbar.dart';
 
 // ignore: must_be_immutable
 class DateTextField extends StatefulWidget {
-  DateTextField({super.key, required this.dateTime, required this.onChanged, required this.label});
+  DateTextField(
+      {super.key,
+      required this.dateTime,
+      required this.onChanged,
+      required this.label});
 
   DateTime dateTime;
   final void Function(DateTime date) onChanged;

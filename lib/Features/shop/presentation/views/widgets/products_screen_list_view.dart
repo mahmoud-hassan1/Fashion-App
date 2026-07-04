@@ -20,7 +20,11 @@ class ProductsScreenListView extends StatelessWidget {
         ? ListView.separated(
             itemBuilder: (context, index) => InkWell(
                 onTap: () async {
-                  await Navigator.push(context, MaterialPageRoute(builder: (context) => AppRouter.productDetailsView(products[index])));
+                  await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              AppRouter.productDetailsView(products[index])));
                   if (context.mounted) {
                     BlocProvider.of<ManageFavouritesCubit>(context).emitState();
                   }

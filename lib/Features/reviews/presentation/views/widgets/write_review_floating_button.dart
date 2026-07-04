@@ -20,7 +20,8 @@ class WriteReviewFloatingButton extends StatelessWidget {
         icon: const Icon(Icons.edit, color: Colors.white, size: 20),
         label: Text(
           "Write a review",
-          style: Styles.kFontSize14(context).copyWith(color: Colors.white, inherit: false),
+          style: Styles.kFontSize14(context)
+              .copyWith(color: Colors.white, inherit: false),
         ),
       ),
     );

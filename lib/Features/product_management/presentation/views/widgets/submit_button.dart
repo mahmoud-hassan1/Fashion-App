@@ -5,7 +5,8 @@ class EditsButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final Color? color;
 
-  const EditsButton({super.key, required this.onPressed, required this.title, this.color});
+  const EditsButton(
+      {super.key, required this.onPressed, required this.title, this.color});
 
   @override
   Widget build(BuildContext context) {

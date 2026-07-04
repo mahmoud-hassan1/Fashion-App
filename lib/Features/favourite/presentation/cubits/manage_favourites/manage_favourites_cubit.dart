@@ -10,7 +10,9 @@ class ManageFavouritesCubit extends Cubit<ManageFavouritesState> {
   final AddToFavouritesUseCase addToFavouritesUseCase;
   final RemoveFromFavouritesUseCase removeFromFavouritesUseCase;
 
-  ManageFavouritesCubit(this.addToFavouritesUseCase, this.removeFromFavouritesUseCase) : super(ManageFavouritesInitial());
+  ManageFavouritesCubit(
+      this.addToFavouritesUseCase, this.removeFromFavouritesUseCase)
+      : super(ManageFavouritesInitial());
 
   Future<void> addToFavourites(String productId) async {
     try {
@@ -24,11 +26,13 @@ class ManageFavouritesCubit extends Cubit<ManageFavouritesState> {
 
   Future<void> removeFromFavourites(String productId) async {
     try {
-      await removeFromFavouritesUseCase.call(UserModel.getInstance().uid, productId);
+      await removeFromFavouritesUseCase.call(
+          UserModel.getInstance().uid, productId);
       UserModel.getInstance().favourites.remove(productId);
       emit(ManageFavouritesSuccess(productId: productId));
     } catch (e) {
-      emit(ManageFavouritesError(error: 'Failed to remove from favourites: $e'));
+      emit(
+          ManageFavouritesError(error: 'Failed to remove from favourites: $e'));
     }
   }
 

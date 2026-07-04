@@ -26,7 +26,8 @@ class AddProductReview extends StatelessWidget {
         forceMaterialTransparency: true,
         title: Text(
           "What is you rate?",
-          style: Styles.kSmallTextStyle(context).copyWith(fontWeight: FontWeight.w600),
+          style: Styles.kSmallTextStyle(context)
+              .copyWith(fontWeight: FontWeight.w600),
         ),
       ),
       body: SafeArea(
@@ -40,9 +41,11 @@ class AddProductReview extends StatelessWidget {
                   children: [
                     RatingBar(
                       ratingWidget: RatingWidget(
-                        full: const Icon(Icons.star_rounded, color: Colors.orangeAccent),
+                        full: const Icon(Icons.star_rounded,
+                            color: Colors.orangeAccent),
                         half: const Column(),
-                        empty: const Icon(Icons.star_border_rounded, color: Colors.grey),
+                        empty: const Icon(Icons.star_border_rounded,
+                            color: Colors.grey),
                       ),
                       allowHalfRating: false,
                       onRatingUpdate: (double rate) {
@@ -56,14 +59,19 @@ class AddProductReview extends StatelessWidget {
                         "Please share your opinion\nabout the product",
                         textAlign: TextAlign.center,
                         maxLines: 2,
-                        style: Styles.kSmallTextStyle(context).copyWith(fontWeight: FontWeight.w600),
+                        style: Styles.kSmallTextStyle(context)
+                            .copyWith(fontWeight: FontWeight.w600),
                       ),
                     ),
                     const SizedBox(height: 15),
                     Container(
                       decoration: const BoxDecoration(
                         boxShadow: [
-                          BoxShadow(color: Colors.black12, blurRadius: 5, offset: Offset(0, 5), spreadRadius: -7),
+                          BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 5,
+                              offset: Offset(0, 5),
+                              spreadRadius: -7),
                         ],
                       ),
                       child: ReviewTextField(controller: controller),
@@ -78,14 +86,19 @@ class AddProductReview extends StatelessWidget {
                             rate: rating,
                             userId: UserModel.getInstance().uid,
                             userName: UserModel.getInstance().name,
-                            profilePicture: UserModel.getInstance().profilePicturePath,
+                            profilePicture:
+                                UserModel.getInstance().profilePicturePath,
                           );
-                          await BlocProvider.of<ProductReviewsCubit>(context).createReview(product, reviewModel, product.id);
+                          await BlocProvider.of<ProductReviewsCubit>(context)
+                              .createReview(product, reviewModel, product.id);
                           if (context.mounted) {
-                            await BlocProvider.of<ProductDetailsCubit>(context).refresh(product.id);
+                            await BlocProvider.of<ProductDetailsCubit>(context)
+                                .refresh(product.id);
                           }
                         } else {
-                          snackBar(content: "Please, Write a review", context: context);
+                          snackBar(
+                              content: "Please, Write a review",
+                              context: context);
                         }
                       },
                       height: 550,

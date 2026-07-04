@@ -46,8 +46,9 @@ class ProductModel {
         : [];
 
     return ProductModel(
-      id: id, 
-      name:"${json[nameKey].toString()[0].toUpperCase()}${json[nameKey].toString().substring(1).toLowerCase()}",
+      id: id,
+      name:
+          "${json[nameKey].toString()[0].toUpperCase()}${json[nameKey].toString().substring(1).toLowerCase()}",
       description: json[descriptionKey],
       rate: getRate(reviewModels),
       sellerId: json[sellerIdKey],
@@ -56,10 +57,12 @@ class ProductModel {
       image: json[imageKey],
       categories: json[categoriesKey].cast<String>(),
       date: (json[dateKey] as Timestamp).toDate(),
-      subtitle: "${json[subtitleKey].toString()[0].toUpperCase()}${json[subtitleKey].toString().substring(1).toLowerCase()}",
+      subtitle:
+          "${json[subtitleKey].toString()[0].toUpperCase()}${json[subtitleKey].toString().substring(1).toLowerCase()}",
       reviews: reviewModels,
       images: (json[imagesKey] as List<dynamic>?)?.cast<String>() ?? [],
-      priceBeforeDiscount: (json[priceBeforeDiscountKey] ?? 0 as num).toDouble(),
+      priceBeforeDiscount:
+          (json[priceBeforeDiscountKey] ?? 0 as num).toDouble(),
       discount: (json[discountKey] ?? 0 as num).toDouble(),
     );
   }
@@ -76,7 +79,8 @@ class ProductModel {
       categoriesKey: categories,
       dateKey: date,
       subtitleKey: subtitle,
-      reviewsKey: List.generate(reviews.length, (int index) => reviews[index].toMap()),
+      reviewsKey:
+          List.generate(reviews.length, (int index) => reviews[index].toMap()),
       imagesKey: images,
       priceBeforeDiscountKey: priceBeforeDiscount,
       discountKey: discount

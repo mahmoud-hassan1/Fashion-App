@@ -12,7 +12,9 @@ class ProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title, style: Styles.kFontSize30(context).copyWith(fontWeight: FontWeight.w600)),
+        title: Text(title,
+            style: Styles.kFontSize30(context)
+                .copyWith(fontWeight: FontWeight.w600)),
         centerTitle: true,
       ),
       body: ProductsScreenBody(

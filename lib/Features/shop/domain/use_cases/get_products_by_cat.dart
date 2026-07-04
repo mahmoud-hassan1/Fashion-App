@@ -11,7 +11,10 @@ class GetProductsByCategory {
     try {
       final productModels = await repository.getProductsByCategory(category);
       var products = productModels.map((model) => model.toEntity()).toList();
-      products = products.where((product) => category.every((cat) => product.categories.contains(cat))).toList();
+      products = products
+          .where((product) =>
+              category.every((cat) => product.categories.contains(cat)))
+          .toList();
       return products;
     } catch (e) {
       throw Exception('Failed to load products: $e');

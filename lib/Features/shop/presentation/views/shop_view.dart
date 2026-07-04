@@ -14,7 +14,8 @@ class ShopView extends StatefulWidget {
   State<ShopView> createState() => _ShopViewState();
 }
 
-class _ShopViewState extends State<ShopView> with SingleTickerProviderStateMixin {
+class _ShopViewState extends State<ShopView>
+    with SingleTickerProviderStateMixin {
   late final TabController _tabController;
 
   @override
@@ -29,14 +30,20 @@ class _ShopViewState extends State<ShopView> with SingleTickerProviderStateMixin
       appBar: AppBar(
         title: Text(
           'Categories',
-          style: Styles.kFontSize30(context).copyWith(fontWeight: FontWeight.w600),
+          style:
+              Styles.kFontSize30(context).copyWith(fontWeight: FontWeight.w600),
         ),
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: AppRouter.searchView, childCurrent: const ShopView()));
+              Navigator.push(
+                  context,
+                  PageTransition(
+                      type: PageTransitionType.fade,
+                      child: AppRouter.searchView,
+                      childCurrent: const ShopView()));
             },
-            icon: const Icon(
+            icon: const FaIcon(
               FontAwesomeIcons.magnifyingGlass,
               size: 27,
             ),

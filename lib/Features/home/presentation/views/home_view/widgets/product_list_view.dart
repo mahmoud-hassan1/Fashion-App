@@ -7,7 +7,8 @@ import 'package:online_shopping/Features/home/presentation/views/home_view/widge
 import 'package:online_shopping/core/utiles/styles.dart';
 
 class ProductListView extends StatelessWidget {
-  const ProductListView({super.key, required this.products, required this.title});
+  const ProductListView(
+      {super.key, required this.products, required this.title});
   final List<Product> products;
   final String title;
 
@@ -32,13 +33,16 @@ class ProductListView extends StatelessWidget {
                       children: [
                         const SizedBox(width: 16),
                         ProductListViewItem(product: products[index]),
-                        index == min(products.length, 5) - 1 ? const SizedBox(width: 16) : const SizedBox(),
+                        index == min(products.length, 5) - 1
+                            ? const SizedBox(width: 16)
+                            : const SizedBox(),
                       ],
                     );
                   },
                   itemCount: min(products.length, 5),
                 )
-              : Text("No Products Yet", style: Styles.kMediumTextStyle(context)),
+              : Text("No Products Yet",
+                  style: Styles.kMediumTextStyle(context)),
         ),
       ],
     );

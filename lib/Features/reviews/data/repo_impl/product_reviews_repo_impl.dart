@@ -13,7 +13,8 @@ class ProductReviewsRepoImpl extends ProductReviewsRepo {
   final FirestoreServices firestoreServices;
 
   @override
-  Future<void> createReview(Product product, ReviewModel newReview, String productId) async {
+  Future<void> createReview(
+      Product product, ReviewModel newReview, String productId) async {
     bool isExist = checkUserExistance(product, UserModel.getInstance().uid);
 
     if (!isExist) {
@@ -25,7 +26,8 @@ class ProductReviewsRepoImpl extends ProductReviewsRepo {
 
   @override
   Future<Product> refreshProduct(String productId) async {
-    DocumentSnapshot res = await firestoreServices.getDocumentData(productsCollectionKey, productId);
+    DocumentSnapshot res = await firestoreServices.getDocumentData(
+        productsCollectionKey, productId);
     return ProductModel.fromJson(res.data(), productId).toEntity();
   }
 

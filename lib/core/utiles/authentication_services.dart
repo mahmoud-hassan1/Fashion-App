@@ -11,9 +11,12 @@ class AuthServices {
   late final FirebaseAuth authInstance = FirebaseAuth.instance;
   late final FirestoreServices firebaseFirestoreServices = FirestoreServices();
   late final SignInServices signInServices = SignInServices._(authInstance);
-  late final AccountDataServices accountDataServices = AccountDataServices._(authInstance, firebaseFirestoreServices);
-  late final RegisterServices registerServices = RegisterServices._(authInstance, firebaseFirestoreServices);
-  late final SignOutServices signOutServices = SignOutServices._(authInstance, firebaseFirestoreServices);
+  late final AccountDataServices accountDataServices =
+      AccountDataServices._(authInstance, firebaseFirestoreServices);
+  late final RegisterServices registerServices =
+      RegisterServices._(authInstance, firebaseFirestoreServices);
+  late final SignOutServices signOutServices =
+      SignOutServices._(authInstance, firebaseFirestoreServices);
   late final Verification verification = Verification._(authInstance);
 }
 
@@ -23,12 +26,14 @@ class SignInServices {
   final FirebaseAuth authInstance;
 
   Future<UserCredential> signIn(String email, String password) async {
-    return await authInstance.signInWithEmailAndPassword(email: email, password: password);
+    return await authInstance.signInWithEmailAndPassword(
+        email: email, password: password);
   }
 
   Future<(OAuthCredential, GoogleSignInAccount?)> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
     final OAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
@@ -43,33 +48,43 @@ class SignInServices {
 }
 
 class AccountDataServices {
-  const AccountDataServices._(this.authInstance, this.firebaseFirestoreServices);
+  const AccountDataServices._(
+      this.authInstance, this.firebaseFirestoreServices);
 
   final FirestoreServices firebaseFirestoreServices;
   final FirebaseAuth authInstance;
 
   Future<String?> getEmailFromFirestore(String uid) async {
-    var doc = await firebaseFirestoreServices.getDocumentData(usersCollectionKey, uid);
+    var doc = await firebaseFirestoreServices.getDocumentData(
+        usersCollectionKey, uid);
     return doc.data()![UserModel.emailKey];
   }
 
   Future<String?> getEmailFromFirebaseAuth(String uid) async {
-    User? user = await authInstance.userChanges().firstWhere((user) => user!.uid == uid);
+    User? user =
+        await authInstance.userChanges().firstWhere((user) => user!.uid == uid);
     return user?.email;
   }
 
   Future<String?> getPhoneNumberFromFirestore(String uid) async {
-    var doc = await firebaseFirestoreServices.getDocumentData(usersCollectionKey, uid);
+    var doc = await firebaseFirestoreServices.getDocumentData(
+        usersCollectionKey, uid);
     return doc.data()![UserModel.emailKey];
   }
 
   Future<String?> getUIDFromFirestore(String email) async {
-    QuerySnapshot uidDocument = await firebaseFirestoreServices.firestoreInstance.collection(usersCollectionKey).where(UserModel.emailKey, isEqualTo: email).limit(1).get();
+    QuerySnapshot uidDocument = await firebaseFirestoreServices
+        .firestoreInstance
+        .collection(usersCollectionKey)
+        .where(UserModel.emailKey, isEqualTo: email)
+        .limit(1)
+        .get();
     return uidDocument.docs[0].id;
   }
 
   Future<Map<String, dynamic>?> getUserDataFromFirestore(String uid) async {
-    var doc = await firebaseFirestoreServices.getDocumentData(usersCollectionKey, uid);
+    var doc = await firebaseFirestoreServices.getDocumentData(
+        usersCollectionKey, uid);
     return doc.data();
   }
 
@@ -88,10 +103,13 @@ class RegisterServices {
   final FirestoreServices firebaseFirestoreServices;
   final FirebaseAuth authInstance;
 
-  Future<UserCredential> register(Map<String, dynamic> userData, String email, String password) async {
-    UserCredential userCredential = await authInstance.createUserWithEmailAndPassword(email: email, password: password);
+  Future<UserCredential> register(
+      Map<String, dynamic> userData, String email, String password) async {
+    UserCredential userCredential = await authInstance
+        .createUserWithEmailAndPassword(email: email, password: password);
     userData[UserModel.uidKey] = userCredential.user!.uid;
-    await firebaseFirestoreServices.setDocument(usersCollectionKey, userData, userCredential.user!.uid);
+    await firebaseFirestoreServices.setDocument(
+        usersCollectionKey, userData, userCredential.user!.uid);
     return userCredential;
   }
 }

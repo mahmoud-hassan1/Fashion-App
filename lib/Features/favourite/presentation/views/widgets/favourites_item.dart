@@ -34,7 +34,8 @@ class FavouritesItem extends StatelessWidget {
           ),
           child: Container(
             height: 100.h,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10), color: Colors.white),
             child: Row(
               children: [
                 Expanded(
@@ -42,10 +43,13 @@ class FavouritesItem extends StatelessWidget {
                   child: SizedBox(
                     height: 100.h,
                     child: ClipRRect(
-                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10)),
                       child: CachedNetworkImage(
                         imageUrl: product.image,
-                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -104,7 +108,8 @@ class FavouritesItem extends StatelessWidget {
           right: 4,
           child: IconButton(
             onPressed: () async {
-              await BlocProvider.of<ManageFavouritesCubit>(context).removeFromFavourites(product.id);
+              await BlocProvider.of<ManageFavouritesCubit>(context)
+                  .removeFromFavourites(product.id);
             },
             icon: Icon(
               Icons.close,
@@ -122,7 +127,8 @@ class FavouritesItem extends StatelessWidget {
               color: Colors.white,
             ),
             onPressed: () async {
-              await BlocProvider.of<AddToCartCubit>(context).addToCart(product.id);
+              await BlocProvider.of<AddToCartCubit>(context)
+                  .addToCart(product.id);
             },
             style: IconButton.styleFrom(
               backgroundColor: AppColors.kRed,

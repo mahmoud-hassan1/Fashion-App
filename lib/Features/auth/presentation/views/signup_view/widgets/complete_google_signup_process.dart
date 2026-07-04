@@ -36,7 +36,8 @@ class CompleteGoogleSignupProcess extends StatelessWidget {
         } else if (state is AuthAuthenticated) {
           isLoading = false;
           Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => AppRouter.navigationBarView),
+            MaterialPageRoute(
+                builder: (context) => AppRouter.navigationBarView),
             (Route<dynamic> route) => false,
           );
         }
@@ -106,9 +107,11 @@ class CompleteGoogleSignupProcess extends StatelessWidget {
     }
 
     if (keyForm.currentState!.validate()) {
-      BlocProvider.of<AuthCubit>(context).completeGoogleSignin(dateTime, nameController.text, oAuthCredential);
+      BlocProvider.of<AuthCubit>(context)
+          .completeGoogleSignin(dateTime, nameController.text, oAuthCredential);
     } else {
-      snackBar(content: "Please enter Your email and password", context: context);
+      snackBar(
+          content: "Please enter Your email and password", context: context);
     }
   }
 }

@@ -34,7 +34,8 @@ class OrderReviewView extends StatelessWidget {
               forceMaterialTransparency: true,
               title: Text(
                 "What is you rate?",
-                style: Styles.kSmallTextStyle(context).copyWith(fontWeight: FontWeight.w600),
+                style: Styles.kSmallTextStyle(context)
+                    .copyWith(fontWeight: FontWeight.w600),
               ),
             ),
             body: SafeArea(
@@ -48,9 +49,11 @@ class OrderReviewView extends StatelessWidget {
                         children: [
                           RatingBar(
                             ratingWidget: RatingWidget(
-                              full: const Icon(Icons.star_rounded, color: Colors.orangeAccent),
+                              full: const Icon(Icons.star_rounded,
+                                  color: Colors.orangeAccent),
                               half: const Column(),
-                              empty: const Icon(Icons.star_border_rounded, color: Colors.grey),
+                              empty: const Icon(Icons.star_border_rounded,
+                                  color: Colors.grey),
                             ),
                             allowHalfRating: false,
                             onRatingUpdate: (double rate) {
@@ -64,14 +67,19 @@ class OrderReviewView extends StatelessWidget {
                               "Please share your opinion\nabout the order",
                               textAlign: TextAlign.center,
                               maxLines: 2,
-                              style: Styles.kSmallTextStyle(context).copyWith(fontWeight: FontWeight.w600),
+                              style: Styles.kSmallTextStyle(context)
+                                  .copyWith(fontWeight: FontWeight.w600),
                             ),
                           ),
                           const SizedBox(height: 15),
                           Container(
                             decoration: const BoxDecoration(
                               boxShadow: [
-                                BoxShadow(color: Colors.black12, blurRadius: 5, offset: Offset(0, 5), spreadRadius: -7),
+                                BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 5,
+                                    offset: Offset(0, 5),
+                                    spreadRadius: -7),
                               ],
                             ),
                             child: ReviewTextField(controller: controller),
@@ -80,10 +88,16 @@ class OrderReviewView extends StatelessWidget {
                           CustomButton(
                             onTap: () async {
                               if (controller.text.isNotEmpty) {
-                                OrderReviewModel review = OrderReviewModel(date: DateTime.now(), review: controller.text, rate: rating);
-                                BlocProvider.of<OrderReviewCubit>(context).addOrderReview(review);
+                                OrderReviewModel review = OrderReviewModel(
+                                    date: DateTime.now(),
+                                    review: controller.text,
+                                    rate: rating);
+                                BlocProvider.of<OrderReviewCubit>(context)
+                                    .addOrderReview(review);
                               } else {
-                                snackBar(content: "Please, Write a review", context: context);
+                                snackBar(
+                                    content: "Please, Write a review",
+                                    context: context);
                               }
                             },
                             height: 550,

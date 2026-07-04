@@ -2,7 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart' hide CarouselController;
 
 class DetailsListViewItem extends StatelessWidget {
-  const DetailsListViewItem({super.key, required this.index, required this.photos});
+  const DetailsListViewItem(
+      {super.key, required this.index, required this.photos});
 
   final int index;
   final List<String> photos;

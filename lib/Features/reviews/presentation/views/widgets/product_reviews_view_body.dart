@@ -32,7 +32,8 @@ class ProductReviewsViewBody extends StatelessWidget {
               product = state.product;
             }
             return ModalProgressHUD(
-              inAsyncCall: state is ProductDetailsLoading || state is ProductReviewsLoading,
+              inAsyncCall: state is ProductDetailsLoading ||
+                  state is ProductReviewsLoading,
               child: Padding(
                 padding: const EdgeInsets.all(15),
                 child: Column(
@@ -40,7 +41,8 @@ class ProductReviewsViewBody extends StatelessWidget {
                   children: [
                     FittedBox(
                       fit: BoxFit.scaleDown,
-                      child: Text('Rating&Reviews', style: Styles.kLargeTextStyle(context)),
+                      child: Text('Rating&Reviews',
+                          style: Styles.kLargeTextStyle(context)),
                     ),
                     const SizedBox(height: 24),
                     RatingStatistics(product: product),
@@ -54,7 +56,8 @@ class ProductReviewsViewBody extends StatelessWidget {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(18),
-                                child: ReviewItem(reviewModel: product.reviews[index]),
+                                child: ReviewItem(
+                                    reviewModel: product.reviews[index]),
                               ),
                               const SizedBox(height: 15),
                             ],

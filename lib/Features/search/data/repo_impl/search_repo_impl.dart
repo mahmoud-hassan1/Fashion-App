@@ -27,7 +27,9 @@ class SearchRepoImpl implements SearchRepo {
           .where(ProductModel.nameKey, isLessThanOrEqualTo: '$search\uf8ff')
           .get();
 
-      final List<ProductModel> products = snapshot.docs.map((doc) => ProductModel.fromJson(doc.data(), doc.id)).toList();
+      final List<ProductModel> products = snapshot.docs
+          .map((doc) => ProductModel.fromJson(doc.data(), doc.id))
+          .toList();
 
       return products.map((model) => model.toEntity()).toList();
     } catch (e) {

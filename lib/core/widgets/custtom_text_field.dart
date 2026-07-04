@@ -74,7 +74,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   widget.obscure = !widget.obscure;
                   setState(() {});
                 },
-                icon: Icon(!widget.obscure ? Icons.visibility_outlined : Icons.visibility_off_outlined),
+                icon: Icon(!widget.obscure
+                    ? Icons.visibility_outlined
+                    : Icons.visibility_off_outlined),
               )
             : null,
         prefixIcon: widget.prefixIcon,
@@ -85,9 +87,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
         enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
         ),
-        focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-        focusedErrorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.redAccent)),
-        errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.redAccent)),
+        focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent)),
+        focusedErrorBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.redAccent)),
+        errorBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.redAccent)),
         errorStyle: const TextStyle(color: Colors.redAccent),
         filled: true,
         fillColor: _fillColor,

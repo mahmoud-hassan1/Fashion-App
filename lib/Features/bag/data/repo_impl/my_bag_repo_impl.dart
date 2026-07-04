@@ -20,10 +20,14 @@ class MyBagRepoImpl extends MyBagRepo {
     List<ProductModel> products = [];
 
     if (UserModel.getInstance().bag.isNotEmpty) {
-      final QuerySnapshot result = await firestoreServices.getCollectionRef(productsCollectionKey).where(FieldPath.documentId, whereIn: UserModel.getInstance().bag).get();
+      final QuerySnapshot result = await firestoreServices
+          .getCollectionRef(productsCollectionKey)
+          .where(FieldPath.documentId, whereIn: UserModel.getInstance().bag)
+          .get();
       for (int i = 0; i < result.docs.length; i++) {
         if (result.docs[i]['stock'] > 0) {
-          products.add(ProductModel.fromJson(result.docs[i], result.docs[i].id));
+          products
+              .add(ProductModel.fromJson(result.docs[i], result.docs[i].id));
         }
       }
     }
@@ -37,15 +41,18 @@ class MyBagRepoImpl extends MyBagRepo {
       UserModel.getInstance().bag.clear();
 
       OrderModel orderModel = OrderModel(items: items, date: DateTime.now());
-      DocumentReference doc = firestoreServices.getDocumentRef(usersCollectionKey, UserModel.getInstance().uid);
+      DocumentReference doc = firestoreServices.getDocumentRef(
+          usersCollectionKey, UserModel.getInstance().uid);
 
       await doc.update({UserModel.bagKey: []});
       await doc.update({
         OrderModel.ordersKey: FieldValue.arrayUnion([orderModel.toMap()])
       });
       for (var item in items) {
-        DocumentReference productDoc = firestoreServices.getDocumentRef('products', item.productId);
-        await productDoc.update({'stock': FieldValue.increment(-item.quantity)});
+        DocumentReference productDoc =
+            firestoreServices.getDocumentRef('products', item.productId);
+        await productDoc
+            .update({'stock': FieldValue.increment(-item.quantity)});
       }
     }
   }
@@ -54,7 +61,8 @@ class MyBagRepoImpl extends MyBagRepo {
   Future<void> addToFavourites(String productUID) async {
     if (!UserModel.getInstance().favourites.contains(productUID)) {
       UserModel.getInstance().favourites.add(productUID);
-      await favouriteRepo.addToFavourites(UserModel.getInstance().uid, productUID);
+      await favouriteRepo.addToFavourites(
+          UserModel.getInstance().uid, productUID);
     }
   }
 
@@ -62,13 +70,15 @@ class MyBagRepoImpl extends MyBagRepo {
   Future<void> removeFromFavourites(String productUID) async {
     if (UserModel.getInstance().favourites.contains(productUID)) {
       UserModel.getInstance().favourites.remove(productUID);
-      await favouriteRepo.removeFromFavourites(UserModel.getInstance().uid, productUID);
+      await favouriteRepo.removeFromFavourites(
+          UserModel.getInstance().uid, productUID);
     }
   }
 
   @override
   Future<void> addToBag(String productUID) async {
-    DocumentSnapshot productSnapshot = await firestoreServices.getDocumentRef('products', productUID).get();
+    DocumentSnapshot productSnapshot =
+        await firestoreServices.getDocumentRef('products', productUID).get();
     if (productSnapshot.exists) {
       int stock = productSnapshot['stock'] ?? 0;
 
@@ -93,13 +103,17 @@ class MyBagRepoImpl extends MyBagRepo {
   Future<void> deleteFromBag(String productUID) async {
     if (UserModel.getInstance().bag.contains(productUID)) {
       UserModel.getInstance().bag.remove(productUID);
-      await firestoreServices.updateField(usersCollectionKey, UserModel.getInstance().uid, {UserModel.bagKey: UserModel.getInstance().bag});
+      await firestoreServices.updateField(
+          usersCollectionKey,
+          UserModel.getInstance().uid,
+          {UserModel.bagKey: UserModel.getInstance().bag});
     }
   }
 
   @override
   Future<void> addReview(OrderReviewModel review) async {
-    DocumentReference doc = firestoreServices.getDocumentRef(usersCollectionKey, UserModel.getInstance().uid);
+    DocumentReference doc = firestoreServices.getDocumentRef(
+        usersCollectionKey, UserModel.getInstance().uid);
     List<dynamic> orders = (await doc.get()).get(OrderModel.ordersKey);
     orders.last[OrderReviewModel.reviewKey] = review.toMap();
     await doc.update({OrderModel.ordersKey: orders});

@@ -8,7 +8,8 @@ class GetNewestProductsByCategory {
 
   Future<List<Product>> call(List<String> category) async {
     try {
-      final productModels = await repository.getNewestProductsByCategory(category);
+      final productModels =
+          await repository.getNewestProductsByCategory(category);
       return productModels.map((model) => model.toEntity()).toList();
     } catch (e) {
       throw Exception('Failed to load newest products: $e');

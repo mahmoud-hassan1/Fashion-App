@@ -27,7 +27,9 @@ class GoToSignup extends StatelessWidget {
             );
           },
           style: TextButton.styleFrom(padding: const EdgeInsets.all(0)),
-          child: Text("Sign up", style: Styles.kSmallTextStyle(context).copyWith(color: AppColors.kRed)),
+          child: Text("Sign up",
+              style: Styles.kSmallTextStyle(context)
+                  .copyWith(color: AppColors.kRed)),
         )
       ],
     );

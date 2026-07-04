@@ -63,7 +63,8 @@ class MyApp extends StatelessWidget {
             ),
           ),
           BlocProvider<ProductReviewsCubit>(
-            create: (BuildContext context) => ProductReviewsCubit(getIt<ProductReviewsRepoImpl>()),
+            create: (BuildContext context) =>
+                ProductReviewsCubit(getIt<ProductReviewsRepoImpl>()),
           ),
           BlocProvider<ProductDetailsCubit>(
             create: (context) => ProductDetailsCubit(
@@ -88,11 +89,10 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Fashion',
-
           theme: ThemeData.light().copyWith(
             scaffoldBackgroundColor: AppColors.kBackgroundColor,
             appBarTheme: const AppBarTheme(
-              color: AppColors.kBackgroundColor,
+              backgroundColor: AppColors.kBackgroundColor,
               centerTitle: true,
               iconTheme: IconThemeData(
                 color: Colors.black,

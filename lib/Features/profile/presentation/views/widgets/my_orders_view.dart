@@ -21,7 +21,8 @@ class MyOrdersView extends StatelessWidget {
       if (UserModel.getInstance().role == Role.user) {
         await BlocProvider.of<MyOrdersCubit>(context).getMyOrders(date);
       } else if (UserModel.getInstance().role == Role.admin) {
-        await BlocProvider.of<MyOrdersCubit>(context).getMyOrdersOnSpecificDate(date);
+        await BlocProvider.of<MyOrdersCubit>(context)
+            .getMyOrdersOnSpecificDate(date);
       }
     });
 
@@ -34,7 +35,8 @@ class MyOrdersView extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: Text("My Orders", style: Styles.kMediumTextStyle(context).copyWith(fontSize: 34)),
+            title: Text("My Orders",
+                style: Styles.kMediumTextStyle(context).copyWith(fontSize: 34)),
           ),
           body: ModalProgressHUD(
             inAsyncCall: state is MyOrdersLoading,
@@ -51,14 +53,16 @@ class MyOrdersView extends StatelessWidget {
                       onChanged: (dateTime) async {
                         date = dateTime;
                         if (UserModel.getInstance().role == Role.user) {
-                          await BlocProvider.of<MyOrdersCubit>(context).getMyOrders(date);
+                          await BlocProvider.of<MyOrdersCubit>(context)
+                              .getMyOrders(date);
                         } else if (UserModel.getInstance().role == Role.admin) {
-                          await BlocProvider.of<MyOrdersCubit>(context).getMyOrdersOnSpecificDate(date);
+                          await BlocProvider.of<MyOrdersCubit>(context)
+                              .getMyOrdersOnSpecificDate(date);
                         }
                       },
                     ),
                     const SizedBox(height: 10),
-                    <Widget>() {
+                    () {
                       if (state is MyOrdersUserSuccess) {
                         return OrdersListViewForUsers(orders: state.orders);
                       } else if (state is MyOrdersAdminSuccess) {

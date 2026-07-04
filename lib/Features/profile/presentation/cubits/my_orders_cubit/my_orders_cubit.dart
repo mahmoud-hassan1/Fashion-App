@@ -14,7 +14,8 @@ class MyOrdersCubit extends Cubit<MyOrdersState> {
   Future<void> getMyOrdersOnSpecificDate(DateTime date) async {
     try {
       emit(MyOrdersLoading());
-      List<SpecificOrderModel> orders = await profileRepo.getMyOrdersOnSpecificDate(date);
+      List<SpecificOrderModel> orders =
+          await profileRepo.getMyOrdersOnSpecificDate(date);
       emit(MyOrdersAdminSuccess(orders));
     } catch (_) {
       emit(MyOrdersFailed());

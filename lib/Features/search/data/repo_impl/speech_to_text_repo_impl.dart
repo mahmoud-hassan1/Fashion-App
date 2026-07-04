@@ -12,7 +12,8 @@ class SpeechToTextRepoImpl implements SpeechToTextRepo {
   }
 
   @override
-  Future<void> startListening(void Function(SpeechRecognitionResult result) onResult) async {
+  Future<void> startListening(
+      void Function(SpeechRecognitionResult result) onResult) async {
     await speechToText.listen(onResult: onResult);
   }
 

@@ -21,7 +21,8 @@ class EmailAndPasswordFields extends StatelessWidget {
           expand: false,
           keyForm: keyForm,
           validator: (value) {
-            RegExp regex = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+            RegExp regex = RegExp(
+                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
             if (value!.isEmpty) {
               return 'Please enter mail';
             } else {
@@ -43,7 +44,8 @@ class EmailAndPasswordFields extends StatelessWidget {
           expand: false,
           keyForm: keyForm,
           validator: (value) {
-            RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+            RegExp regex = RegExp(
+                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
             if (value!.isEmpty) {
               return 'Please enter password';
             } else {

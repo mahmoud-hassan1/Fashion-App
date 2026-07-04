@@ -40,7 +40,10 @@ class SignupViewBody extends StatelessWidget {
           snackBar(content: state.message, context: context);
         } else if (state is AuthAuthenticated) {
           isLoading = false;
-          snackBar(color: Colors.green, content: "Verfication link sent to your email", context: context);
+          snackBar(
+              color: Colors.green,
+              content: "Verfication link sent to your email",
+              context: context);
 
           Navigator.pushReplacement(
             context,
@@ -53,12 +56,14 @@ class SignupViewBody extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AppRouter.completeGoogleSignupProcessView(state.oAuthCredential),
+              builder: (context) => AppRouter.completeGoogleSignupProcessView(
+                  state.oAuthCredential),
             ),
           );
         } else if (state is AuthGoToHome) {
           Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => AppRouter.navigationBarView),
+            MaterialPageRoute(
+                builder: (context) => AppRouter.navigationBarView),
             (Route<dynamic> route) => false,
           );
         }
@@ -136,10 +141,14 @@ class SignupViewBody extends StatelessWidget {
       return;
     }
 
-    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty && keyForm.currentState!.validate()) {
-      BlocProvider.of<AuthCubit>(context).signupUser(nameController.text, emailController.text, dateTime, passwordController.text);
+    if (emailController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty &&
+        keyForm.currentState!.validate()) {
+      BlocProvider.of<AuthCubit>(context).signupUser(nameController.text,
+          emailController.text, dateTime, passwordController.text);
     } else {
-      snackBar(content: "Please enter Your email and password", context: context);
+      snackBar(
+          content: "Please enter Your email and password", context: context);
     }
   }
 }

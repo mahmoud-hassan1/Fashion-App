@@ -9,18 +9,27 @@ class HomeRemoteDataSource {
   const HomeRemoteDataSource(this.firestoreServices);
 
   Future<List<ProductModel>> getNewestProducts() async {
-    final DateTime oneWeekAgo = DateTime.now().subtract(const Duration(days: 7));
+    final DateTime oneWeekAgo =
+        DateTime.now().subtract(const Duration(days: 7));
     final snapshot = await firestoreServices
         .getCollectionRef(productsCollectionKey)
-        .where(ProductModel.dateKey, isGreaterThanOrEqualTo: Timestamp.fromDate(oneWeekAgo))
+        .where(ProductModel.dateKey,
+            isGreaterThanOrEqualTo: Timestamp.fromDate(oneWeekAgo))
         .orderBy(ProductModel.dateKey, descending: true)
         .get();
 
-    return snapshot.docs.map((doc) => ProductModel.fromJson(doc.data(), doc.id)).toList();
+    return snapshot.docs
+        .map((doc) => ProductModel.fromJson(doc.data(), doc.id))
+        .toList();
   }
 
   Future<List<ProductModel>> getProductsOnSale() async {
-    final snapshot = await firestoreServices.getCollectionRef(productsCollectionKey).where(ProductModel.discountKey, isGreaterThan: 0).get();
-    return snapshot.docs.map((doc) => ProductModel.fromJson(doc.data(), doc.id)).toList();
+    final snapshot = await firestoreServices
+        .getCollectionRef(productsCollectionKey)
+        .where(ProductModel.discountKey, isGreaterThan: 0)
+        .get();
+    return snapshot.docs
+        .map((doc) => ProductModel.fromJson(doc.data(), doc.id))
+        .toList();
   }
 }

@@ -47,10 +47,12 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> completeGoogleSignin(DateTime dateOfBirth, String name, OAuthCredential oAuthCredential) async {
+  Future<void> completeGoogleSignin(DateTime dateOfBirth, String name,
+      OAuthCredential oAuthCredential) async {
     emit(AuthLoading());
     try {
-      final UserClass? user = await authRepo.completeSignupWithGoogleProcess(dateOfBirth, name, oAuthCredential);
+      final UserClass? user = await authRepo.completeSignupWithGoogleProcess(
+          dateOfBirth, name, oAuthCredential);
       if (user != null) {
         emit(AuthAuthenticated(user));
       } else {
@@ -85,10 +87,12 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void signupUser(String name, String email, DateTime dateOfBirth, String password) async {
+  void signupUser(
+      String name, String email, DateTime dateOfBirth, String password) async {
     emit(AuthLoading());
     try {
-      SignupModel model = SignupModel(email: email, name: name, dateOfBirth: dateOfBirth);
+      SignupModel model =
+          SignupModel(email: email, name: name, dateOfBirth: dateOfBirth);
       final user = await authRepo.signup(model, password);
       if (user != null) {
         emit(AuthAuthenticated(user));

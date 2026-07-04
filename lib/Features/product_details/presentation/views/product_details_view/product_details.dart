@@ -36,7 +36,10 @@ class ProductDetails extends StatelessWidget {
         } else if (state is ProductDetailsRefresh) {
           product = state.product;
         } else if (state is ProductDetailsAddedToCart) {
-          snackBar(content: "Product added to cart successfully", context: context, color: Colors.green);
+          snackBar(
+              content: "Product added to cart successfully",
+              context: context,
+              color: Colors.green);
           Navigator.of(context).pop();
         }
         isLoading = false;
@@ -57,7 +60,8 @@ class ProductDetails extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => AppRouter.editProductView(product),
+                              builder: (context) =>
+                                  AppRouter.editProductView(product),
                             ),
                           );
                         },
@@ -88,9 +92,13 @@ class ProductDetails extends StatelessWidget {
                             IconButton(
                               onPressed: () async {
                                 if (_fav) {
-                                  await BlocProvider.of<ProductDetailsCubit>(context).removeFromFavourites(product.id);
+                                  await BlocProvider.of<ProductDetailsCubit>(
+                                          context)
+                                      .removeFromFavourites(product.id);
                                 } else {
-                                  await BlocProvider.of<ProductDetailsCubit>(context).addToFavourites(product.id);
+                                  await BlocProvider.of<ProductDetailsCubit>(
+                                          context)
+                                      .addToFavourites(product.id);
                                 }
                                 _fav = !_fav;
                               },
@@ -103,20 +111,31 @@ class ProductDetails extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            Text(product.name, style: Styles.kFontSize30(context)),
+                            Text(product.name,
+                                style: Styles.kFontSize30(context)),
                             const Spacer(),
                             Row(
                               children: [
-                                Text(product.price == product.price.toInt() ? "\$${product.price.toInt()}" : "\$${product.price}", style: Styles.kFontSize30(context)),
+                                Text(
+                                    product.price == product.price.toInt()
+                                        ? "\$${product.price.toInt()}"
+                                        : "\$${product.price}",
+                                    style: Styles.kFontSize30(context)),
                                 const SizedBox(
                                   width: 4,
                                 ),
                                 product.discount > 0
                                     ? Text(
-                                        product.priceBeforeDiscount == product.priceBeforeDiscount.toInt() ? "\$${product.priceBeforeDiscount.toInt()}" : "\$${product.priceBeforeDiscount}",
-                                        style: Styles.kFontSize17(context).copyWith(
+                                        product.priceBeforeDiscount ==
+                                                product.priceBeforeDiscount
+                                                    .toInt()
+                                            ? "\$${product.priceBeforeDiscount.toInt()}"
+                                            : "\$${product.priceBeforeDiscount}",
+                                        style: Styles.kFontSize17(context)
+                                            .copyWith(
                                           color: AppColors.kSeconderyTextColor,
-                                          decoration: TextDecoration.lineThrough, // This will strike through the text
+                                          decoration: TextDecoration
+                                              .lineThrough, // This will strike through the text
                                         ),
                                       )
                                     : const SizedBox(),
@@ -132,7 +151,12 @@ class ProductDetails extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () async {
-                                await Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AppRouter.productReviewsView(product)));
+                                await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            AppRouter.productReviewsView(
+                                                product)));
                               },
                               child: RatingBarIndicator(
                                 rating: product.rate,
@@ -145,7 +169,8 @@ class ProductDetails extends StatelessWidget {
                             ),
                             Text(
                               "(${product.reviews.length.toString()})",
-                              style: Styles.kFontSize14(context).copyWith(color: Colors.grey),
+                              style: Styles.kFontSize14(context)
+                                  .copyWith(color: Colors.grey),
                             ),
                           ],
                         ),
@@ -159,7 +184,8 @@ class ProductDetails extends StatelessWidget {
                         SizedBox(height: 20.h),
                         CustomButton(
                           onTap: () async {
-                            await BlocProvider.of<ProductDetailsCubit>(context).addToCart(product.id);
+                            await BlocProvider.of<ProductDetailsCubit>(context)
+                                .addToCart(product.id);
                           },
                           height: height * .9,
                           label: "Add to cart",

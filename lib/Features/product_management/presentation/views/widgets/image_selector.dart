@@ -15,9 +15,13 @@ class _ImageSelectorState extends State<ImageSelector> {
     // final status = await Permission.photos.request();
 
     // if (status.isGranted) {
-    final XFile? image = await _imagePicker.pickImage(source: ImageSource.gallery);
+    final XFile? image =
+        await _imagePicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      widget.selectedImages.value = [...widget.selectedImages.value, File(image.path)];
+      widget.selectedImages.value = [
+        ...widget.selectedImages.value,
+        File(image.path)
+      ];
     }
     // }
     //  else if (status.isDenied) {
@@ -31,7 +35,8 @@ class _ImageSelectorState extends State<ImageSelector> {
   }
 
   void _removeImage(int index) {
-    widget.selectedImages.value = List<File>.from(widget.selectedImages.value)..removeAt(index);
+    widget.selectedImages.value = List<File>.from(widget.selectedImages.value)
+      ..removeAt(index);
   }
 
   @override

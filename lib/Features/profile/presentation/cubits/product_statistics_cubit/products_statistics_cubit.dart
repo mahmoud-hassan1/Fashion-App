@@ -6,14 +6,16 @@ import 'package:online_shopping/Features/profile/domain/repo_interface/profile_r
 part 'products_statistics_state.dart';
 
 class ProductsStatisticsCubit extends Cubit<ProductsStatisticsState> {
-  ProductsStatisticsCubit(this.profileRepo) : super(ProductsStatisticsInitial());
+  ProductsStatisticsCubit(this.profileRepo)
+      : super(ProductsStatisticsInitial());
 
   final ProfileRepo profileRepo;
 
   Future<void> getProductsBestSelling() async {
     try {
       emit(ProductsStatisticsLoading());
-      List<ProductStatisticsModel> productStatistics = await profileRepo.getProductsBestSelling();
+      List<ProductStatisticsModel> productStatistics =
+          await profileRepo.getProductsBestSelling();
       emit(ProductsStatisticsSuccess(productStatistics));
     } catch (_) {
       emit(ProductsStatisticsFailed());

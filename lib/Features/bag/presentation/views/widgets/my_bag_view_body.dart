@@ -23,7 +23,10 @@ class MyBagViewBody extends StatelessWidget {
     return BlocConsumer<MyBagCubit, MyBagState>(
       listener: (context, state) async {
         if (state is MyBagSuccessed) {
-          state.message != null ? snackBar(content: state.message, context: context, color: Colors.green) : null;
+          state.message != null
+              ? snackBar(
+                  content: state.message, context: context, color: Colors.green)
+              : null;
         } else if (state is MyBagFailed) {
           snackBar(content: "Something went wrong", context: context);
         } else if (state is MyBagGoToOrderReview) {
@@ -41,11 +44,15 @@ class MyBagViewBody extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 24),
-                ScaleDown(child: Text("My Bag", style: Styles.kMediumTextStyle(context).copyWith(fontSize: 34))),
+                ScaleDown(
+                    child: Text("My Bag",
+                        style: Styles.kMediumTextStyle(context)
+                            .copyWith(fontSize: 34))),
                 const SizedBox(height: 24),
                 if (state is MyBagFailed)
                   error(context)
-                else if ((state is MyBagSuccessed && state.items.isEmpty) || state is MyBagGoToOrderReview)
+                else if ((state is MyBagSuccessed && state.items.isEmpty) ||
+                    state is MyBagGoToOrderReview)
                   noThingToShow(context)
                 else if (state is MyBagSuccessed && state.items.isNotEmpty)
                   Expanded(
@@ -74,13 +81,20 @@ class MyBagViewBody extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 ScaleDown(
-                                  child: Text("Total amount:", style: Styles.kMediumTextStyle(context).copyWith(fontSize: 14, color: Colors.grey)),
+                                  child: Text("Total amount:",
+                                      style: Styles.kMediumTextStyle(context)
+                                          .copyWith(
+                                              fontSize: 14,
+                                              color: Colors.grey)),
                                 ),
                                 const SizedBox(width: 10),
                                 ScaleDown(
                                   child: Text(
                                     "${BlocProvider.of<MyBagCubit>(context).calculateTotalPrice().toStringAsFixed(2)}\$",
-                                    style: Styles.kSmallTextStyle(context).copyWith(fontSize: 18, fontWeight: FontWeight.w500),
+                                    style: Styles.kSmallTextStyle(context)
+                                        .copyWith(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500),
                                   ),
                                 ),
                               ],
@@ -90,7 +104,8 @@ class MyBagViewBody extends StatelessWidget {
                               height: 600,
                               label: "CHECK OUT",
                               onTap: () async {
-                                await BlocProvider.of<MyBagCubit>(context).checkOut();
+                                await BlocProvider.of<MyBagCubit>(context)
+                                    .checkOut();
                               },
                             ),
                           ],

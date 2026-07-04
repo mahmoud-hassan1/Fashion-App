@@ -35,7 +35,8 @@ class _SearchViewState extends State<SearchView> {
           leading: const SizedBox(),
           title: Text(
             "Search",
-            style: Styles.kFontSize30(context).copyWith(fontWeight: FontWeight.w600),
+            style: Styles.kFontSize30(context)
+                .copyWith(fontWeight: FontWeight.w600),
           ),
         ),
         body: BlocBuilder<QrCodeScanningCubit, QrCodeScanningState>(
@@ -51,7 +52,8 @@ class _SearchViewState extends State<SearchView> {
                             children: [
                               Expanded(
                                 child: SearchField(
-                                  onSubmitted: (value) async => await searchCubit.getResults(value),
+                                  onSubmitted: (value) async =>
+                                      await searchCubit.getResults(value),
                                   searchText: searchText,
                                 ),
                               ),
@@ -60,16 +62,22 @@ class _SearchViewState extends State<SearchView> {
                                   if (speechCubit.isListening) {
                                     await speechCubit.stopListening();
                                   } else {
-                                    await speechCubit.startListening((result) async {
+                                    await speechCubit
+                                        .startListening((result) async {
                                       searchText.text = result.recognizedWords;
-                                      await searchCubit.getResults(searchText.text);
+                                      await searchCubit
+                                          .getResults(searchText.text);
                                     });
                                   }
                                 },
                                 icon: Icon(
-                                  speechCubit.isListening ? Icons.mic : Icons.mic_off,
+                                  speechCubit.isListening
+                                      ? Icons.mic
+                                      : Icons.mic_off,
                                   size: 27,
-                                  color: speechCubit.isListening ? AppColors.kRed : Colors.black,
+                                  color: speechCubit.isListening
+                                      ? AppColors.kRed
+                                      : Colors.black,
                                 ),
                               ),
                               // QR Code Scan Button

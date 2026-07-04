@@ -8,17 +8,20 @@ class ShopRepoImpl implements ShopRepo {
   const ShopRepoImpl(this.dataSource);
 
   @override
-  Future<List<ProductModel>> getProductsByCategory(List<String> category) async {
+  Future<List<ProductModel>> getProductsByCategory(
+      List<String> category) async {
     return await dataSource.getProductsByCategory(category);
   }
 
   @override
-  Future<List<ProductModel>> getNewestProductsByCategory(List<String> category) async {
+  Future<List<ProductModel>> getNewestProductsByCategory(
+      List<String> category) async {
     return await dataSource.getNewestProductsByCategory(category);
   }
 
   @override
-  Future<List<ProductModel>> getSaleProductsByCategory(List<String> category) async {
+  Future<List<ProductModel>> getSaleProductsByCategory(
+      List<String> category) async {
     return await dataSource.getSaleProductsByCategory(category);
   }
 }

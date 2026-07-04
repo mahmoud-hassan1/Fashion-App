@@ -32,9 +32,13 @@ class OrderModel {
 
   factory OrderModel.fromJson(dynamic json) {
     return OrderModel(
-      items: json[itemsKey].map<OrderItemModel>((item) => OrderItemModel.fromJson(item)).toList(),
+      items: json[itemsKey]
+          .map<OrderItemModel>((item) => OrderItemModel.fromJson(item))
+          .toList(),
       date: DateTime.parse(json[dateKey]),
-      orderReview: json[reviewKey].isEmpty ? null : OrderReviewModel.fromJson(json[reviewKey]),
+      orderReview: json[reviewKey].isEmpty
+          ? null
+          : OrderReviewModel.fromJson(json[reviewKey]),
     );
   }
 }

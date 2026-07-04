@@ -21,7 +21,10 @@ class FavouritesListView extends StatelessWidget {
     return BlocConsumer<AddToCartCubit, AddToCartState>(
       listener: (context, state) {
         if (state is AddToCartSuccessed) {
-          snackBar(content: 'Product added to cart successfully', context: context, color: Colors.green);
+          snackBar(
+              content: 'Product added to cart successfully',
+              context: context,
+              color: Colors.green);
         } else if (state is AddToCartFailed) {
           snackBar(content: state.message, context: context);
         }
@@ -46,7 +49,8 @@ class FavouritesListView extends StatelessWidget {
               return BlocConsumer<ManageFavouritesCubit, ManageFavouritesState>(
                 listener: (context, state) {
                   if (state is ManageFavouritesSuccess) {
-                    products.removeWhere((product) => product.id == state.productId);
+                    products.removeWhere(
+                        (product) => product.id == state.productId);
                   }
                 },
                 builder: (context, state) {
@@ -54,8 +58,10 @@ class FavouritesListView extends StatelessWidget {
                       ? SliverPadding(
                           padding: const EdgeInsets.only(top: 16, bottom: 32),
                           sliver: SliverList.separated(
-                            itemBuilder: (context, index) => FavouritesItem(product: products[index]),
-                            separatorBuilder: (context, index) => const SizedBox(
+                            itemBuilder: (context, index) =>
+                                FavouritesItem(product: products[index]),
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
                               height: 16,
                             ),
                             itemCount: products.length,
@@ -65,7 +71,8 @@ class FavouritesListView extends StatelessWidget {
                           child: Column(
                             children: [
                               Center(
-                                child: Lottie.asset(Assets.animationsEmptyAnimation),
+                                child: Lottie.asset(
+                                    Assets.animationsEmptyAnimation),
                               ),
                               Text(
                                 "No Favourites yet",
@@ -77,7 +84,8 @@ class FavouritesListView extends StatelessWidget {
                 },
               );
             } else {
-              return const SliverToBoxAdapter(child: Center(child: Text("Some thing went wrong")));
+              return const SliverToBoxAdapter(
+                  child: Center(child: Text("Some thing went wrong")));
             }
           },
         );

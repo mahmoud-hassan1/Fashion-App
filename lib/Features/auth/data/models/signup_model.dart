@@ -7,7 +7,11 @@ class SignupModel {
   final DateTime dateOfBirth;
   late String? uid;
 
-  SignupModel({required this.email, required this.name, required this.dateOfBirth, this.uid});
+  SignupModel(
+      {required this.email,
+      required this.name,
+      required this.dateOfBirth,
+      this.uid});
 
   Map<String, dynamic> toMap() {
     return {

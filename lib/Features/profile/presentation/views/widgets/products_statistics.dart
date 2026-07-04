@@ -22,7 +22,8 @@ class _ProductsStatisticsState extends State<ProductsStatistics> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await BlocProvider.of<ProductsStatisticsCubit>(context).getProductsBestSelling();
+      await BlocProvider.of<ProductsStatisticsCubit>(context)
+          .getProductsBestSelling();
     });
 
     return BlocConsumer<ProductsStatisticsCubit, ProductsStatisticsState>(
@@ -42,7 +43,8 @@ class _ProductsStatisticsState extends State<ProductsStatistics> {
           inAsyncCall: state is ProductsStatisticsLoading,
           child: Scaffold(
             appBar: AppBar(
-              title: Text("Product Statistics", style: Styles.kFontSize30(context)),
+              title: Text("Product Statistics",
+                  style: Styles.kFontSize30(context)),
             ),
             body: SafeArea(
               child: Padding(
@@ -57,58 +59,90 @@ class _ProductsStatisticsState extends State<ProductsStatistics> {
                           BarChartData(
                             borderData: FlBorderData(show: false),
                             gridData: const FlGridData(show: false),
-                            barGroups: List.generate(state.productStatistics.length.clamp(0, 10), (i) {
-                              return makeGroupData(i, state.productStatistics[i].percentage, isTouched: i == touchedIndex);
+                            barGroups: List.generate(
+                                state.productStatistics.length.clamp(0, 10),
+                                (i) {
+                              return makeGroupData(
+                                  i, state.productStatistics[i].percentage,
+                                  isTouched: i == touchedIndex);
                             }),
                             titlesData: FlTitlesData(
                               show: true,
-                              rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                              topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                              rightTitles: const AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false)),
+                              topTitles: const AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false)),
                               bottomTitles: AxisTitles(
-                                sideTitles: SideTitles(showTitles: true, getTitlesWidget: (value, meta) => getBottomTitles(context, value, meta, state.productStatistics), reservedSize: 100),
+                                sideTitles: SideTitles(
+                                    showTitles: true,
+                                    getTitlesWidget: (value, meta) =>
+                                        getBottomTitles(context, value, meta,
+                                            state.productStatistics),
+                                    reservedSize: 100),
                               ),
                               leftTitles: AxisTitles(
-                                sideTitles: SideTitles(showTitles: true, getTitlesWidget: (value, meta) => getLeftTitles(context, value, meta), reservedSize: 28, interval: 1),
+                                sideTitles: SideTitles(
+                                    showTitles: true,
+                                    getTitlesWidget: (value, meta) =>
+                                        getLeftTitles(context, value, meta),
+                                    reservedSize: 28,
+                                    interval: 1),
                               ),
                             ),
                             barTouchData: BarTouchData(
-                              touchCallback: (FlTouchEvent event, barTouchResponse) {
-                                if (!event.isInterestedForInteractions || barTouchResponse == null || barTouchResponse.spot == null) {
+                              touchCallback:
+                                  (FlTouchEvent event, barTouchResponse) {
+                                if (!event.isInterestedForInteractions ||
+                                    barTouchResponse == null ||
+                                    barTouchResponse.spot == null) {
                                   touchedIndex = -1;
                                   return;
                                 }
-                                touchedIndex = barTouchResponse.spot!.touchedBarGroupIndex;
+                                touchedIndex =
+                                    barTouchResponse.spot!.touchedBarGroupIndex;
                               },
                               touchTooltipData: BarTouchTooltipData(
                                 getTooltipColor: (_) => const Color(0xff101214),
-                                tooltipHorizontalAlignment: FLHorizontalAlignment.center,
-                                getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                                  String productName = state.productStatistics[groupIndex].name;
-                                  int productQuantity = state.productStatistics[groupIndex].quantity;
+                                tooltipHorizontalAlignment:
+                                    FLHorizontalAlignment.center,
+                                getTooltipItem:
+                                    (group, groupIndex, rod, rodIndex) {
+                                  String productName =
+                                      state.productStatistics[groupIndex].name;
+                                  int productQuantity = state
+                                      .productStatistics[groupIndex].quantity;
                                   return BarTooltipItem(
                                     '',
                                     const TextStyle(),
                                     textAlign: TextAlign.left,
                                     children: <TextSpan>[
                                       TextSpan(
-                                        text: ("${productName.length > 9 ? "${productName.substring(0, 9)}..." : productName}\n").toString(),
-                                        style: Styles.kFontSize14(context).copyWith(color: Colors.white).copyWith(fontSize: 14),
+                                        text:
+                                            ("${productName.length > 9 ? "${productName.substring(0, 9)}..." : productName}\n")
+                                                .toString(),
+                                        style: Styles.kFontSize14(context)
+                                            .copyWith(color: Colors.white)
+                                            .copyWith(fontSize: 14),
                                       ),
                                       TextSpan(
                                         text: ("Percentage:  ").toString(),
-                                        style: Styles.kFontSize14(context).copyWith(color: Colors.grey),
+                                        style: Styles.kFontSize14(context)
+                                            .copyWith(color: Colors.grey),
                                       ),
                                       TextSpan(
                                         text: ("${rod.toY}%\n").toString(),
-                                        style: Styles.kFontSize14(context).copyWith(color: Colors.white),
+                                        style: Styles.kFontSize14(context)
+                                            .copyWith(color: Colors.white),
                                       ),
                                       TextSpan(
                                         text: ("Quantity:  ").toString(),
-                                        style: Styles.kFontSize14(context).copyWith(color: Colors.grey),
+                                        style: Styles.kFontSize14(context)
+                                            .copyWith(color: Colors.grey),
                                       ),
                                       TextSpan(
                                         text: ("$productQuantity").toString(),
-                                        style: Styles.kFontSize14(context).copyWith(color: Colors.white),
+                                        style: Styles.kFontSize14(context)
+                                            .copyWith(color: Colors.white),
                                       ),
                                     ],
                                   );
@@ -137,14 +171,18 @@ class _ProductsStatisticsState extends State<ProductsStatistics> {
           width: 15,
           color: const Color(0xffdb3022),
           borderRadius: BorderRadius.circular(5),
-          backDrawRodData: BackgroundBarChartRodData(show: true, toY: 100, color: Colors.grey[100]),
+          backDrawRodData: BackgroundBarChartRodData(
+              show: true, toY: 100, color: Colors.grey[100]),
         ),
       ],
     );
   }
 
-  Widget getBottomTitles(BuildContext context, double value, TitleMeta meta, List<ProductStatisticsModel> productsStatistics) {
-    final List<String> productsNames = List<String>.generate(productsStatistics.length, (int index) => productsStatistics[index].name);
+  Widget getBottomTitles(BuildContext context, double value, TitleMeta meta,
+      List<ProductStatisticsModel> productsStatistics) {
+    final List<String> productsNames = List<String>.generate(
+        productsStatistics.length,
+        (int index) => productsStatistics[index].name);
     return FittedBox(
       fit: BoxFit.scaleDown,
       child: SideTitleWidget(
@@ -152,7 +190,9 @@ class _ProductsStatisticsState extends State<ProductsStatistics> {
         axisSide: meta.axisSide,
         space: 0,
         child: Text(
-          productsNames[value.toInt()].length > 9 ? "${productsNames[value.toInt()].substring(0, 9)}..." : productsNames[value.toInt()],
+          productsNames[value.toInt()].length > 9
+              ? "${productsNames[value.toInt()].substring(0, 9)}..."
+              : productsNames[value.toInt()],
           style: Styles.kFontSize17(context),
         ),
       ),

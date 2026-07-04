@@ -37,18 +37,21 @@ class LoginViewBody extends StatelessWidget {
           snackBar(content: state.message, context: context);
         } else if (state is AuthAuthenticated) {
           Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => AppRouter.navigationBarView),
+            MaterialPageRoute(
+                builder: (context) => AppRouter.navigationBarView),
             (Route<dynamic> route) => false,
           );
         } else if (state is AuthGoToHome) {
           Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => AppRouter.navigationBarView),
+            MaterialPageRoute(
+                builder: (context) => AppRouter.navigationBarView),
             (Route<dynamic> route) => false,
           );
         } else if (state is AuthCompleteGoogleAuthProcess) {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => AppRouter.completeGoogleSignupProcessView(state.oAuthCredential),
+              builder: (context) => AppRouter.completeGoogleSignupProcessView(
+                  state.oAuthCredential),
             ),
           );
         }
@@ -75,7 +78,10 @@ class LoginViewBody extends StatelessWidget {
                       SizedBox(
                         height: 64.h,
                       ),
-                      EmailAndPasswordFields(keyForm: keyForm, emailController: emailController, passwordController: passwordController),
+                      EmailAndPasswordFields(
+                          keyForm: keyForm,
+                          emailController: emailController,
+                          passwordController: passwordController),
                       const SizedBox(
                         height: 8,
                       ),
@@ -105,10 +111,14 @@ class LoginViewBody extends StatelessWidget {
   }
 
   void ontapLogin(context) {
-    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty && keyForm.currentState!.validate()) {
-      BlocProvider.of<AuthCubit>(context).loginUser(emailController.text, passwordController.text);
+    if (emailController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty &&
+        keyForm.currentState!.validate()) {
+      BlocProvider.of<AuthCubit>(context)
+          .loginUser(emailController.text, passwordController.text);
     } else {
-      snackBar(content: "Please enter Your email and password", context: context);
+      snackBar(
+          content: "Please enter Your email and password", context: context);
     }
   }
 }

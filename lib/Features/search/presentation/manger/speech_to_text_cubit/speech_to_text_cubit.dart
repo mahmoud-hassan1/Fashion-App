@@ -16,7 +16,8 @@ class SpeechToTextCubit extends Cubit<SpeechToTextState> {
     } catch (_) {}
   }
 
-  Future<void> startListening(final void Function(SpeechRecognitionResult result) onResult) async {
+  Future<void> startListening(
+      final void Function(SpeechRecognitionResult result) onResult) async {
     try {
       emit(SpeechToTextLoading());
       await speechToTextRepo.startListening(onResult);

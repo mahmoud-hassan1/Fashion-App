@@ -18,11 +18,13 @@ class SalesSection extends StatelessWidget {
     return SliverToBoxAdapter(
       child: InkWell(
         onTap: () {
-          BlocProvider.of<ShopCubit>(context).fetchSaleProductsByCategory([kTypes[tabController.index].toLowerCase()]);
+          BlocProvider.of<ShopCubit>(context).fetchSaleProductsByCategory(
+              [kTypes[tabController.index].toLowerCase()]);
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AppRouter.productsScreen("${kTypes[tabController.index]}'s Sales", null),
+                builder: (context) => AppRouter.productsScreen(
+                    "${kTypes[tabController.index]}'s Sales", null),
               ));
         },
         child: AspectRatio(
@@ -46,7 +48,9 @@ class SalesSection extends StatelessWidget {
                 ),
                 Text(
                   "Up to 50% off",
-                  style: Styles.kSmallTextStyle(context).copyWith(color: Colors.white).copyWith(fontWeight: FontWeight.w400),
+                  style: Styles.kSmallTextStyle(context)
+                      .copyWith(color: Colors.white)
+                      .copyWith(fontWeight: FontWeight.w400),
                 ),
               ],
             ),

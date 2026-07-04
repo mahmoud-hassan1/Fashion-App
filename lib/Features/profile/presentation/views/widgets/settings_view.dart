@@ -13,7 +13,8 @@ import 'package:online_shopping/core/widgets/snackbar.dart';
 class SettingsView extends StatelessWidget {
   SettingsView({super.key});
 
-  final TextEditingController nameController = TextEditingController(text: UserModel.getInstance().name);
+  final TextEditingController nameController =
+      TextEditingController(text: UserModel.getInstance().name);
   DateTime dateOfBirth = DateTime.parse(UserModel.getInstance().dateOfBirth);
   final TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> keyForm = GlobalKey();
@@ -24,7 +25,10 @@ class SettingsView extends StatelessWidget {
         if (state is SettingsFailed) {
           snackBar(content: state.errorMessage, context: context);
         } else if (state is SettingsSuccessed) {
-          snackBar(content: 'Data saved successfully', context: context, color: Colors.green);
+          snackBar(
+              content: 'Data saved successfully',
+              context: context,
+              color: Colors.green);
           passwordController.clear();
         } else if (state is SettingsInvalidData) {
           snackBar(content: 'Enter valid data', context: context);
@@ -45,7 +49,9 @@ class SettingsView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 15),
-                      Text("Personal Information", style: Styles.kMediumTextStyle(context).copyWith(fontWeight: FontWeight.w600)),
+                      Text("Personal Information",
+                          style: Styles.kMediumTextStyle(context)
+                              .copyWith(fontWeight: FontWeight.w600)),
                       const SizedBox(height: 15),
                       MyProfileTextField(
                         label: 'Name',
@@ -63,13 +69,16 @@ class SettingsView extends StatelessWidget {
                       const SizedBox(height: 20),
                       CustomButton(
                         onTap: () async {
-                          await BlocProvider.of<SettingsCubit>(context).saveChanges(nameController.text, dateOfBirth);
+                          await BlocProvider.of<SettingsCubit>(context)
+                              .saveChanges(nameController.text, dateOfBirth);
                         },
                         height: 550,
                         label: 'SAVE CHANGES',
                       ),
                       const SizedBox(height: 25),
-                      Text("Password", style: Styles.kMediumTextStyle(context).copyWith(fontWeight: FontWeight.w600)),
+                      Text("Password",
+                          style: Styles.kMediumTextStyle(context)
+                              .copyWith(fontWeight: FontWeight.w600)),
                       const SizedBox(height: 15),
                       Form(
                         key: keyForm,
@@ -81,7 +90,8 @@ class SettingsView extends StatelessWidget {
                               controller: passwordController,
                               password: true,
                               validator: (value) {
-                                RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+                                RegExp regex = RegExp(
+                                    r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
                                 if (value!.isEmpty) {
                                   return 'Please enter password';
                                 } else {
@@ -97,7 +107,8 @@ class SettingsView extends StatelessWidget {
                             CustomButton(
                               onTap: () async {
                                 if (keyForm.currentState!.validate()) {
-                                  await BlocProvider.of<SettingsCubit>(context).savePassword(passwordController.text);
+                                  await BlocProvider.of<SettingsCubit>(context)
+                                      .savePassword(passwordController.text);
                                 }
                               },
                               height: 550,

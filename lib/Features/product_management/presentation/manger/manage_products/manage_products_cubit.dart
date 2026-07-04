@@ -13,15 +13,23 @@ class ManageProductsCubit extends Cubit<ManageProductsState> {
   final EditProductUsecase editProductUsecase;
   final DeleteProductUsecase deleteProductUsecase;
 
-  ManageProductsCubit({required this.uploadProductUsecase, required this.editProductUsecase, required this.deleteProductUsecase}) : super(ManageProductsInitial());
+  ManageProductsCubit(
+      {required this.uploadProductUsecase,
+      required this.editProductUsecase,
+      required this.deleteProductUsecase})
+      : super(ManageProductsInitial());
 
-  addProduct({required ProductModel product, required List<File> selectedImages}) async {
+  addProduct(
+      {required ProductModel product,
+      required List<File> selectedImages}) async {
     try {
       emit(AddProductsLoading());
-      await uploadProductUsecase.call(product: product, selectedImages: selectedImages);
+      await uploadProductUsecase.call(
+          product: product, selectedImages: selectedImages);
       emit(AddProductsSucsses());
     } catch (e) {
-      emit(AddProductsFailed(error: e.toString().replaceFirst('Exception:', '').trim()));
+      emit(AddProductsFailed(
+          error: e.toString().replaceFirst('Exception:', '').trim()));
     }
   }
 
@@ -31,7 +39,8 @@ class ManageProductsCubit extends Cubit<ManageProductsState> {
       await editProductUsecase.call(product: product);
       emit(AddProductsSucsses());
     } catch (e) {
-      emit(AddProductsFailed(error: e.toString().replaceFirst('Exception:', '').trim()));
+      emit(AddProductsFailed(
+          error: e.toString().replaceFirst('Exception:', '').trim()));
     }
   }
 
@@ -41,8 +50,8 @@ class ManageProductsCubit extends Cubit<ManageProductsState> {
       await deleteProductUsecase.call(product: product);
       emit(AddProductsSucsses());
     } catch (e) {
-      
-      emit(AddProductsFailed(error:e.toString().replaceFirst('Exception:', '').trim()));
+      emit(AddProductsFailed(
+          error: e.toString().replaceFirst('Exception:', '').trim()));
     }
   }
 }

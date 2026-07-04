@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ScaleDown extends StatelessWidget {
-  const ScaleDown({super.key, this.flex = 1, this.boxFit = BoxFit.scaleDown, this.child});
+  const ScaleDown(
+      {super.key, this.flex = 1, this.boxFit = BoxFit.scaleDown, this.child});
 
   final int flex;
   final BoxFit boxFit;

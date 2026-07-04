@@ -48,9 +48,11 @@ class ReviewItem extends StatelessWidget {
                         unratedColor: Colors.orangeAccent,
                         itemBuilder: (BuildContext context, int index) {
                           if (reviewModel.rate > index) {
-                            return const Icon(Icons.star, color: Colors.orangeAccent);
+                            return const Icon(Icons.star,
+                                color: Colors.orangeAccent);
                           } else {
-                            return const Icon(Icons.star, color: Colors.black26);
+                            return const Icon(Icons.star,
+                                color: Colors.black26);
                           }
                         },
                       ),

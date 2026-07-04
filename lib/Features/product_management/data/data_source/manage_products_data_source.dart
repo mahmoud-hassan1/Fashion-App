@@ -14,22 +14,27 @@ class ManageProductsDataSource {
     List<String> downloadUrls = [];
     for (File image in selectedImages) {
       String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-      String downloadUrl = await storageServices.uploadFile(image.path, 'products/$fileName');
+      String downloadUrl =
+          await storageServices.uploadFile(image.path, 'products/$fileName');
       downloadUrls.add(downloadUrl);
     }
     return downloadUrls;
   }
 
-  Future<void> uploadProduct({required ProductModel product, required List<File> selectedImages}) async {
+  Future<void> uploadProduct(
+      {required ProductModel product,
+      required List<File> selectedImages}) async {
     List<String> imageUrls = await _uploadImages(selectedImages);
     product.images = imageUrls;
     product.image = imageUrls[0];
 
-    await firestoreServices.setDocument(productsCollectionKey, product.toJson());
+    await firestoreServices.setDocument(
+        productsCollectionKey, product.toJson());
   }
 
   Future<void> editProduct(ProductModel product) async {
-    await firestoreServices.updateField(productsCollectionKey, product.id, product.toJson());
+    await firestoreServices.updateField(
+        productsCollectionKey, product.id, product.toJson());
   }
 
   Future<void> deleteProduct(ProductModel product) async {

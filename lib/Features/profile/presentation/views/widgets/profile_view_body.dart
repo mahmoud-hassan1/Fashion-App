@@ -42,7 +42,8 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("My Profile", style: Styles.kLargeTextStyle(context)),
+                      Text("My Profile",
+                          style: Styles.kLargeTextStyle(context)),
                       const SizedBox(height: 15),
                       Row(
                         children: [
@@ -51,20 +52,27 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(UserModel.getInstance().name, style: Styles.kFontSize17(context).copyWith(fontSize: 20)),
-                              Text(UserModel.getInstance().email, style: Styles.kFontSize17(context).copyWith(fontSize: 12, color: Colors.grey)),
+                              Text(UserModel.getInstance().name,
+                                  style: Styles.kFontSize17(context)
+                                      .copyWith(fontSize: 20)),
+                              Text(UserModel.getInstance().email,
+                                  style: Styles.kFontSize17(context).copyWith(
+                                      fontSize: 12, color: Colors.grey)),
                             ],
                           ),
                         ],
                       ),
                       const SizedBox(height: 15),
                       MyProfileListTileItem(
-                        title: UserModel.getInstance().role == Role.admin ? "Orders" : "My Orders",
+                        title: UserModel.getInstance().role == Role.admin
+                            ? "Orders"
+                            : "My Orders",
                         subtitle: "Orders report, Order reviews",
                         onPressed: () async {
                           await Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (BuildContext context) => AppRouter.myOrdersView,
+                              builder: (BuildContext context) =>
+                                  AppRouter.myOrdersView,
                             ),
                           );
                         },
@@ -76,7 +84,8 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                               onPressed: () async {
                                 await Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (BuildContext context) => AppRouter.productsStatistics,
+                                    builder: (BuildContext context) =>
+                                        AppRouter.productsStatistics,
                                   ),
                                 );
                               },
@@ -88,7 +97,8 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                         onPressed: () async {
                           await Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (BuildContext context) => AppRouter.settingsView,
+                              builder: (BuildContext context) =>
+                                  AppRouter.settingsView,
                             ),
                           );
                           setState(() {});
@@ -99,7 +109,8 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                         height: 550,
                         label: 'LOGOUT',
                         onTap: () async {
-                          await BlocProvider.of<MyProfileCubit>(context).logout();
+                          await BlocProvider.of<MyProfileCubit>(context)
+                              .logout();
                         },
                       ),
                       const SizedBox(height: 15),
@@ -107,7 +118,8 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                         height: 550,
                         label: 'DELETE ACCOUNT',
                         onTap: () async {
-                          await BlocProvider.of<MyProfileCubit>(context).deleteAccount();
+                          await BlocProvider.of<MyProfileCubit>(context)
+                              .deleteAccount();
                         },
                       ),
                     ],

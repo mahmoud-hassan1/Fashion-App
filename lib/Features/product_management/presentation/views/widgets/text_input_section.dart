@@ -82,9 +82,12 @@ class TextInputSection extends StatelessWidget {
                 isDecimal: true,
                 onChange: (value) {
                   double price = double.tryParse(value) ?? 0.0;
-                  int discountPercent = int.tryParse(_discountController.text) ?? 0;
-                  double discountedPrice = price - (price * (discountPercent / 100));
-                  _priceAfterDiscountController.text = discountedPrice.toStringAsFixed(2);
+                  int discountPercent =
+                      int.tryParse(_discountController.text) ?? 0;
+                  double discountedPrice =
+                      price - (price * (discountPercent / 100));
+                  _priceAfterDiscountController.text =
+                      discountedPrice.toStringAsFixed(2);
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -135,8 +138,10 @@ class TextInputSection extends StatelessWidget {
                 onChange: (value) {
                   double discountPercent = double.tryParse(value) ?? 0.0;
                   double price = double.tryParse(_priceController.text) ?? 0;
-                  double discountedPrice = price - (price * (discountPercent / 100));
-                  _priceAfterDiscountController.text = discountedPrice.toStringAsFixed(2);
+                  double discountedPrice =
+                      price - (price * (discountPercent / 100));
+                  _priceAfterDiscountController.text =
+                      discountedPrice.toStringAsFixed(2);
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {

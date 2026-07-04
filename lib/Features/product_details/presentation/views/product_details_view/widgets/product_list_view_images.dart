@@ -53,7 +53,8 @@ class _ProductListViewImagesState extends State<ProductListViewImages> {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(widget.images.length, (index) => buildIndicator(index)),
+          children: List.generate(
+              widget.images.length, (index) => buildIndicator(index)),
         ),
       ],
     );

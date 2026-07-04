@@ -28,7 +28,8 @@ class RatingStatistics extends StatelessWidget {
                 fit: BoxFit.scaleDown,
                 child: Text(
                   "${product.reviews.length.toString()} ratings",
-                  style: Styles.kFontSize17(context).copyWith(color: Colors.grey),
+                  style:
+                      Styles.kFontSize17(context).copyWith(color: Colors.grey),
                 ),
               ),
             ],

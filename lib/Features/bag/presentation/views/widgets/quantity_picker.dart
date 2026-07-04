@@ -3,7 +3,11 @@ import 'package:online_shopping/core/utiles/styles.dart';
 import 'package:online_shopping/core/widgets/scale_down.dart';
 
 class QuantityPicker extends StatefulWidget {
-  const QuantityPicker({super.key, required this.onChanged, required this.maxValue, required this.quan});
+  const QuantityPicker(
+      {super.key,
+      required this.onChanged,
+      required this.maxValue,
+      required this.quan});
 
   final void Function(int number) onChanged;
   final int maxValue;
@@ -46,7 +50,9 @@ class _QuantityPickerState extends State<QuantityPicker> {
           flex: 2,
           child: SizedBox(
             width: 45,
-            child: Center(child: Text(quan.toString(), style: Styles.kSmallTextStyle(context))),
+            child: Center(
+                child: Text(quan.toString(),
+                    style: Styles.kSmallTextStyle(context))),
           ),
         ),
         const SizedBox(width: 5),
@@ -63,7 +69,8 @@ class _QuantityPickerState extends State<QuantityPicker> {
     );
   }
 
-  Widget getContainer({required final void Function() onTap, required IconData icon}) {
+  Widget getContainer(
+      {required final void Function() onTap, required IconData icon}) {
     return ScaleDown(
       child: GestureDetector(
         onTap: onTap,
@@ -73,7 +80,13 @@ class _QuantityPickerState extends State<QuantityPicker> {
             color: Colors.white,
             shape: BoxShape.circle,
             boxShadow: [
-              BoxShadow(color: Colors.grey.withOpacity(.3), blurStyle: BlurStyle.normal, blurRadius: 5, offset: const Offset(0, 3), spreadRadius: 0),
+              BoxShadow(
+                color: Colors.grey.withValues(alpha: .3),
+                blurStyle: BlurStyle.normal,
+                blurRadius: 5,
+                offset: const Offset(0, 3),
+                spreadRadius: 0,
+              ),
             ],
           ),
           child: Icon(icon, color: Colors.grey, size: 24),

@@ -5,6 +5,7 @@ abstract class SpeechToTextRepo {
   late final SpeechToText speechToText;
 
   Future<void> init();
-  Future<void> startListening(final void Function(SpeechRecognitionResult result) onResult);
+  Future<void> startListening(
+      final void Function(SpeechRecognitionResult result) onResult);
   Future<void> stopListening();
 }

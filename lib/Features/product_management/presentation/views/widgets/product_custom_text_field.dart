@@ -40,13 +40,18 @@ class ProductCustomTextField extends StatelessWidget {
         ),
       ),
       keyboardType: isNumber
-          ? (isDecimal ? const TextInputType.numberWithOptions(decimal: true) : TextInputType.number)
+          ? (isDecimal
+              ? const TextInputType.numberWithOptions(decimal: true)
+              : TextInputType.number)
           : expand
               ? TextInputType.multiline
               : TextInputType.text,
       inputFormatters: isNumber
           ? [
-              if (isDecimal) FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')) else FilteringTextInputFormatter.digitsOnly,
+              if (isDecimal)
+                FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}'))
+              else
+                FilteringTextInputFormatter.digitsOnly,
             ]
           : null,
       validator: validate ? validator : null,

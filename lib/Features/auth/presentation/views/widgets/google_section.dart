@@ -44,7 +44,8 @@ class GoogleSection extends StatelessWidget {
               },
               style: IconButton.styleFrom(
                 backgroundColor: AppColors.kItemBackgroundColor,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.r)),
                 padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8),
               ),
               icon: SvgPicture.asset(
