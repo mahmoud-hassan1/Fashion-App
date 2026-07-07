@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart' hide CarouselController;
+import 'package:online_shopping/core/utiles/assets.dart';
 import 'package:online_shopping/core/utiles/styles.dart';
 
 class OffersListViewItem extends StatelessWidget {
   OffersListViewItem({super.key, required this.index});
   final int index;
   final List<dynamic> collection = [
-    ['assets/images/Sale.png', "Fashion Sale"],
-    ['assets/images/New.png', "New Collection"],
+    [Assets.imagesSale, "Fashion Sale"],
+    [Assets.imagesNew, "New Collection"],
   ];
   @override
   Widget build(BuildContext context) {

@@ -30,7 +30,7 @@ class OffersListViewState extends State<OffersListView> {
             enlargeCenterPage: true,
             viewportFraction: 1,
             aspectRatio: 2.0,
-            autoPlayInterval: const Duration(seconds: 2),
+            autoPlayInterval: const Duration(seconds: 4),
             onPageChanged: (index, reason) {
               setState(() {
                 _current = index; // Update the current page index

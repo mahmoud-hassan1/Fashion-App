@@ -1,34 +1,36 @@
+import 'package:online_shopping/core/utiles/assets.dart';
+
 List<List<dynamic>> kCategoryList = [
   [
     "New",
     [
-      "assets/images/NewCategory.png",
-      "assets/images/men_new.png",
-      "assets/images/kids_new.jpg"
+      Assets.imagesNewCategory,
+      Assets.imagesMenNew,
+      Assets.imagesKidsNew,
     ]
   ],
   [
     "Clothes",
     [
-      "assets/images/Clothes.png",
-      "assets/images/mens_clothes.jpg",
-      "assets/images/kids_clothes.jpg"
+      Assets.imagesClothes,
+      Assets.imagesMensClothes,
+      Assets.imagesKidsClothes,
     ]
   ],
   [
     "Shoes",
     [
-      "assets/images/Shoes.png",
-      "assets/images/mens_shoes.png",
-      "assets/images/kids_shoes.png"
+      Assets.imagesShoes,
+      Assets.imagesMensShoes,
+      Assets.imagesKidsShoes,
     ]
   ],
   [
     "Accesories",
     [
-      "assets/images/Accesories.png",
-      "assets/images/mens_acc.jpg",
-      "assets/images/kids_acc.jpg"
+      Assets.imagesAccesories,
+      Assets.imagesMensAcc,
+      Assets.imagesKidsAcc,
     ]
   ],
 ];

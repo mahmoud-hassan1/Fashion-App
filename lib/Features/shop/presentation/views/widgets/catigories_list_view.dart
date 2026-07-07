@@ -85,7 +85,7 @@ class _CatigoriesListViewState extends State<CatigoriesListView> {
                     Expanded(
                       child: Image.asset(
                         kCategoryList[index][1][widget.tabController.index],
-                        fit: BoxFit.fitWidth,
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ],
