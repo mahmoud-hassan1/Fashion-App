@@ -11,18 +11,17 @@ import 'package:online_shopping/core/models/user_model.dart';
 import 'package:online_shopping/core/utiles/authentication_services.dart';
 import 'package:online_shopping/core/utiles/firebase_firestore_services.dart';
 import 'package:online_shopping/core/utiles/is_same_day.dart';
-import 'package:online_shopping/core/utiles/firebase_storage_services.dart';
 import 'package:online_shopping/core/utiles/supabase_storage_services.dart';
 
 class ProfileRepoImpl extends ProfileRepo {
   ProfileRepoImpl(
-    this.storageServices,
+    // this.firebaseStorageServices,
     this.firestoreServices,
     this.authServices,
     this.supabaseStorageServices,
   );
 
-  final StorageServices storageServices;
+  // final FirebaseStorageServices firebaseStorageServices;
   final FirestoreServices firestoreServices;
   final AuthServices authServices;
   final SupabaseStorageServices supabaseStorageServices;
@@ -35,8 +34,9 @@ class ProfileRepoImpl extends ProfileRepo {
 
     if (imagePicked != null) {
       String newImageURL = await supabaseStorageServices.uploadFile(
+        profileImageSupabaseBucketName,
         imagePicked.path,
-        "/profile_images/${UserModel.getInstance().uid}/image",
+        "profile_images/${UserModel.getInstance().uid}/image",
       );
       UserModel.getInstance().profilePicturePath = newImageURL;
 
@@ -51,14 +51,20 @@ class ProfileRepoImpl extends ProfileRepo {
   @override
   Future<void> deleteProfileImage() async {
     if (UserModel.getInstance().profilePicturePath != defaultProfileImage) {
-      await supabaseStorageServices
-          .deleteFile(UserModel.getInstance().profilePicturePath);
+      await supabaseStorageServices.deleteFile(
+        profileImageSupabaseBucketName,
+        UserModel.getInstance()
+            .profilePicturePath
+            .split('/profile_image/')
+            .last,
+      );
 
       UserModel.getInstance().profilePicturePath = defaultProfileImage;
       await firestoreServices.updateField(
-          usersCollectionKey,
-          UserModel.getInstance().uid,
-          {UserModel.profilePicturePathKey: defaultProfileImage});
+        usersCollectionKey,
+        UserModel.getInstance().uid,
+        {UserModel.profilePicturePathKey: defaultProfileImage},
+      );
     }
   }
 

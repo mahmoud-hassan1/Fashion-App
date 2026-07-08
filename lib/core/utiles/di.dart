@@ -37,7 +37,7 @@ GetIt getIt = GetIt.instance;
 void setup() {
   getIt.registerSingleton<AuthServices>(AuthServices());
   getIt.registerSingleton<FirestoreServices>(FirestoreServices());
-  getIt.registerSingleton<StorageServices>(StorageServices());
+  getIt.registerSingleton<FirebaseStorageServices>(FirebaseStorageServices());
   getIt.registerSingleton<SupabaseStorageServices>(SupabaseStorageServices());
 
   getIt.registerSingleton<UserDataRepoImpl>(
@@ -54,7 +54,8 @@ void setup() {
       getIt<UserDataRepoImpl>(),
       getIt<AuthServices>(),
       getIt<FirestoreServices>(),
-      getIt<StorageServices>(),
+      // getIt<FirebaseStorageServices>(),
+      getIt<SupabaseStorageServices>(),
     ),
   );
 
@@ -85,14 +86,15 @@ void setup() {
     ManageProductsRepoImpl(
       ManageProductsDataSource(
         getIt<FirestoreServices>(),
-        getIt<StorageServices>(),
+        // getIt<FirebaseStorageServices>(),
+        getIt<SupabaseStorageServices>(),
       ),
     ),
   );
 
   getIt.registerSingleton<ProfileRepoImpl>(
     ProfileRepoImpl(
-      getIt<StorageServices>(),
+      // getIt<FirebaseStorageServices>(),
       getIt<FirestoreServices>(),
       getIt<AuthServices>(),
       getIt<SupabaseStorageServices>(),

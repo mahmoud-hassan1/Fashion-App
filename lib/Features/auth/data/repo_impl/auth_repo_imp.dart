@@ -9,16 +9,22 @@ import 'package:online_shopping/constants.dart';
 import 'package:online_shopping/core/models/user_model.dart';
 import 'package:online_shopping/core/utiles/authentication_services.dart';
 import 'package:online_shopping/core/utiles/firebase_firestore_services.dart';
-import 'package:online_shopping/core/utiles/firebase_storage_services.dart';
+import 'package:online_shopping/core/utiles/supabase_storage_services.dart';
 
 class AuthRepoImpl implements AuthRepo {
-  AuthRepoImpl(this.userDataRepository, this.authServices,
-      this.firestoreServices, this.storageServices);
+  AuthRepoImpl(
+    this.userDataRepository,
+    this.authServices,
+    this.firestoreServices,
+    // this.firebaseStorageServices,
+    this.supabaseStorageServices,
+  );
 
   final UserDataRepo userDataRepository;
   final AuthServices authServices;
   final FirestoreServices firestoreServices;
-  final StorageServices storageServices;
+  // final FirebaseStorageServices firebaseStorageServices;
+  final SupabaseStorageServices supabaseStorageServices;
 
   @override
   Future<UserClass?> login(String email, String password) async {
@@ -117,8 +123,10 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<void> deleteAccount() async {
     if (UserModel.getInstance().profilePicturePath != defaultProfileImage) {
-      await storageServices
-          .deleteFile(UserModel.getInstance().profilePicturePath);
+      await supabaseStorageServices.deleteFile(
+        profileImageSupabaseBucketName,
+        UserModel.getInstance().profilePicturePath,
+      );
     }
 
     await authServices.signOutServices
