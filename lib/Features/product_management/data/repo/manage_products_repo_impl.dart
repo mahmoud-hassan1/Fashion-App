@@ -10,16 +10,20 @@ class ManageProductsRepoImpl extends ManageProductsRepo {
   ManageProductsRepoImpl(this.dataSource);
 
   @override
-  Future<void> addProduct(
-      {required ProductModel product,
-      required List<File> selectedImages}) async {
+  Future<void> addProduct({
+    required ProductModel product,
+    required List<File> selectedImages,
+  }) async {
     await dataSource.uploadProduct(
         product: product, selectedImages: selectedImages);
   }
 
   @override
-  Future<void> editProduct({required ProductModel product}) async {
-    await dataSource.editProduct(product);
+  Future<void> editProduct({
+    required ProductModel product,
+    required List<File> selectedImages,
+  }) async {
+    await dataSource.editProduct(product, selectedImages);
   }
 
   @override

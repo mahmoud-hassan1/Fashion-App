@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:online_shopping/Features/product_management/presentation/manger/manage_products/manage_products_cubit.dart';
 import 'package:online_shopping/Features/product_management/presentation/views/widgets/categories_gridview.dart';
+import 'package:online_shopping/Features/product_management/presentation/views/widgets/image_selector.dart';
 import 'package:online_shopping/Features/product_management/presentation/views/widgets/submit_button.dart';
 import 'package:online_shopping/Features/product_management/presentation/views/widgets/text_input_section.dart';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
@@ -26,8 +29,8 @@ class _EditProductBodyState extends State<EditProductBody> {
   late TextEditingController _discountController;
   late TextEditingController _priceAfterDiscountController;
   final _formKey = GlobalKey<FormState>();
-  // final ValueNotifier<List<File>> _selectedImages =
-  //     ValueNotifier<List<File>>([]);
+  final ValueNotifier<List<File>> _selectedImages =
+      ValueNotifier<List<File>>([]);
 
   final Set<String> _selectedCategories = {};
   @override
@@ -53,11 +56,17 @@ class _EditProductBodyState extends State<EditProductBody> {
     _descriptionController.dispose();
     _priceController.dispose();
     _stockController.dispose();
+    _selectedImages.dispose();
     super.dispose();
   }
 
   void _editProduct() async {
     if (_formKey.currentState!.validate()) {
+      if (_selectedImages.value.isEmpty) {
+        snackBar(content: "Please add at least one image.", context: context);
+        return;
+      }
+
       if (_selectedCategories.isEmpty) {
         snackBar(
             content: "Please add at least one Category.", context: context);
@@ -66,7 +75,7 @@ class _EditProductBodyState extends State<EditProductBody> {
 
       ProductModel product = getProductModel();
       await BlocProvider.of<ManageProductsCubit>(context)
-          .editProduct(product: product);
+          .editProduct(product: product, selectedImages: _selectedImages.value);
     }
   }
 
@@ -118,7 +127,9 @@ class _EditProductBodyState extends State<EditProductBody> {
             ),
             (Route<dynamic> route) => false,
           );
-          setState(() {});
+          try {
+            setState(() {});
+          } catch (_) {}
         }
       },
       builder: (context, state) {
@@ -149,10 +160,8 @@ class _EditProductBodyState extends State<EditProductBody> {
                           ),
                           CategoriesGridview(
                               selectedCategories: _selectedCategories),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          // ImageSelector(selectedImages: _selectedImages),
+                          const SizedBox(height: 16),
+                          ImageSelector(selectedImages: _selectedImages),
                           const SizedBox(height: 24),
                           EditsButton(
                             onPressed: _editProduct,

@@ -132,9 +132,7 @@ class _AddProductBodyState extends State<AddProductBody> {
                           ),
                           CategoriesGridview(
                               selectedCategories: _selectedCategories),
-                          const SizedBox(
-                            height: 16,
-                          ),
+                          const SizedBox(height: 16),
                           ImageSelector(selectedImages: _selectedImages),
                           const SizedBox(height: 24),
                           EditsButton(

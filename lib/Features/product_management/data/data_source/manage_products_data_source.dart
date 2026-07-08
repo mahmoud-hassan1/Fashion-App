@@ -29,20 +29,33 @@ class ManageProductsDataSource {
     return downloadUrls;
   }
 
-  Future<void> uploadProduct(
-      {required ProductModel product,
-      required List<File> selectedImages}) async {
+  Future<void> uploadProduct({
+    required ProductModel product,
+    required List<File> selectedImages,
+  }) async {
     List<String> imageUrls = await _uploadImages(selectedImages);
     product.images = imageUrls;
     product.image = imageUrls[0];
 
     await firestoreServices.setDocument(
-        productsCollectionKey, product.toJson());
+      productsCollectionKey,
+      product.toJson(),
+    );
   }
 
-  Future<void> editProduct(ProductModel product) async {
+  Future<void> editProduct(
+    ProductModel product,
+    List<File> selectedImages,
+  ) async {
+    List<String> imageUrls = await _uploadImages(selectedImages);
+    product.images = imageUrls;
+    product.image = imageUrls[0];
+
     await firestoreServices.updateField(
-        productsCollectionKey, product.id, product.toJson());
+      productsCollectionKey,
+      product.id,
+      product.toJson(),
+    );
   }
 
   Future<void> deleteProduct(ProductModel product) async {

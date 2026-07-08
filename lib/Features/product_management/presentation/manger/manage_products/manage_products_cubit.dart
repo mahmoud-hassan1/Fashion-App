@@ -19,13 +19,16 @@ class ManageProductsCubit extends Cubit<ManageProductsState> {
       required this.deleteProductUsecase})
       : super(ManageProductsInitial());
 
-  addProduct(
-      {required ProductModel product,
-      required List<File> selectedImages}) async {
+  addProduct({
+    required ProductModel product,
+    required List<File> selectedImages,
+  }) async {
     try {
       emit(AddProductsLoading());
       await uploadProductUsecase.call(
-          product: product, selectedImages: selectedImages);
+        product: product,
+        selectedImages: selectedImages,
+      );
       emit(AddProductsSucsses());
     } catch (e) {
       emit(AddProductsFailed(
@@ -33,10 +36,16 @@ class ManageProductsCubit extends Cubit<ManageProductsState> {
     }
   }
 
-  editProduct({required ProductModel product}) async {
+  editProduct({
+    required ProductModel product,
+    required List<File> selectedImages,
+  }) async {
     try {
       emit(AddProductsLoading());
-      await editProductUsecase.call(product: product);
+      await editProductUsecase.call(
+        product: product,
+        selectedImages: selectedImages,
+      );
       emit(AddProductsSucsses());
     } catch (e) {
       emit(AddProductsFailed(
