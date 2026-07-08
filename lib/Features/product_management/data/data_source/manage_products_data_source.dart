@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
 import 'package:online_shopping/constants.dart';
 import 'package:online_shopping/core/utiles/firebase_firestore_services.dart';
-import 'package:online_shopping/core/utiles/storage_services.dart';
+import 'package:online_shopping/core/utiles/firebase_storage_services.dart';
 
 class ManageProductsDataSource {
   final FirestoreServices firestoreServices;

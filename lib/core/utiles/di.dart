@@ -29,7 +29,8 @@ import 'package:online_shopping/Features/splash/data/repo/user_repo_impl.dart';
 import 'package:online_shopping/Features/splash/domain/use_cases/get_user_data.dart';
 import 'package:online_shopping/core/utiles/authentication_services.dart';
 import 'package:online_shopping/core/utiles/firebase_firestore_services.dart';
-import 'package:online_shopping/core/utiles/storage_services.dart';
+import 'package:online_shopping/core/utiles/firebase_storage_services.dart';
+import 'package:online_shopping/core/utiles/supabase_storage_services.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -37,6 +38,7 @@ void setup() {
   getIt.registerSingleton<AuthServices>(AuthServices());
   getIt.registerSingleton<FirestoreServices>(FirestoreServices());
   getIt.registerSingleton<StorageServices>(StorageServices());
+  getIt.registerSingleton<SupabaseStorageServices>(SupabaseStorageServices());
 
   getIt.registerSingleton<UserDataRepoImpl>(
     UserDataRepoImpl(
@@ -93,6 +95,7 @@ void setup() {
       getIt<StorageServices>(),
       getIt<FirestoreServices>(),
       getIt<AuthServices>(),
+      getIt<SupabaseStorageServices>(),
     ),
   );
 

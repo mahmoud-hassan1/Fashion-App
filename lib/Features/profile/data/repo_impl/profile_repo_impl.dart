@@ -11,15 +11,21 @@ import 'package:online_shopping/core/models/user_model.dart';
 import 'package:online_shopping/core/utiles/authentication_services.dart';
 import 'package:online_shopping/core/utiles/firebase_firestore_services.dart';
 import 'package:online_shopping/core/utiles/is_same_day.dart';
-import 'package:online_shopping/core/utiles/storage_services.dart';
+import 'package:online_shopping/core/utiles/firebase_storage_services.dart';
+import 'package:online_shopping/core/utiles/supabase_storage_services.dart';
 
 class ProfileRepoImpl extends ProfileRepo {
   ProfileRepoImpl(
-      this.storageServices, this.firestoreServices, this.authServices);
+    this.storageServices,
+    this.firestoreServices,
+    this.authServices,
+    this.supabaseStorageServices,
+  );
 
   final StorageServices storageServices;
   final FirestoreServices firestoreServices;
   final AuthServices authServices;
+  final SupabaseStorageServices supabaseStorageServices;
 
   @override
   Future<void> updateProfileImage() async {
@@ -28,21 +34,24 @@ class ProfileRepoImpl extends ProfileRepo {
         await picker.pickImage(source: ImageSource.gallery);
 
     if (imagePicked != null) {
-      String newImageURL = await storageServices.uploadFile(imagePicked.path,
-          "/profile_images/${UserModel.getInstance().uid}/image");
+      String newImageURL = await supabaseStorageServices.uploadFile(
+        imagePicked.path,
+        "/profile_images/${UserModel.getInstance().uid}/image",
+      );
       UserModel.getInstance().profilePicturePath = newImageURL;
 
       await firestoreServices.updateField(
-          usersCollectionKey,
-          UserModel.getInstance().uid,
-          {UserModel.profilePicturePathKey: newImageURL});
+        usersCollectionKey,
+        UserModel.getInstance().uid,
+        {UserModel.profilePicturePathKey: newImageURL},
+      );
     }
   }
 
   @override
   Future<void> deleteProfileImage() async {
     if (UserModel.getInstance().profilePicturePath != defaultProfileImage) {
-      await storageServices
+      await supabaseStorageServices
           .deleteFile(UserModel.getInstance().profilePicturePath);
 
       UserModel.getInstance().profilePicturePath = defaultProfileImage;

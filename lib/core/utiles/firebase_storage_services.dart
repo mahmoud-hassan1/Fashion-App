@@ -8,8 +8,7 @@ class StorageServices {
 
   Future<String> uploadFile(String filePath, String uploadPath) async {
     final Reference ref = firebaseStorage.ref(uploadPath);
-    File file = File(filePath);
-    await ref.putFile(file);
+    await ref.putFile(File(filePath));
     return await ref.getDownloadURL();
   }
 

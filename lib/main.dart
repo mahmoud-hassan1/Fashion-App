@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_shopping/Features/bag/data/repo_impl/my_bag_repo_impl.dart';
 import 'package:online_shopping/Features/favourite/domain/use_cases/add_to_favourites.dart';
@@ -23,11 +24,19 @@ import 'package:online_shopping/core/utiles/di.dart';
 import 'package:online_shopping/core/utiles/app_colors.dart';
 import 'package:online_shopping/core/utiles/routes.dart';
 import 'package:online_shopping/firebase_options.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  await dotenv.load(fileName: "lib/core/.env");
+
+  await Supabase.initialize(
+    url: dotenv.env["SupabaseUrl"] ?? "",
+    publishableKey: dotenv.env["SupabasePublishableKey"] ?? "",
   );
 
   setup();
