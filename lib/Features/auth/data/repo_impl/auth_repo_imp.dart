@@ -7,9 +7,9 @@ import 'package:online_shopping/Features/auth/domain/repo_interface/auth_repo.da
 import 'package:online_shopping/Features/splash/domain/repo/user_data_repo.dart';
 import 'package:online_shopping/constants.dart';
 import 'package:online_shopping/core/models/user_model.dart';
-import 'package:online_shopping/core/utiles/authentication_services.dart';
-import 'package:online_shopping/core/utiles/firebase_firestore_services.dart';
-import 'package:online_shopping/core/utiles/supabase_storage_services.dart';
+import 'package:online_shopping/core/services/authentication_services.dart';
+import 'package:online_shopping/core/services/firebase_firestore_services.dart';
+import 'package:online_shopping/core/services/supabase_storage_services.dart';
 
 class AuthRepoImpl implements AuthRepo {
   AuthRepoImpl(

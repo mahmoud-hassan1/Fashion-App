@@ -106,8 +106,13 @@ class MyBagViewBody extends StatelessWidget {
                               height: 600,
                               label: "CHECK OUT",
                               onTap: () async {
-                                await BlocProvider.of<MyBagCubit>(context)
-                                    .checkOut();
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        AppRouter.checkoutView,
+                                  ),
+                                ); // await BlocProvider.of<MyBagCubit>(context)
+                                //     .checkOut();
                               },
                             ),
                           ],

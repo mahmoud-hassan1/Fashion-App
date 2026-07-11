@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:online_shopping/constants.dart';
 import 'package:online_shopping/core/models/user_model.dart';
-import 'package:online_shopping/core/utiles/firebase_firestore_services.dart';
+import 'package:online_shopping/core/services/firebase_firestore_services.dart';
 
 class AuthServices {
   AuthServices();

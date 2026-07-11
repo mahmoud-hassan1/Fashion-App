@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
 import 'package:online_shopping/constants.dart';
-import 'package:online_shopping/core/utiles/firebase_firestore_services.dart';
-import 'package:online_shopping/core/utiles/supabase_storage_services.dart';
+import 'package:online_shopping/core/services/firebase_firestore_services.dart';
+import 'package:online_shopping/core/services/supabase_storage_services.dart';
 
 class ManageProductsDataSource {
   final FirestoreServices firestoreServices;

@@ -8,10 +8,10 @@ import 'package:online_shopping/Features/profile/data/models/specific_orders_mod
 import 'package:online_shopping/Features/profile/domain/repo_interface/profile_repo.dart';
 import 'package:online_shopping/constants.dart';
 import 'package:online_shopping/core/models/user_model.dart';
-import 'package:online_shopping/core/utiles/authentication_services.dart';
-import 'package:online_shopping/core/utiles/firebase_firestore_services.dart';
+import 'package:online_shopping/core/services/authentication_services.dart';
+import 'package:online_shopping/core/services/firebase_firestore_services.dart';
 import 'package:online_shopping/core/utiles/is_same_day.dart';
-import 'package:online_shopping/core/utiles/supabase_storage_services.dart';
+import 'package:online_shopping/core/services/supabase_storage_services.dart';
 
 class ProfileRepoImpl extends ProfileRepo {
   ProfileRepoImpl(

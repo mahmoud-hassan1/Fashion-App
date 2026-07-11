@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
 import 'package:online_shopping/constants.dart';
 import 'package:online_shopping/core/models/user_model.dart';
-import 'package:online_shopping/core/utiles/firebase_firestore_services.dart';
+import 'package:online_shopping/core/services/firebase_firestore_services.dart';
 
 class FavouritesDataSource {
   FavouritesDataSource(this.firestoreServices);

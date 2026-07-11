@@ -5,7 +5,7 @@ import 'package:online_shopping/Features/reviews/data/models/review_model.dart';
 import 'package:online_shopping/Features/reviews/domain/repo_interface/product_reviews_repo.dart';
 import 'package:online_shopping/constants.dart';
 import 'package:online_shopping/core/models/user_model.dart';
-import 'package:online_shopping/core/utiles/firebase_firestore_services.dart';
+import 'package:online_shopping/core/services/firebase_firestore_services.dart';
 
 class ProductReviewsRepoImpl extends ProductReviewsRepo {
   ProductReviewsRepoImpl(this.firestoreServices);

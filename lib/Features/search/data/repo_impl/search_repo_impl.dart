@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
 import 'package:online_shopping/Features/home/domain/entities/product_entity.dart';
 import 'package:online_shopping/constants.dart';
-import 'package:online_shopping/core/utiles/firebase_firestore_services.dart';
+import 'package:online_shopping/core/services/firebase_firestore_services.dart';
 import 'package:online_shopping/features/search/domain/repo/search_repo.dart';
 
 class SearchRepoImpl implements SearchRepo {
