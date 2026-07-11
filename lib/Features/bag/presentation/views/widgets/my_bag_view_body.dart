@@ -81,11 +81,12 @@ class MyBagViewBody extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 ScaleDown(
-                                  child: Text("Total amount:",
-                                      style: Styles.kMediumTextStyle(context)
-                                          .copyWith(
-                                              fontSize: 14,
-                                              color: Colors.grey)),
+                                  child: Text(
+                                    "Total amount:",
+                                    style: Styles.kMediumTextStyle(context)
+                                        .copyWith(
+                                            fontSize: 14, color: Colors.grey),
+                                  ),
                                 ),
                                 const SizedBox(width: 10),
                                 ScaleDown(
@@ -93,8 +94,9 @@ class MyBagViewBody extends StatelessWidget {
                                     "${BlocProvider.of<MyBagCubit>(context).calculateTotalPrice().toStringAsFixed(2)}\$",
                                     style: Styles.kSmallTextStyle(context)
                                         .copyWith(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ),
                               ],

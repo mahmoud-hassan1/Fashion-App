@@ -11,6 +11,8 @@ import 'package:online_shopping/Features/bag/data/repo_impl/my_bag_repo_impl.dar
 import 'package:online_shopping/Features/bag/presentation/cubits/my_bag_cubit/my_bag_cubit.dart';
 import 'package:online_shopping/Features/bag/presentation/cubits/order_review_cubit/order_review_cubit.dart';
 import 'package:online_shopping/Features/bag/presentation/views/widgets/order_review_view.dart';
+import 'package:online_shopping/Features/checkout/presentation/cubits/checkout_cubit/checkout_cubit.dart';
+import 'package:online_shopping/Features/checkout/presentation/views/checkout_view.dart';
 import 'package:online_shopping/Features/favourite/domain/use_cases/get_favourites_poducts.dart';
 import 'package:online_shopping/Features/favourite/presentation/cubits/add_to_cart_cubit/add_to_cart_cubit.dart';
 import 'package:online_shopping/Features/favourite/presentation/cubits/favourites_cubit/favourites_cubit.dart';
@@ -156,6 +158,11 @@ abstract class AppRouter {
   static final Widget myOrdersView = BlocProvider<MyOrdersCubit>(
     create: (context) => MyOrdersCubit(getIt<ProfileRepoImpl>()),
     child: MyOrdersView(),
+  );
+
+  static final Widget checkoutView = BlocProvider<CheckoutCubit>(
+    create: (BuildContext context) => CheckoutCubit(),
+    child: const CheckoutView(),
   );
 
   static Widget navigationBarView = MultiBlocProvider(
