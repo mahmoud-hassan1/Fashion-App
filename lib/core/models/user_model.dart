@@ -10,6 +10,7 @@ class UserModel {
   late List<String> favourites;
   late List<String> bag;
   final Role role;
+  final String stripeCustomerID;
 
   UserModel({
     required this.dateOfBirth,
@@ -20,12 +21,8 @@ class UserModel {
     required this.favourites,
     required this.bag,
     required this.role,
+    required this.stripeCustomerID,
   });
-
-  @override
-  String toString() {
-    return 'UserModel(dateOfBirth: $dateOfBirth, email: $email, name: $name, uid: $uid, favourites: $favourites)';
-  }
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
@@ -37,6 +34,7 @@ class UserModel {
       favourites: List<String>.from(json[favouritesKey]),
       bag: List<String>.from(json[bagKey]),
       role: Role.getRole(json[roleKey] ?? Role.user.value),
+      stripeCustomerID: json[stripeCustomerIDKey],
     );
   }
 
@@ -50,17 +48,19 @@ class UserModel {
       favouritesKey: favourites.map((e) => e).toList(),
       bagKey: bag.map((e) => e).toList(),
       roleKey: role.value,
+      stripeCustomerIDKey: stripeCustomerID,
     };
   }
 
-  static String uidKey = 'uid';
-  static String nameKey = 'name';
-  static String emailKey = 'email';
-  static String dateOfBirthKey = 'dateOfBirth';
-  static String profilePicturePathKey = 'profilePicturePath';
-  static String favouritesKey = 'favourites';
-  static String bagKey = 'bag';
-  static String roleKey = 'role';
+  static const String uidKey = 'uid';
+  static const String nameKey = 'name';
+  static const String emailKey = 'email';
+  static const String dateOfBirthKey = 'dateOfBirth';
+  static const String profilePicturePathKey = 'profilePicturePath';
+  static const String favouritesKey = 'favourites';
+  static const String bagKey = 'bag';
+  static const String roleKey = 'role';
+  static const String stripeCustomerIDKey = 'stripeCustomerID';
 
   factory UserModel.init() {
     return UserModel(
@@ -72,6 +72,7 @@ class UserModel {
       favourites: [],
       bag: [],
       role: Role.user,
+      stripeCustomerID: '',
     );
   }
 
@@ -83,7 +84,8 @@ class UserModel {
         userModel.profilePicturePath == profilePicturePath &&
         userModel.favourites.isEmpty &&
         userModel.bag.isEmpty &&
-        userModel.role == role;
+        userModel.role == role &&
+        userModel.stripeCustomerID == stripeCustomerID;
   }
 
   static UserModel getInstance() {

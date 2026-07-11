@@ -120,6 +120,7 @@ class ProfileRepoImpl extends ProfileRepo {
       favourites: UserModel.getInstance().favourites,
       bag: UserModel.getInstance().bag,
       role: UserModel.getInstance().role,
+      stripeCustomerID: UserModel.getInstance().stripeCustomerID,
     );
     UserModel.setInstance(userModel);
     await firestoreServices.updateField(

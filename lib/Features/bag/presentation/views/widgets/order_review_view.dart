@@ -9,10 +9,21 @@ import 'package:online_shopping/core/widgets/custtom_button.dart';
 import 'package:online_shopping/core/widgets/review_text_field.dart';
 import 'package:online_shopping/core/widgets/snackbar.dart';
 
-class OrderReviewView extends StatelessWidget {
-  OrderReviewView({super.key});
+class OrderReviewView extends StatefulWidget {
+  const OrderReviewView({super.key});
 
+  @override
+  State<OrderReviewView> createState() => _OrderReviewViewState();
+}
+
+class _OrderReviewViewState extends State<OrderReviewView> {
   final TextEditingController controller = TextEditingController();
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

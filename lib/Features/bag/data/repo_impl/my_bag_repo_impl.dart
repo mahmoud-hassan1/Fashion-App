@@ -3,17 +3,24 @@ import 'package:online_shopping/Features/bag/data/models/order_item_model.dart';
 import 'package:online_shopping/Features/bag/data/models/order_model.dart';
 import 'package:online_shopping/Features/bag/data/models/order_review_model.dart';
 import 'package:online_shopping/Features/bag/domain/repo_interface/my_bag_repo.dart';
+import 'package:online_shopping/Features/checkout/data/models/payment_intent_data_model.dart';
 import 'package:online_shopping/Features/favourite/domain/repo_interface/favourite_repo.dart';
 import 'package:online_shopping/Features/home/data/models/product_model.dart';
 import 'package:online_shopping/constants.dart';
 import 'package:online_shopping/core/models/user_model.dart';
 import 'package:online_shopping/core/services/firebase_firestore_services.dart';
+import 'package:online_shopping/core/services/stripe_services.dart';
 
 class MyBagRepoImpl extends MyBagRepo {
-  MyBagRepoImpl(this.favouriteRepo, this.firestoreServices);
+  MyBagRepoImpl(
+    this.favouriteRepo,
+    this.firestoreServices,
+    this.stripeServices,
+  );
 
   final FavouriteRepo favouriteRepo;
   final FirestoreServices firestoreServices;
+  final StripeServices stripeServices;
 
   @override
   Future<List<ProductModel>> getMyBagItems() async {
@@ -36,8 +43,22 @@ class MyBagRepoImpl extends MyBagRepo {
   }
 
   @override
-  Future<void> checkOut(List<OrderItemModel> items) async {
+  Future<void> checkout(List<OrderItemModel> items) async {
     if (UserModel.getInstance().bag.isNotEmpty) {
+      double totalPrice = 0;
+      for (var item in items) {
+        totalPrice += item.price * item.quantity;
+      }
+
+      await stripeServices.checkout(
+        PaymentIntentDataModel(
+          amount: totalPrice.toInt(),
+          currencyCode: "USD",
+          automaticPaymentMethods: true,
+          customerId: UserModel.getInstance().stripeCustomerID,
+        ),
+      );
+
       UserModel.getInstance().bag.clear();
 
       OrderModel orderModel = OrderModel(items: items, date: DateTime.now());
@@ -48,6 +69,7 @@ class MyBagRepoImpl extends MyBagRepo {
       await doc.update({
         OrderModel.ordersKey: FieldValue.arrayUnion([orderModel.toMap()])
       });
+
       for (var item in items) {
         DocumentReference productDoc =
             firestoreServices.getDocumentRef('products', item.productId);

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:online_shopping/Features/bag/data/mappers/order_mapper.dart';
 import 'package:online_shopping/Features/bag/data/models/my_bag_item_model.dart';
 import 'package:online_shopping/Features/bag/data/models/order_item_model.dart';
@@ -83,7 +84,7 @@ class MyBagCubit extends Cubit<MyBagState> {
     }
   }
 
-  Future<void> checkOut() async {
+  Future<void> checkout() async {
     emit(MyBagLoading());
 
     try {
@@ -92,11 +93,15 @@ class MyBagCubit extends Cubit<MyBagState> {
         orderItems.add(OrderMapper.toOrderItemModel(item));
       }
 
-      await repo.checkOut(orderItems);
+      await repo.checkout(orderItems);
       bagItems = [];
       emit(MyBagSuccessed("Checkout done successfully", bagItems));
       emit(MyBagGoToOrderReview());
-    } catch (_) {
+    } catch (e) {
+      if (e is StripeException) {
+        return emit(MyBagSuccessed(null, bagItems));
+      }
+
       emit(MyBagFailed());
     }
   }

@@ -4,11 +4,14 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:online_shopping/Features/auth/data/models/signup_model.dart';
 import 'package:online_shopping/Features/auth/domain/entities/user.dart';
 import 'package:online_shopping/Features/auth/domain/repo_interface/auth_repo.dart';
+import 'package:online_shopping/Features/checkout/data/models/stripe_customer_data_model.dart';
+import 'package:online_shopping/Features/checkout/data/models/stripe_customer_model/stripe_customer_model.dart';
 import 'package:online_shopping/Features/splash/domain/repo/user_data_repo.dart';
 import 'package:online_shopping/constants.dart';
 import 'package:online_shopping/core/models/user_model.dart';
 import 'package:online_shopping/core/services/authentication_services.dart';
 import 'package:online_shopping/core/services/firebase_firestore_services.dart';
+import 'package:online_shopping/core/services/stripe_services.dart';
 import 'package:online_shopping/core/services/supabase_storage_services.dart';
 
 class AuthRepoImpl implements AuthRepo {
@@ -18,6 +21,7 @@ class AuthRepoImpl implements AuthRepo {
     this.firestoreServices,
     // this.firebaseStorageServices,
     this.supabaseStorageServices,
+    this.stripeServices,
   );
 
   final UserDataRepo userDataRepository;
@@ -25,6 +29,7 @@ class AuthRepoImpl implements AuthRepo {
   final FirestoreServices firestoreServices;
   // final FirebaseStorageServices firebaseStorageServices;
   final SupabaseStorageServices supabaseStorageServices;
+  final StripeServices stripeServices;
 
   @override
   Future<UserClass?> login(String email, String password) async {
@@ -35,8 +40,9 @@ class AuthRepoImpl implements AuthRepo {
     } else {
       final user = userCredential.user;
       if (user != null) {
-        final user = await userDataRepository.getUserById();
+        final UserModel user = await userDataRepository.getUserById();
         UserModel.setInstance(user);
+
         return UserClass(uid: user.uid, email: user.email);
       }
       return null;
@@ -49,11 +55,23 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<UserClass?> signup(SignupModel model, String password) async {
+    final Map<String, dynamic> modelMap = model.toMap();
+
+    final StripeCustomerModel stripeCustomerModel =
+        await stripeServices.createCustomer(
+      StripeCustomerDataModel(
+        email: model.email,
+        name: model.name,
+      ),
+    );
+
+    modelMap.addAll({UserModel.stripeCustomerIDKey: stripeCustomerModel.id});
+
     final UserCredential userCredential = await authServices.registerServices
-        .register(model.toMap(), model.email, password);
+        .register(modelMap, model.email, password);
     await sendVerficationLink();
 
-    final user = userCredential.user;
+    final User? user = userCredential.user;
     if (user != null) {
       user.updateDisplayName(model.name);
       return UserClass(uid: user.uid, email: user.email!);
@@ -63,19 +81,37 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<UserClass?> completeSignupWithGoogleProcess(
-      DateTime dateOfBirth, String name, OAuthCredential credential) async {
+    DateTime dateOfBirth,
+    String name,
+    OAuthCredential credential,
+  ) async {
     final UserCredential userCredential =
         await authServices.signInServices.signInWithCredential(credential);
     final User? user = userCredential.user;
 
     if (user != null) {
       SignupModel signupModel = SignupModel(
-          email: user.email!,
-          name: name,
-          dateOfBirth: dateOfBirth,
-          uid: user.uid);
+        email: user.email!,
+        name: name,
+        dateOfBirth: dateOfBirth,
+        uid: user.uid,
+      );
+
+      final StripeCustomerModel stripeCustomerModel =
+          await stripeServices.createCustomer(
+        StripeCustomerDataModel(
+          email: signupModel.email,
+          name: signupModel.name,
+        ),
+      );
+
+      Map<String, dynamic> signupModelMap = signupModel.toMap();
+      signupModelMap.addAll(
+        {UserModel.stripeCustomerIDKey: stripeCustomerModel.id},
+      );
+
       await firestoreServices.setDocument(
-          usersCollectionKey, signupModel.toMap(), user.uid);
+          usersCollectionKey, signupModelMap, user.uid);
       final UserModel userData = await userDataRepository.getUserById();
       UserModel.setInstance(userData);
       return UserClass(uid: user.uid, email: user.email!);

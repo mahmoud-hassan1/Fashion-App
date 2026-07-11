@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:online_shopping/Features/auth/data/repo_impl/auth_repo_imp.dart';
 import 'package:online_shopping/Features/bag/data/repo_impl/my_bag_repo_impl.dart';
@@ -27,14 +28,20 @@ import 'package:online_shopping/Features/shop/domain/use_cases/get_sale_products
 import 'package:online_shopping/Features/splash/data/data_source/user_data_source.dart';
 import 'package:online_shopping/Features/splash/data/repo/user_repo_impl.dart';
 import 'package:online_shopping/Features/splash/domain/use_cases/get_user_data.dart';
+import 'package:online_shopping/core/services/api_services.dart';
 import 'package:online_shopping/core/services/authentication_services.dart';
 import 'package:online_shopping/core/services/firebase_firestore_services.dart';
 import 'package:online_shopping/core/services/firebase_storage_services.dart';
+import 'package:online_shopping/core/services/stripe_services.dart';
 import 'package:online_shopping/core/services/supabase_storage_services.dart';
 
 GetIt getIt = GetIt.instance;
 
 void setup() {
+  getIt.registerSingleton<Dio>(Dio());
+  getIt.registerSingleton<ApiServices>(ApiServices(getIt<Dio>()));
+  getIt.registerSingleton<StripeServices>(StripeServices(getIt<ApiServices>()));
+
   getIt.registerSingleton<AuthServices>(AuthServices());
   getIt.registerSingleton<FirestoreServices>(FirestoreServices());
   getIt.registerSingleton<FirebaseStorageServices>(FirebaseStorageServices());
@@ -56,6 +63,7 @@ void setup() {
       getIt<FirestoreServices>(),
       // getIt<FirebaseStorageServices>(),
       getIt<SupabaseStorageServices>(),
+      getIt<StripeServices>(),
     ),
   );
 
@@ -71,6 +79,7 @@ void setup() {
     MyBagRepoImpl(
       getIt<FavouriteRepoImpl>(),
       getIt<FirestoreServices>(),
+      getIt<StripeServices>(),
     ),
   );
 
