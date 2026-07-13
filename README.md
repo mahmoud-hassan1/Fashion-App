@@ -113,5 +113,3 @@ features
 <img src="https://github.com/mahmoud-hassan1/Fashion-App/blob/payment-gateway/screen_shots/22.png" width="300"><img src="https://github.com/mahmoud-hassan1/Fashion-App/blob/payment-gateway/screen_shots/23.png" width="300"><img src="https://github.com/mahmoud-hassan1/Fashion-App/blob/payment-gateway/screen_shots/24.png" width="300">
 
 <img src="https://github.com/mahmoud-hassan1/Fashion-App/blob/payment-gateway/screen_shots/25.png" width="300"><img src="https://github.com/mahmoud-hassan1/Fashion-App/blob/payment-gateway/screen_shots/26.png" width="300"><img src="https://github.com/mahmoud-hassan1/Fashion-App/blob/payment-gateway/screen_shots/27.png" width="300">
-
-<img src="https://github.com/mahmoud-hassan1/Fashion-App/blob/payment-gateway/screen_shots/28.png" width="300">
