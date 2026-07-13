@@ -1,6 +1,6 @@
 # Online Shopping
 
-This app is a feature-rich e-commerce platform designed for a seamless shopping experience. It includes user authentication, order management, favorite items, a personalized profile, reviews, a shopping bag, and a powerful search functionality. The app also features an engaging splash screen for a professional first impression. We use clean architecture for File Structure.
+This app is a feature-rich e-commerce platform designed for a seamless shopping experience. It includes user authentication, order management, favorite items, a personalized profile, reviews, a shopping bag, Stripe as a payment gateway and a powerful search functionality. The app also features an engaging splash screen for a professional first impression. We use clean architecture for File Structure.
 
 ## Table of contents 📑
 
@@ -40,6 +40,10 @@ This app is a feature-rich e-commerce platform designed for a seamless shopping 
 - [speech_to_text](https://pub.dev/packages/speech_to_text) -> For converting spoken words into text.
 - [font_awesome_flutter](https://pub.dev/packages/font_awesome_flutter) -> For using Font Awesome icons in the app.
 - [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) -> For customizing app launcher icons.
+- [dio](https://pub.dev/packages/dio) -> For making HTTP requests with support for interceptors, file uploads/downloads, and request customization.
+- [flutter_dotenv](https://pub.dev/packages/flutter_dotenv) -> For loading environment variables from a .env file to securely manage API keys and configuration.
+- [flutter_stripe](https://pub.dev/packages/flutter_stripe) -> For integrating Stripe payments, including Payment Sheets, Apple Pay, and Google Pay, into Flutter applications.
+- [supabase_flutter](https://pub.dev/packages/supabase_flutter) -> For integrating Supabase services such as authentication, database, storage, and real-time features into Flutter applications.
 
 ## Folder Structure 📂
 
@@ -61,6 +65,7 @@ This folder contains all services and tools related to the application
 ```
 core
 ├── models
+├── services
 ├── utils
 └── widgets
 ```
@@ -73,11 +78,12 @@ This folder containes everything related to the screen of the application and th
 features
 ├── auth: Secure user authentication with login, registration, and logout functionality.
 ├── bag: A shopping bag to manage selected items before checkout.
+├── checkout: A secure checkout flow with Stripe integration for completing payments and placing orders.
 ├── favourite: Save and manage favorite products for quick access.
 ├── home: The main dashboard showcasing featured products and categories.
 ├── product_details: Detailed view of product information, including pricing, specifications, and reviews.
 ├── product_management: Manage products with options to add, edit, and delete items (admin functionality).
-├── profiles: Personalized user profiles with account details and settings.
+├── profile: Personalized user profiles with account details and settings.
 ├── reviews: Add and browse product reviews to assist with purchasing decisions.
 ├── search: Find products quickly using keywords or filters.
 ├── shop: Explore and browse products by categories or collections.
